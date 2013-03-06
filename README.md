@@ -7,7 +7,7 @@ To install simply run:
 
     npm install simplog
     
-Alternatively, you can clone this repository and use the import simplog as in the 
+Alternatively, you can clone this repository and import simplog as in the 
 [demo file](https://github.com/adrianp/simplog/blob/master/demo.js). This file also shows how this module can be used.
 
 
@@ -17,4 +17,4 @@ The module is intended mainly for usage during development. The tagging feature 
 [logging is done on Android](http://developer.android.com/reference/android/util/Log.html).
 
 
-Please report any issues, request new features, or pulls.
+Please report any issues, request new features, or pulls on the GitHub page of the project.
