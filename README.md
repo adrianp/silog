@@ -19,3 +19,9 @@ The module is intended mainly for usage during development. The tagging feature 
 
 Please report any issues, request new features, or pulls on the 
 [GitHub page of the project](https://github.com/adrianp/silog/).
+
+License: MIT
+
+
+*This project used to be named __simplog__ until I realised that there was a similarly named project on the npm 
+registry.*
