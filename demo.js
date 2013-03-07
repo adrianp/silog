@@ -1,6 +1,6 @@
-var simplog = require('./simplog.js');
+var simplog = require('./silog.js');
 
 simplog.setLevel(simplog.level.DEBUG);
-var TAG = 'simplog_demo';
+var TAG = 'silog_demo';
 
 simplog.log(simplog.level.DEBUG, TAG, 'Hello world!');
