@@ -1,3 +1,4 @@
+# node
 lib-cov
 *.seed
 *.log
@@ -12,3 +13,18 @@ logs
 results
 
 npm-debug.log
+
+# SublimeText
+*.sublime-workspace
+
+# vim
+.*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+# linux
+.*
+!.gitignore
+*~
