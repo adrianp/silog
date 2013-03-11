@@ -1,6 +1,13 @@
-var simplog = require('./silog.js');
+var silog = require('./silog.js');
 
-simplog.setLevel(simplog.level.DEBUG);
+silog.setLevel(silog.level.DEBUG);
 var TAG = 'silog_demo';
 
-simplog.log(simplog.level.DEBUG, TAG, 'Hello world!');
+silog.log(silog.level.DEBUG, TAG, 'Hello world!');
+
+function log(message) {
+    "use strict";
+    silog.log(silog.level.DEBUG, TAG, message);
+}
+
+log('Bye world!');
