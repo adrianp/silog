@@ -1,28 +1,44 @@
-var level = {CRITICAL   : [0, 'CRITICAL'], 
-             ERROR      : [1, 'ERROR'], 
-             WARNING    : [2, 'WARNING'], 
-             INFO       : [3, 'INFO'], 
-             DEBUG      : [4, 'DEBUG']};
+"use strict";
 
-var currentLevel = level.INFO;
+var LEVEL = { CRITICAL   : [0, 'CRITICAL'],
+              ERROR      : [1, 'ERROR'],
+              WARNING    : [2, 'WARNING'],
+              INFO       : [3, 'INFO'],
+              DEBUG      : [4, 'DEBUG'] };
 
-var levelSet = false;
 
-var localTAG = 'simplog';
+var DT_FORMAT = { DATE_TIME : 0,
+                  DATE      : 1,
+                  TIME      : 2 };
+
+
+var CURRENT_LEVEL = LEVEL.INFO;
+
+
+var LEVEL_SET = false;
+
+
+var LOCAL_TAG = "simplog";
+
+
+var DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
+
 
 function setLevel(customLevel) {
-    if(!levelSet) {
-        currentLevel = customLevel;
-        levelSet = true;
+    if(!LEVEL_SET) {
+        CURRENT_LEVEL = customLevel;
+        LEVEL_SET = true;
     } else {
-        log(level.WARNING, localTAG, 'Logging level already set, cannot change!');
+        log(LEVEL.WARNING, LOCAL_TAG, 'Logging level already set, cannot change!');
     }
-    return currentLevel;
+    return CURRENT_LEVEL;
 }
 
+
 function getLevel() {
-    return currentLevel;
+    return CURRENT_LEVEL;
 }
+
 
 function write(where, what) {
     if(where === 'console') {
@@ -30,11 +46,10 @@ function write(where, what) {
     }
 }
 
+
 function log(messageLevel, tag, message) {
-    if(messageLevel[0] <= currentLevel[0]) {
-        var date = new Date();
-        var what = date.toLocaleDateString() + ' ';
-        what += date.toLocaleTimeString() + ' - ';
+    if(messageLevel[0] <= CURRENT_LEVEL[0]) {
+        var what = "[" + getFormattedTimestamp() + '] ';
         what += messageLevel[1] + ' - ';
         what += tag + ' - ';
         what += message;
@@ -45,7 +60,48 @@ function log(messageLevel, tag, message) {
     }
 }
 
-exports.level = level;
+
+function setTimestampFormat(format) {
+    DATE_TIME_FORMAT = format;
+}
+
+
+function getTimestampFormat() {
+    return DATE_TIME_FORMAT;
+}
+
+
+function getFormattedTimestamp() {
+    var date = new Date();
+    switch(DATE_TIME_FORMAT) {
+        case DT_FORMAT.DATE_TIME:
+            return date.getFullYear() + "/" +
+                   date.getMonth() + "/" +
+                   date.getDate() + " " +
+                   date.getHours() + ":" +
+                   date.getMinutes();
+        case DT_FORMAT.DATE:
+            return date.getFullYear() + "/" +
+                   date.getMonth() + "/" +
+                   date.getDate();
+        case DT_FORMAT.TIME:
+            return date.getHours() + ":" +
+                   date.getMinutes();
+        default:
+            DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
+            log(LEVEL.WARNING, LOCAL_TAG, 'Invalid date/ time format, fail-safe to default!');
+            return date.getFullYear() + "/" +
+                   date.getMonth() + "/" +
+                   date.getDate() + " " +
+                   date.getHours() + ":" +
+                   date.getMinutes();
+    }
+}
+
+exports.level = LEVEL;
 exports.setLevel = setLevel;
 exports.getLevel = getLevel;
+exports.dtFormat = DT_FORMAT;
+exports.setTimestampFormat = setTimestampFormat;
+exports.getTimestampFormat = getTimestampFormat;
 exports.log = log;
