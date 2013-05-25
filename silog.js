@@ -29,7 +29,6 @@ function setLevel(customLevel) {
         if(!(customLevel instanceof Array && typeof customLevel[0] === "number")) {
             // TODO: this check is kinda shabby
             log(LEVEL.WARNING, LOCAL_TAG, "Invalid message level: " + customLevel);
-            return false;
         } else {
             CURRENT_LEVEL = customLevel;
             LEVEL_SET = true;
@@ -48,7 +47,7 @@ function getLevel() {
 
 function write(where, what) {
     if(where === "console") {
-        console.log(what);
+        return console.log(what);
     }
 }
 
@@ -77,7 +76,9 @@ function log(messageLevel, tag, message) {
 
 
 function setTimestampFormat(format) {
+    // TODO: check if format is valid
     DATE_TIME_FORMAT = format;
+    return DATE_TIME_FORMAT;
 }
 
 
@@ -115,27 +116,27 @@ function getFormattedTimestamp() {
 
 
 function c(tag, message) {
-    log(LEVEL.CRITICAL, tag, message);
+    return log(LEVEL.CRITICAL, tag, message);
 }
 
 
 function e(tag, message) {
-    log(LEVEL.ERROR, tag, message);
+    return log(LEVEL.ERROR, tag, message);
 }
 
 
 function w(tag, message) {
-    log(LEVEL.WARNING, tag, message);
+    return log(LEVEL.WARNING, tag, message);
 }
 
 
 function i(tag, message) {
-    log(LEVEL.INFO, tag, message);
+    return log(LEVEL.INFO, tag, message);
 }
 
 
 function d(tag, message) {
-    log(LEVEL.DEBUG, tag, message);
+    return log(LEVEL.DEBUG, tag, message);
 }
 
 
