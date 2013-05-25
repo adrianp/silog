@@ -28,13 +28,13 @@ function setLevel(customLevel) {
     if(!LEVEL_SET) {
         if(!(customLevel instanceof Array && typeof customLevel[0] === "number")) {
             // TODO: this check is kinda shabby
-            log(LEVEL.WARNING, LOCAL_TAG, "Invalid message level: " + customLevel);
+            w(LOCAL_TAG, "Invalid message level: " + customLevel);
         } else {
             CURRENT_LEVEL = customLevel;
             LEVEL_SET = true;
         }
     } else {
-        log(LEVEL.WARNING, LOCAL_TAG, "Logging level already set, cannot change!");
+        w(LOCAL_TAG, "Logging level already set, cannot change!");
     }
     return CURRENT_LEVEL;
 }
@@ -46,21 +46,26 @@ function getLevel() {
 
 
 function write(where, what) {
+    // TODO: we'll want to use a switch here once we have multiple destinations
     if(where === "console") {
-        return console.log(what);
+        console.log(what);
+    } else {
+        w(LOCAL_TAG, "Invalid message destination: " + where);
+        return false;
     }
+    return true;
 }
 
 
 function log(messageLevel, tag, message) {
     if(!(messageLevel instanceof Array && typeof messageLevel[0] === "number")) {
         // TODO: this check is kinda shabby
-        return log(LEVEL.WARNING, LOCAL_TAG, "Invalid message level for: " +
-                                             tag +
-                                             " - " +
-                                             message +
-                                             " = " +
-                                             messageLevel);
+        return w(LOCAL_TAG, "Invalid message level for: " +
+                            tag +
+                            " - " +
+                            message +
+                            " = " +
+                            messageLevel);
     }
     if(messageLevel[0] <= CURRENT_LEVEL[0] || tag === LOCAL_TAG) {
         var what = "[" + getFormattedTimestamp() + "] ";
@@ -105,7 +110,7 @@ function getFormattedTimestamp() {
                    date.getMinutes();
         default:
             DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
-            log(LEVEL.WARNING, LOCAL_TAG, "Invalid date/ time format, fail-safe to default!");
+            w(LOCAL_TAG, "Invalid date/ time format, fail-safe to default!");
             return date.getFullYear() + '/' +
                    date.getMonth() + '/' +
                    date.getDate() + ' ' +
