@@ -1,25 +1,23 @@
 "use strict";
 
-
-var silog = require('./silog.js');
-
-
-silog.setLevel(silog.level.DEBUG); // levels >= DEBUG level will be printed
+var log = require('./silog.js');
 
 
+// tag that can be used to identify the origin of the messages
 var TAG = 'silog_demo';
 
 
-// setting the timestamp format to HOUR:MINUTE
-silog.setTimestampFormat(silog.dtFormat.TIME);
+// the minimum level printed messages should have is now INFO
+log.setLevel(log.level.INFO);
 
 
-// logging a debug message
-silog.log(silog.level.DEBUG, TAG, 'Hello world!');
+// only the current time will be included in the printed messages
+log.setTimestampFormat(log.dtFormat.TIME);
 
 
-// setting the timestamp format to YEAR/MONTH/DAY HOUR:MINUTE
-silog.setTimestampFormat(silog.dtFormat.DATE_TIME);
-
-
-silog.log(silog.level.DEBUG, TAG, "Bye world!");
+// now let's print some messages
+log.d(TAG, "This debug message will not be printed.");
+log.i(TAG, "An information message, everything works OK.");
+log.w(TAG, "A warning!");
+log.e(TAG, "Error, something went wrong!!");
+log.c(TAG, "Critical condition!!!");

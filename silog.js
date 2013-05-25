@@ -113,6 +113,32 @@ function getFormattedTimestamp() {
     }
 }
 
+
+function c(tag, message) {
+    log(LEVEL.CRITICAL, tag, message);
+}
+
+
+function e(tag, message) {
+    log(LEVEL.ERROR, tag, message);
+}
+
+
+function w(tag, message) {
+    log(LEVEL.WARNING, tag, message);
+}
+
+
+function i(tag, message) {
+    log(LEVEL.INFO, tag, message);
+}
+
+
+function d(tag, message) {
+    log(LEVEL.DEBUG, tag, message);
+}
+
+
 exports.level = LEVEL;
 exports.setLevel = setLevel;
 exports.getLevel = getLevel;
@@ -120,3 +146,8 @@ exports.dtFormat = DT_FORMAT;
 exports.setTimestampFormat = setTimestampFormat;
 exports.getTimestampFormat = getTimestampFormat;
 exports.log = log;
+exports.c = c;
+exports.e = e;
+exports.w = w;
+exports.i = i;
+exports.d = d;
