@@ -12,7 +12,7 @@ var DT_FORMAT = { DATE_TIME : 0,
                   TIME      : 2 };
 
 
-var CURRENT_LEVEL = LEVEL.INFO;
+var CURRENT_LEVEL = LEVEL.DEBUG;
 
 
 var LEVEL_SET = false;
