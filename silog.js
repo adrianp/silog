@@ -1,10 +1,10 @@
 "use strict";
 
-var LEVEL = { CRITICAL   : [0, 'CRITICAL'],
-              ERROR      : [1, 'ERROR'],
-              WARNING    : [2, 'WARNING'],
-              INFO       : [3, 'INFO'],
-              DEBUG      : [4, 'DEBUG'] };
+var LEVEL = { CRITICAL   : [0, "CRITICAL"],
+              ERROR      : [1, "ERROR"],
+              WARNING    : [2, "WARNING"],
+              INFO       : [3, "INFO"],
+              DEBUG      : [4, "DEBUG"] };
 
 
 var DT_FORMAT = { DATE_TIME : 0,
@@ -18,7 +18,7 @@ var CURRENT_LEVEL = LEVEL.INFO;
 var LEVEL_SET = false;
 
 
-var LOCAL_TAG = "simplog";
+var LOCAL_TAG = "silog";
 
 
 var DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
@@ -26,10 +26,16 @@ var DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
 
 function setLevel(customLevel) {
     if(!LEVEL_SET) {
-        CURRENT_LEVEL = customLevel;
-        LEVEL_SET = true;
+        if(!(customLevel instanceof Array && typeof customLevel[0] === "number")) {
+            // TODO: this check is kinda shabby
+            log(LEVEL.WARNING, LOCAL_TAG, "Invalid message level: " + customLevel);
+            return false;
+        } else {
+            CURRENT_LEVEL = customLevel;
+            LEVEL_SET = true;
+        }
     } else {
-        log(LEVEL.WARNING, LOCAL_TAG, 'Logging level already set, cannot change!');
+        log(LEVEL.WARNING, LOCAL_TAG, "Logging level already set, cannot change!");
     }
     return CURRENT_LEVEL;
 }
@@ -41,19 +47,28 @@ function getLevel() {
 
 
 function write(where, what) {
-    if(where === 'console') {
+    if(where === "console") {
         console.log(what);
     }
 }
 
 
 function log(messageLevel, tag, message) {
-    if(messageLevel[0] <= CURRENT_LEVEL[0]) {
-        var what = "[" + getFormattedTimestamp() + '] ';
+    if(!(messageLevel instanceof Array && typeof messageLevel[0] === "number")) {
+        // TODO: this check is kinda shabby
+        return log(LEVEL.WARNING, LOCAL_TAG, "Invalid message level for: " +
+                                             tag +
+                                             " - " +
+                                             message +
+                                             " = " +
+                                             messageLevel);
+    }
+    if(messageLevel[0] <= CURRENT_LEVEL[0] || tag === LOCAL_TAG) {
+        var what = "[" + getFormattedTimestamp() + "] ";
         what += messageLevel[1] + ' - ';
         what += tag + ' - ';
         what += message;
-        write('console', what);
+        write("console", what);
         return what;
     } else {
         return null;
@@ -75,25 +90,25 @@ function getFormattedTimestamp() {
     var date = new Date();
     switch(DATE_TIME_FORMAT) {
         case DT_FORMAT.DATE_TIME:
-            return date.getFullYear() + "/" +
-                   date.getMonth() + "/" +
-                   date.getDate() + " " +
-                   date.getHours() + ":" +
+            return date.getFullYear() + '/' +
+                   date.getMonth() + '/' +
+                   date.getDate() + ' ' +
+                   date.getHours() + ':' +
                    date.getMinutes();
         case DT_FORMAT.DATE:
-            return date.getFullYear() + "/" +
-                   date.getMonth() + "/" +
+            return date.getFullYear() + '/' +
+                   date.getMonth() + '/' +
                    date.getDate();
         case DT_FORMAT.TIME:
-            return date.getHours() + ":" +
+            return date.getHours() + ':' +
                    date.getMinutes();
         default:
             DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
-            log(LEVEL.WARNING, LOCAL_TAG, 'Invalid date/ time format, fail-safe to default!');
-            return date.getFullYear() + "/" +
-                   date.getMonth() + "/" +
-                   date.getDate() + " " +
-                   date.getHours() + ":" +
+            log(LEVEL.WARNING, LOCAL_TAG, "Invalid date/ time format, fail-safe to default!");
+            return date.getFullYear() + '/' +
+                   date.getMonth() + '/' +
+                   date.getDate() + ' ' +
+                   date.getHours() + ':' +
                    date.getMinutes();
     }
 }
