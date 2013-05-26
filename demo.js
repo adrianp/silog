@@ -12,7 +12,7 @@ log.setLevel(log.level.INFO);
 
 
 // only the current time will be included in the printed messages
-log.setTimestampFormat(log.dtFormat.TIME);
+log.setTsFormat(log.tsFormat.TIME);
 
 
 // now let's print some messages

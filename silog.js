@@ -1,3 +1,28 @@
+/**
+The MIT License (MIT) http://opensource.org/licenses/MIT
+
+Copyright (c) 2013 Adrian Tudor Panescu <adrian [at] panescu [dot] com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/ or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+**/
+
+
 "use strict";
 
 var LEVEL = { CRITICAL   : [0, "CRITICAL"],
@@ -47,6 +72,7 @@ function getLevel() {
 
 function write(where, what) {
     // TODO: we'll want to use a switch here once we have multiple destinations
+    // TODO: we should get a better return behaviour here
     if(where === "console") {
         console.log(what);
     } else {
@@ -148,9 +174,9 @@ function d(tag, message) {
 exports.level = LEVEL;
 exports.setLevel = setLevel;
 exports.getLevel = getLevel;
-exports.dtFormat = DT_FORMAT;
-exports.setTimestampFormat = setTimestampFormat;
-exports.getTimestampFormat = getTimestampFormat;
+exports.tsFormat = DT_FORMAT;
+exports.setTsFormat = setTimestampFormat;
+exports.getTsFormat = getTimestampFormat;
 exports.log = log;
 exports.c = c;
 exports.e = e;
