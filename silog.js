@@ -117,31 +117,40 @@ function getTimestampFormat() {
     return DATE_TIME_FORMAT;
 }
 
+function leadingZero(n) {
+    if(n < 10) {
+        n = "0" + n;
+    }
+    return n;
+}
 
 function getFormattedTimestamp() {
     var date = new Date();
     switch(DATE_TIME_FORMAT) {
         case DT_FORMAT.DATE_TIME:
             return date.getFullYear() + '/' +
-                   date.getMonth() + '/' +
-                   date.getDate() + ' ' +
-                   date.getHours() + ':' +
-                   date.getMinutes();
+                   leadingZero(date.getMonth()) + '/' +
+                   leadingZero(date.getDate()) + ' ' +
+                   leadingZero(date.getHours()) + ':' +
+                   leadingZero(date.getMinutes()) + ':' +
+                   leadingZero(date.getSeconds());
         case DT_FORMAT.DATE:
             return date.getFullYear() + '/' +
-                   date.getMonth() + '/' +
-                   date.getDate();
+                   leadingZero(date.getMonth()) + '/' +
+                   leadingZero(date.getDate());
         case DT_FORMAT.TIME:
-            return date.getHours() + ':' +
-                   date.getMinutes();
+            return leadingZero(date.getHours()) + ':' +
+                   leadingZero(date.getMinutes()) + ':' +
+                   leadingZero(date.getSeconds());
         default:
             DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
             w(LOCAL_TAG, "Invalid date/ time format, fail-safe to default!");
             return date.getFullYear() + '/' +
-                   date.getMonth() + '/' +
-                   date.getDate() + ' ' +
-                   date.getHours() + ':' +
-                   date.getMinutes();
+                   leadingZero(date.getMonth()) + '/' +
+                   leadingZero(date.getDate()) + ' ' +
+                   leadingZero(date.getHours()) + ':' +
+                   leadingZero(date.getMinutes()) + ':' +
+                   leadingZero(date.getSeconds());
     }
 }
 
