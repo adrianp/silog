@@ -1,7 +1,7 @@
 {
   "name": "silog",
   "preferGlobal": false,
-  "version": "2.0.3",
+  "version": "2.1.0",
   "author": "Adrian Tudor Panescu <adrian@panescu.com>",
   "description": "A very simple Node.js logging utility, especially useful during development",
   "main": "./silog.js",
