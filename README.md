@@ -2,6 +2,11 @@ silog (i.e. simple logger)
 =====
 
 
+Build status
+------------
+[![Build Status](https://travis-ci.org/adrianp/silog.png?branch=master)](https://travis-ci.org/adrianp/silog)
+
+
 Introduction
 ------------
 
