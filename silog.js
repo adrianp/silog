@@ -89,18 +89,21 @@ function log(messageLevel, tag, message) {
     if (!messageLevel instanceof Array ||
         typeof messageLevel[0] !== 'number') {
             // TODO: this check is kinda shabby
-            return w(LOCAL_TAG, 'Invalid message level for: ' +
-                                tag +
-                                ' - ' +
-                                message +
-                                ' = ' +
-                                messageLevel);
+            return w(LOCAL_TAG, ['Invalid message level for: ',
+                                 tag,
+                                 ' - ',
+                                 message,
+                                 ' = ',
+                                 messageLevel].join(''));
     }
     if (messageLevel[0] >= CURRENT_LEVEL[0] || tag === LOCAL_TAG) {
-        var what = messageLevel[1] + ' - ';
-        what += getFormattedTimestamp() + ' - ';
-        what += tag + ' - ';
-        what += message;
+        var what = [messageLevel[1],
+                    ' - ',
+                    getFormattedTimestamp(),
+                    ' - ',
+                    tag,
+                    ' - ',
+                    message].join('');
         write('console', what);
         return what;
     } else {
@@ -128,29 +131,29 @@ function getFormattedTimestamp() {
     var date = new Date();
     switch (DATE_TIME_FORMAT) {
         case DT_FORMAT.DATE_TIME:
-            return date.getFullYear() + '/' +
-                   leadingZero(date.getMonth()) + '/' +
-                   leadingZero(date.getDate()) + ' ' +
-                   leadingZero(date.getHours()) + ':' +
-                   leadingZero(date.getMinutes()) + ':' +
-                   leadingZero(date.getSeconds());
+            return [date.getFullYear(), '/',
+                    leadingZero(date.getMonth()), '/',
+                    leadingZero(date.getDate()), ' ',
+                    leadingZero(date.getHours()), ':',
+                    leadingZero(date.getMinutes()), ':',
+                    leadingZero(date.getSeconds())].join('');
         case DT_FORMAT.DATE:
-            return date.getFullYear() + '/' +
-                   leadingZero(date.getMonth()) + '/' +
-                   leadingZero(date.getDate());
+            return [date.getFullYear(), '/',
+                    leadingZero(date.getMonth()), '/',
+                    leadingZero(date.getDate())].join('');
         case DT_FORMAT.TIME:
-            return leadingZero(date.getHours()) + ':' +
-                   leadingZero(date.getMinutes()) + ':' +
-                   leadingZero(date.getSeconds());
+            return [leadingZero(date.getHours()), ':',
+                    leadingZero(date.getMinutes()), ':',
+                    leadingZero(date.getSeconds())].join('');
         default:
             DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
             w(LOCAL_TAG, 'Invalid date/ time format, fail-safe to default!');
-            return date.getFullYear() + '/' +
-                   leadingZero(date.getMonth()) + '/' +
-                   leadingZero(date.getDate()) + ' ' +
-                   leadingZero(date.getHours()) + ':' +
-                   leadingZero(date.getMinutes()) + ':' +
-                   leadingZero(date.getSeconds());
+            return [date.getFullYear(), '/',
+                    leadingZero(date.getMonth()), '/',
+                    leadingZero(date.getDate()), ' ',
+                    leadingZero(date.getHours()), ':',
+                    leadingZero(date.getMinutes()), ':',
+                    leadingZero(date.getSeconds())].join('');
     }
 }
 
