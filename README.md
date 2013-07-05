@@ -125,4 +125,5 @@ Post scriptum
 -------------
 
 This project used to be named __simplog__ until I realized that there was a
-similarly named project on the NPM registry.
+similarly named project on the NPM registry. By the way, you can visit the
+NPM registry of the project [here](https://npmjs.org/package/silog).
