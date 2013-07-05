@@ -97,8 +97,8 @@ function log(messageLevel, tag, message) {
                                 messageLevel);
     }
     if (messageLevel[0] >= CURRENT_LEVEL[0] || tag === LOCAL_TAG) {
-        var what = '[' + getFormattedTimestamp() + '] ';
-        what += messageLevel[1] + ' - ';
+        var what = messageLevel[1] + ' - ';
+        what += getFormattedTimestamp() + ' - ';
         what += tag + ' - ';
         what += message;
         write('console', what);
@@ -121,10 +121,7 @@ function getTimestampFormat() {
 }
 
 function leadingZero(n) {
-    if (n < 10) {
-        n = '0' + n;
-    }
-    return n;
+    return (n < 10 ? '0' : '') + n;
 }
 
 function getFormattedTimestamp() {
