@@ -25,16 +25,17 @@ THE SOFTWARE.
 
 'use strict';
 
-var LEVEL = { CRITICAL: [0, 'CRITICAL'],
-              ERROR: [1, 'ERROR'],
-              WARNING: [2, 'WARNING'],
-              INFO: [3, 'INFO'],
-              DEBUG: [4, 'DEBUG'] };
+var LEVEL = {CRITICAL: [7, 'CRITICAL'],
+             ERROR: [6, 'ERROR'],
+             WARNING: [5, 'WARN'],
+             INFO: [4, 'INFO'],
+             DEBUG: [3, 'DEBUG'],
+             VERBOSE: [2, 'VERBOSE'] };
 
 
-var DT_FORMAT = { DATE_TIME: 0,
-                  DATE: 1,
-                  TIME: 2 };
+var DT_FORMAT = {DATE_TIME: 0,
+                 DATE: 1,
+                 TIME: 2 };
 
 
 var CURRENT_LEVEL = LEVEL.DEBUG;
@@ -95,7 +96,7 @@ function log(messageLevel, tag, message) {
                                 ' = ' +
                                 messageLevel);
     }
-    if (messageLevel[0] <= CURRENT_LEVEL[0] || tag === LOCAL_TAG) {
+    if (messageLevel[0] >= CURRENT_LEVEL[0] || tag === LOCAL_TAG) {
         var what = '[' + getFormattedTimestamp() + '] ';
         what += messageLevel[1] + ' - ';
         what += tag + ' - ';
