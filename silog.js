@@ -23,18 +23,18 @@ THE SOFTWARE.
 **/
 
 
-"use strict";
+'use strict';
 
-var LEVEL = { CRITICAL   : [0, "CRITICAL"],
-              ERROR      : [1, "ERROR"],
-              WARNING    : [2, "WARNING"],
-              INFO       : [3, "INFO"],
-              DEBUG      : [4, "DEBUG"] };
+var LEVEL = { CRITICAL: [0, 'CRITICAL'],
+              ERROR: [1, 'ERROR'],
+              WARNING: [2, 'WARNING'],
+              INFO: [3, 'INFO'],
+              DEBUG: [4, 'DEBUG'] };
 
 
-var DT_FORMAT = { DATE_TIME : 0,
-                  DATE      : 1,
-                  TIME      : 2 };
+var DT_FORMAT = { DATE_TIME: 0,
+                  DATE: 1,
+                  TIME: 2 };
 
 
 var CURRENT_LEVEL = LEVEL.DEBUG;
@@ -43,23 +43,24 @@ var CURRENT_LEVEL = LEVEL.DEBUG;
 var LEVEL_SET = false;
 
 
-var LOCAL_TAG = "silog";
+var LOCAL_TAG = 'silog';
 
 
 var DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
 
 
 function setLevel(customLevel) {
-    if(!LEVEL_SET) {
-        if(!(customLevel instanceof Array && typeof customLevel[0] === "number")) {
-            // TODO: this check is kinda shabby
-            w(LOCAL_TAG, "Invalid message level: " + customLevel);
+    if (!LEVEL_SET) {
+        if (!customLevel instanceof Array ||
+            typeof customLevel[0] !== 'number') {
+                // TODO: this check is kinda shabby
+                w(LOCAL_TAG, 'Invalid message level: ' + customLevel);
         } else {
             CURRENT_LEVEL = customLevel;
             LEVEL_SET = true;
         }
     } else {
-        w(LOCAL_TAG, "Logging level already set, cannot change!");
+        w(LOCAL_TAG, 'Logging level already set, cannot change!');
     }
     return CURRENT_LEVEL;
 }
@@ -73,10 +74,10 @@ function getLevel() {
 function write(where, what) {
     // TODO: we'll want to use a switch here once we have multiple destinations
     // TODO: we should get a better return behaviour here
-    if(where === "console") {
+    if (where === 'console') {
         console.log(what);
     } else {
-        w(LOCAL_TAG, "Invalid message destination: " + where);
+        w(LOCAL_TAG, 'Invalid message destination: ' + where);
         return false;
     }
     return true;
@@ -84,21 +85,22 @@ function write(where, what) {
 
 
 function log(messageLevel, tag, message) {
-    if(!(messageLevel instanceof Array && typeof messageLevel[0] === "number")) {
-        // TODO: this check is kinda shabby
-        return w(LOCAL_TAG, "Invalid message level for: " +
-                            tag +
-                            " - " +
-                            message +
-                            " = " +
-                            messageLevel);
+    if (!messageLevel instanceof Array ||
+        typeof messageLevel[0] !== 'number') {
+            // TODO: this check is kinda shabby
+            return w(LOCAL_TAG, 'Invalid message level for: ' +
+                                tag +
+                                ' - ' +
+                                message +
+                                ' = ' +
+                                messageLevel);
     }
-    if(messageLevel[0] <= CURRENT_LEVEL[0] || tag === LOCAL_TAG) {
-        var what = "[" + getFormattedTimestamp() + "] ";
+    if (messageLevel[0] <= CURRENT_LEVEL[0] || tag === LOCAL_TAG) {
+        var what = '[' + getFormattedTimestamp() + '] ';
         what += messageLevel[1] + ' - ';
         what += tag + ' - ';
         what += message;
-        write("console", what);
+        write('console', what);
         return what;
     } else {
         return null;
@@ -118,15 +120,15 @@ function getTimestampFormat() {
 }
 
 function leadingZero(n) {
-    if(n < 10) {
-        n = "0" + n;
+    if (n < 10) {
+        n = '0' + n;
     }
     return n;
 }
 
 function getFormattedTimestamp() {
     var date = new Date();
-    switch(DATE_TIME_FORMAT) {
+    switch (DATE_TIME_FORMAT) {
         case DT_FORMAT.DATE_TIME:
             return date.getFullYear() + '/' +
                    leadingZero(date.getMonth()) + '/' +
@@ -144,7 +146,7 @@ function getFormattedTimestamp() {
                    leadingZero(date.getSeconds());
         default:
             DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
-            w(LOCAL_TAG, "Invalid date/ time format, fail-safe to default!");
+            w(LOCAL_TAG, 'Invalid date/ time format, fail-safe to default!');
             return date.getFullYear() + '/' +
                    leadingZero(date.getMonth()) + '/' +
                    leadingZero(date.getDate()) + ' ' +
