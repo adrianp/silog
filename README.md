@@ -6,6 +6,8 @@ Build status
 ------------
 [![Build Status](https://travis-ci.org/adrianp/silog.png?branch=master)](https://travis-ci.org/adrianp/silog)
 [![Dependency Status](https://gemnasium.com/adrianp/silog.png)](https://gemnasium.com/adrianp/silog)
+[![NPM version](https://badge.fury.io/js/silog.png)](http://badge.fury.io/js/silog)
+
 
 Introduction
 ------------
