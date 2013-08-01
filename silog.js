@@ -25,173 +25,201 @@ THE SOFTWARE.
 
 'use strict';
 
-var LEVEL = {CRITICAL: [7, 'CRITICAL'],
+
+var _ = require('underscore');
+
+
+var LEVEL = {ASSERT: [7, 'ASSERT'],
              ERROR: [6, 'ERROR'],
-             WARNING: [5, 'WARN'],
+             WARN: [5, 'WARN'],
              INFO: [4, 'INFO'],
              DEBUG: [3, 'DEBUG'],
              VERBOSE: [2, 'VERBOSE'] };
-
 
 var DT_FORMAT = {DATE_TIME: 0,
                  DATE: 1,
                  TIME: 2 };
 
-
-var CURRENT_LEVEL = LEVEL.DEBUG;
-
-
-var LEVEL_SET = false;
-
-
 var LOCAL_TAG = 'silog';
 
 
-var DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
-
-
-function setLevel(customLevel) {
-    if (!LEVEL_SET) {
-        if (!customLevel instanceof Array ||
-            typeof customLevel[0] !== 'number') {
-                // TODO: this check is kinda shabby
-                w(LOCAL_TAG, 'Invalid message level: ' + customLevel);
-        } else {
-            CURRENT_LEVEL = customLevel;
-            LEVEL_SET = true;
-        }
-    } else {
-        w(LOCAL_TAG, 'Logging level already set, cannot change!');
-    }
-    return CURRENT_LEVEL;
+function consoleWrite(message) {
+    console.log(message);
 }
 
-
-function getLevel() {
-    return CURRENT_LEVEL;
-}
-
-
-function write(where, what) {
-    // TODO: we'll want to use a switch here once we have multiple destinations
-    // TODO: we should get a better return behaviour here
-    if (where === 'console') {
-        console.log(what);
-    } else {
-        w(LOCAL_TAG, 'Invalid message destination: ' + where);
+function checkLevel(level) {
+    if (!_.isArray(level) ||
+        !_.isNumber(level[0]) ||
+        !_.isString(level[1])) {
         return false;
     }
     return true;
-}
-
-
-function log(messageLevel, tag, message) {
-    if (!messageLevel instanceof Array ||
-        typeof messageLevel[0] !== 'number') {
-            // TODO: this check is kinda shabby
-            return w(LOCAL_TAG, ['Invalid message level for: ',
-                                 tag,
-                                 ' - ',
-                                 message,
-                                 ' = ',
-                                 messageLevel].join(''));
-    }
-    if (messageLevel[0] >= CURRENT_LEVEL[0] || tag === LOCAL_TAG) {
-        var what = [messageLevel[1],
-                    ' - ',
-                    getFormattedTimestamp(),
-                    ' - ',
-                    tag,
-                    ' - ',
-                    message].join('');
-        write('console', what);
-        return what;
-    } else {
-        return null;
-    }
-}
-
-
-function setTimestampFormat(format) {
-    // TODO: check if format is valid
-    DATE_TIME_FORMAT = format;
-    return DATE_TIME_FORMAT;
-}
-
-
-function getTimestampFormat() {
-    return DATE_TIME_FORMAT;
 }
 
 function leadingZero(n) {
     return (n < 10 ? '0' : '') + n;
 }
 
-function getFormattedTimestamp() {
+function getFormattedTimestamp(format) {
     var date = new Date();
-    switch (DATE_TIME_FORMAT) {
-        case DT_FORMAT.DATE_TIME:
-            return [date.getFullYear(), '/',
-                    leadingZero(date.getMonth()), '/',
-                    leadingZero(date.getDate()), ' ',
-                    leadingZero(date.getHours()), ':',
-                    leadingZero(date.getMinutes()), ':',
-                    leadingZero(date.getSeconds())].join('');
-        case DT_FORMAT.DATE:
-            return [date.getFullYear(), '/',
-                    leadingZero(date.getMonth()), '/',
-                    leadingZero(date.getDate())].join('');
-        case DT_FORMAT.TIME:
-            return [leadingZero(date.getHours()), ':',
-                    leadingZero(date.getMinutes()), ':',
-                    leadingZero(date.getSeconds())].join('');
-        default:
-            DATE_TIME_FORMAT = DT_FORMAT.DATE_TIME;
-            w(LOCAL_TAG, 'Invalid date/ time format, fail-safe to default!');
-            return [date.getFullYear(), '/',
-                    leadingZero(date.getMonth()), '/',
-                    leadingZero(date.getDate()), ' ',
-                    leadingZero(date.getHours()), ':',
-                    leadingZero(date.getMinutes()), ':',
-                    leadingZero(date.getSeconds())].join('');
+    switch (format) {
+    case DT_FORMAT.DATE_TIME:
+        return [date.getFullYear(), '/',
+                leadingZero(date.getMonth()), '/',
+                leadingZero(date.getDate()), ' ',
+                leadingZero(date.getHours()), ':',
+                leadingZero(date.getMinutes()), ':',
+                leadingZero(date.getSeconds())].join('');
+    case DT_FORMAT.DATE:
+        return [date.getFullYear(), '/',
+                leadingZero(date.getMonth()), '/',
+                leadingZero(date.getDate())].join('');
+    case DT_FORMAT.TIME:
+        return [leadingZero(date.getHours()), ':',
+                leadingZero(date.getMinutes()), ':',
+                leadingZero(date.getSeconds())].join('');
     }
 }
 
-
-function c(tag, message) {
-    return log(LEVEL.CRITICAL, tag, message);
+function padRight(s, l, c) {
+    return s + new Array(l + 1 - s.length).join(c);
 }
 
 
-function e(tag, message) {
-    return log(LEVEL.ERROR, tag, message);
+/**
+ * [Logger description]
+ * @param {[type]} p [description].
+ * @return {[type]} [description].
+ * @this {[type]}.
+ */
+function Logger(p) {
+
+    // default settings
+    this.level = LEVEL.INFO;
+    this.tsFormat = DT_FORMAT.DATE_TIME;
+    this.loggers = [consoleWrite];
+
+    if (_.has(p, 'level')) {
+        if (!checkLevel(p.level)) {
+            this.wtf(LOCAL_TAG, 'Invalid message level: ' + p.level);
+            return null;
+        } else {
+            this.level = p.level;
+        }
+    }
+
+    if (_.has(p, 'tsformat')) {
+        if (_.indexOf(_.values(DT_FORMAT), p.tsformat) > -1) {
+            this.tsFormat = p.tsformat;
+        } else {
+            this.wtf(LOCAL_TAG, 'Invalid date/ time format: ' + p.tsformat);
+            return null;
+        }
+    }
+
+    if (_.has(p, 'loggers')) {
+        if (_.isArray(p.loggers)) {
+            if (_.every(p.loggers, _.isFunction)) {
+                this.loggers = p.loggers;
+            } else {
+                this.wtf(LOCAL_TAG,
+                       'Invalid loggers: should be an array of functions');
+                return null;
+            }
+        } else {
+            this.wtf(LOCAL_TAG, 'Invalid loggers: should be an array');
+            return null;
+        }
+    }
+
 }
 
 
-function w(tag, message) {
-    return log(LEVEL.WARNING, tag, message);
-}
+/**
+ * [ description]
+ * @param  {[type]} messageLevel [description].
+ * @param  {[type]} tag          [description].
+ * @param  {[type]} message      [description].
+ * @this {[type]}.
+ */
+Logger.prototype.log = function(messageLevel, tag, message) {
+    if (!checkLevel(messageLevel)) {
+        this.w(LOCAL_TAG, ['Invalid message level for: ',
+                            tag,
+                            ' - ',
+                            message,
+                            ' = ',
+                            messageLevel].join(''));
+    }
+
+    if (messageLevel[0] >= this.level[0]) {
+        var what = ['[',
+                    messageLevel[1],
+                    '] - ',
+                    getFormattedTimestamp(this.tsFormat),
+                    ' - ',
+                    tag,
+                    ' - ',
+                    message].join('');
+        // TODO: use underscore
+        for (var i = 0, len = this.loggers.length; i < len; i += 1) {
+            this.loggers[i](what);
+        }
+    }
+};
 
 
-function i(tag, message) {
-    return log(LEVEL.INFO, tag, message);
-}
+/**
+ * [ description]
+ * @param  {[type]} tag     [description].
+ * @param  {[type]} message [description].
+ * @this {[type]}.
+ */
+Logger.prototype.wtf = function(tag, message) {
+    this.log(LEVEL.ASSERT, tag, message);
+};
 
+/**
+ * [ description]
+ * @param  {[type]} tag     [description].
+ * @param  {[type]} message [description].
+ * @this {[type]}.
+ */
+Logger.prototype.e = function(tag, message) {
+    this.log(LEVEL.ERROR, tag, message);
+};
 
-function d(tag, message) {
-    return log(LEVEL.DEBUG, tag, message);
-}
+/**
+ * [ description]
+ * @param  {[type]} tag     [description].
+ * @param  {[type]} message [description].
+ * @this {[type]}.
+ */
+Logger.prototype.w = function(tag, message) {
+    this.log(LEVEL.WARN, tag, message);
+};
+
+/**
+ * [ description]
+ * @param  {[type]} tag     [description].
+ * @param  {[type]} message [description].
+ * @this {[type]}.
+ */
+Logger.prototype.i = function(tag, message) {
+    this.log(LEVEL.INFO, tag, message);
+};
+
+/**
+ * [ description]
+ * @param  {[type]} tag     [description].
+ * @param  {[type]} message [description].
+ * @this {[type]}.
+ */
+Logger.prototype.d = function(tag, message) {
+    this.log(LEVEL.DEBUG, tag, message);
+};
 
 
 exports.level = LEVEL;
-exports.setLevel = setLevel;
-exports.getLevel = getLevel;
 exports.tsFormat = DT_FORMAT;
-exports.setTsFormat = setTimestampFormat;
-exports.getTsFormat = getTimestampFormat;
-exports.log = log;
-exports.c = c;
-exports.e = e;
-exports.w = w;
-exports.i = i;
-exports.d = d;
+exports.Logger = Logger;
