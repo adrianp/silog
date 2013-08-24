@@ -26,200 +26,215 @@ THE SOFTWARE.
 'use strict';
 
 
-var _ = require('underscore');
-
-
-var LEVEL = {ASSERT: [7, 'ASSERT'],
-             ERROR: [6, 'ERROR'],
-             WARN: [5, 'WARN'],
-             INFO: [4, 'INFO'],
-             DEBUG: [3, 'DEBUG'],
-             VERBOSE: [2, 'VERBOSE'] };
-
-var DT_FORMAT = {DATE_TIME: 0,
-                 DATE: 1,
-                 TIME: 2 };
-
-var LOCAL_TAG = 'silog';
-
-
-function consoleWrite(message) {
-    console.log(message);
-}
-
-function checkLevel(level) {
-    if (!_.isArray(level) ||
-        !_.isNumber(level[0]) ||
-        !_.isString(level[1])) {
-        return false;
-    }
-    return true;
-}
-
-function leadingZero(n) {
-    return (n < 10 ? '0' : '') + n;
-}
-
-function getFormattedTimestamp(format) {
-    var date = new Date();
-    switch (format) {
-    case DT_FORMAT.DATE_TIME:
-        return [date.getFullYear(), '/',
-                leadingZero(date.getMonth()), '/',
-                leadingZero(date.getDate()), ' ',
-                leadingZero(date.getHours()), ':',
-                leadingZero(date.getMinutes()), ':',
-                leadingZero(date.getSeconds())].join('');
-    case DT_FORMAT.DATE:
-        return [date.getFullYear(), '/',
-                leadingZero(date.getMonth()), '/',
-                leadingZero(date.getDate())].join('');
-    case DT_FORMAT.TIME:
-        return [leadingZero(date.getHours()), ':',
-                leadingZero(date.getMinutes()), ':',
-                leadingZero(date.getSeconds())].join('');
-    }
-}
-
-function padRight(s, l, c) {
-    return s + new Array(l + 1 - s.length).join(c);
-}
-
-
 /**
- * [Logger description]
- * @param {[type]} p [description].
- * @return {[type]} [description].
- * @this {[type]}.
+ * Revealing module for silog; exposes the required public members.
+ *
+ * @return {Object.<string,(function|Object)>} the exported public members.
  */
-function Logger(p) {
+var silog = function() {
 
-    // default settings
-    this.level = LEVEL.INFO;
-    this.tsFormat = DT_FORMAT.DATE_TIME;
-    this.loggers = [consoleWrite];
+    var LEVEL = {ASSERT: [7, 'ASSERT'],
+                 ERROR: [6, 'ERROR'],
+                 WARN: [5, 'WARN'],
+                 INFO: [4, 'INFO'],
+                 DEBUG: [3, 'DEBUG'],
+                 VERBOSE: [2, 'VERBOSE'] };
 
-    if (_.has(p, 'level')) {
-        if (!checkLevel(p.level)) {
-            this.wtf(LOCAL_TAG, 'Invalid message level: ' + p.level);
-            return null;
-        } else {
-            this.level = p.level;
+    var DT_FORMAT = {DATE_TIME: 0,
+                     DATE: 1,
+                     TIME: 2 };
+
+    var LOCAL_TAG = 'silog';
+
+
+    function consoleWrite(message) {
+        console.log(message);
+    }
+
+    function checkLevel(level) {
+        if (!Array.isArray(level) ||
+            typeof level[0] !== 'number' ||
+            typeof level[1] !== 'string') {
+            return false;
+        }
+        return true;
+    }
+
+    function leadingZero(n) {
+        return (n < 10 ? '0' : '') + n;
+    }
+
+    function getFormattedTimestamp(format) {
+        var date = new Date();
+        switch (format) {
+        case DT_FORMAT.DATE_TIME:
+            return [date.getFullYear(), '/',
+                    leadingZero(date.getMonth()), '/',
+                    leadingZero(date.getDate()), ' ',
+                    leadingZero(date.getHours()), ':',
+                    leadingZero(date.getMinutes()), ':',
+                    leadingZero(date.getSeconds())].join('');
+        case DT_FORMAT.DATE:
+            return [date.getFullYear(), '/',
+                    leadingZero(date.getMonth()), '/',
+                    leadingZero(date.getDate())].join('');
+        case DT_FORMAT.TIME:
+            return [leadingZero(date.getHours()), ':',
+                    leadingZero(date.getMinutes()), ':',
+                    leadingZero(date.getSeconds())].join('');
         }
     }
 
-    if (_.has(p, 'tsformat')) {
-        if (_.indexOf(_.values(DT_FORMAT), p.tsformat) > -1) {
-            this.tsFormat = p.tsformat;
-        } else {
-            this.wtf(LOCAL_TAG, 'Invalid date/ time format: ' + p.tsformat);
-            return null;
-        }
-    }
+    /**
+     * [Logger description]
+     * @param {[type]} p [description].
+     * @return {[type]} [description].
+     * @this {[type]}.
+     */
+    function Logger(p) {
 
-    if (_.has(p, 'loggers')) {
-        if (_.isArray(p.loggers)) {
-            if (_.every(p.loggers, _.isFunction)) {
-                this.loggers = p.loggers;
+        // default settings
+        this.level = LEVEL.INFO;
+        this.tsFormat = DT_FORMAT.DATE_TIME;
+        this.loggers = [consoleWrite];
+
+        if (p.hasOwnProperty('level')) {
+            if (!checkLevel(p.level)) {
+                this.wtf(LOCAL_TAG, 'Invalid message level: ' + p.level);
+                return null;
             } else {
-                this.wtf(LOCAL_TAG,
-                       'Invalid loggers: should be an array of functions');
+                this.level = p.level;
+            }
+        }
+
+        if (p.hasOwnProperty('tsformat')) {
+            for (var key in DT_FORMAT) {
+                if (DT_FORMAT.hasOwnProperty(key)) {
+                    if (p.tsformat === DT_FORMAT[key]) {
+                        this.tsFormat = p.tsformat;
+                        break;
+                    }
+                }
+            }
+
+            if (typeof this.tsFormat === 'undefined') {
+                this.wtf(LOCAL_TAG, 'Invalid date/ time format: ' + p.tsformat);
                 return null;
             }
-        } else {
-            this.wtf(LOCAL_TAG, 'Invalid loggers: should be an array');
-            return null;
         }
+
+        if (p.hasOwnProperty('loggers')) {
+            if (Array.isArray(p.loggers)) {
+                for (var i = 0, len = p.loggers.length; i < len; i++) {
+                    if (typeof p.loggers[i] !== 'function') {
+                        this.wtf(LOCAL_TAG,
+                           'Invalid loggers: should be an array of functions');
+                        return null;
+                    }
+                }
+                this.loggers = p.loggers;
+            } else {
+                this.wtf(LOCAL_TAG, 'Invalid loggers: should be an array');
+                return null;
+            }
+        }
+
     }
 
+
+    /**
+     * [ description]
+     * @param  {[type]} messageLevel [description].
+     * @param  {[type]} tag          [description].
+     * @param  {[type]} message      [description].
+     * @this {[type]}.
+     */
+    Logger.prototype.log = function(messageLevel, tag, message) {
+        if (!checkLevel(messageLevel)) {
+            this.w(LOCAL_TAG, ['Invalid message level for: ',
+                                tag,
+                                ' - ',
+                                message,
+                                ' = ',
+                                messageLevel].join(''));
+        }
+
+        if (messageLevel[0] >= this.level[0]) {
+            var what = ['[',
+                        messageLevel[1],
+                        '] - ',
+                        getFormattedTimestamp(this.tsFormat),
+                        ' - ',
+                        tag,
+                        ' - ',
+                        message].join('');
+            // TODO: use underscore
+            for (var i = 0, len = this.loggers.length; i < len; i += 1) {
+                this.loggers[i](what);
+            }
+        }
+    };
+
+
+    /**
+     * [ description]
+     * @param  {[type]} tag     [description].
+     * @param  {[type]} message [description].
+     * @this {[type]}.
+     */
+    Logger.prototype.wtf = function(tag, message) {
+        this.log(LEVEL.ASSERT, tag, message);
+    };
+
+    /**
+     * [ description]
+     * @param  {[type]} tag     [description].
+     * @param  {[type]} message [description].
+     * @this {[type]}.
+     */
+    Logger.prototype.e = function(tag, message) {
+        this.log(LEVEL.ERROR, tag, message);
+    };
+
+    /**
+     * [ description]
+     * @param  {[type]} tag     [description].
+     * @param  {[type]} message [description].
+     * @this {[type]}.
+     */
+    Logger.prototype.w = function(tag, message) {
+        this.log(LEVEL.WARN, tag, message);
+    };
+
+    /**
+     * [ description]
+     * @param  {[type]} tag     [description].
+     * @param  {[type]} message [description].
+     * @this {[type]}.
+     */
+    Logger.prototype.i = function(tag, message) {
+        this.log(LEVEL.INFO, tag, message);
+    };
+
+    /**
+     * [ description]
+     * @param  {[type]} tag     [description].
+     * @param  {[type]} message [description].
+     * @this {[type]}.
+     */
+    Logger.prototype.d = function(tag, message) {
+        this.log(LEVEL.DEBUG, tag, message);
+    };
+
+    return {
+        level: LEVEL,
+        tsFormat: DT_FORMAT,
+        Logger: Logger
+    };
+};
+
+if (typeof exports !== 'undefined') {
+    exports.silog = silog;
+} else {
+    silog = silog();
 }
-
-
-/**
- * [ description]
- * @param  {[type]} messageLevel [description].
- * @param  {[type]} tag          [description].
- * @param  {[type]} message      [description].
- * @this {[type]}.
- */
-Logger.prototype.log = function(messageLevel, tag, message) {
-    if (!checkLevel(messageLevel)) {
-        this.w(LOCAL_TAG, ['Invalid message level for: ',
-                            tag,
-                            ' - ',
-                            message,
-                            ' = ',
-                            messageLevel].join(''));
-    }
-
-    if (messageLevel[0] >= this.level[0]) {
-        var what = ['[',
-                    messageLevel[1],
-                    '] - ',
-                    getFormattedTimestamp(this.tsFormat),
-                    ' - ',
-                    tag,
-                    ' - ',
-                    message].join('');
-        // TODO: use underscore
-        for (var i = 0, len = this.loggers.length; i < len; i += 1) {
-            this.loggers[i](what);
-        }
-    }
-};
-
-
-/**
- * [ description]
- * @param  {[type]} tag     [description].
- * @param  {[type]} message [description].
- * @this {[type]}.
- */
-Logger.prototype.wtf = function(tag, message) {
-    this.log(LEVEL.ASSERT, tag, message);
-};
-
-/**
- * [ description]
- * @param  {[type]} tag     [description].
- * @param  {[type]} message [description].
- * @this {[type]}.
- */
-Logger.prototype.e = function(tag, message) {
-    this.log(LEVEL.ERROR, tag, message);
-};
-
-/**
- * [ description]
- * @param  {[type]} tag     [description].
- * @param  {[type]} message [description].
- * @this {[type]}.
- */
-Logger.prototype.w = function(tag, message) {
-    this.log(LEVEL.WARN, tag, message);
-};
-
-/**
- * [ description]
- * @param  {[type]} tag     [description].
- * @param  {[type]} message [description].
- * @this {[type]}.
- */
-Logger.prototype.i = function(tag, message) {
-    this.log(LEVEL.INFO, tag, message);
-};
-
-/**
- * [ description]
- * @param  {[type]} tag     [description].
- * @param  {[type]} message [description].
- * @this {[type]}.
- */
-Logger.prototype.d = function(tag, message) {
-    this.log(LEVEL.DEBUG, tag, message);
-};
-
-
-exports.level = LEVEL;
-exports.tsFormat = DT_FORMAT;
-exports.Logger = Logger;

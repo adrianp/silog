@@ -1,7 +1,8 @@
 'use strict';
 
-var silog = require('./silog.js');
-
+if (typeof require !== 'undefined') {
+    var silog = require('./silog.js').silog();
+}
 
 // tag that can be used to identify the origin of the messages
 var T = 'silog_demo';
@@ -17,4 +18,3 @@ l.e(T, 'An error occured!');
 l.w(T, 'Warning!');
 l.i(T, 'Hello World!');
 l.d(T, 'A debug message, will not be printed.');
-
