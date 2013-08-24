@@ -33,6 +33,10 @@ THE SOFTWARE.
  */
 var silog = function() {
 
+    /**
+     * [LEVEL description]
+     * @type {Object}
+     */
     var LEVEL = {ASSERT: [7, 'ASSERT'],
                  ERROR: [6, 'ERROR'],
                  WARN: [5, 'WARN'],
@@ -40,30 +44,49 @@ var silog = function() {
                  DEBUG: [3, 'DEBUG'],
                  VERBOSE: [2, 'VERBOSE'] };
 
+    /**
+     * [DT_FORMAT description]
+     * @type {Object}
+     */
     var DT_FORMAT = {DATE_TIME: 0,
                      DATE: 1,
                      TIME: 2 };
 
+    /**
+     * [LOCAL_TAG description]
+     * @type {String}
+     */
     var LOCAL_TAG = 'silog';
 
-
-    function consoleWrite(message) {
-        console.log(message);
-    }
-
+    /**
+     * [checkLevel description]
+     * @param  {[type]} level [description].
+     * @return {[type]}       [description].
+     */
     function checkLevel(level) {
         if (!Array.isArray(level) ||
             typeof level[0] !== 'number' ||
             typeof level[1] !== 'string') {
+            // TODO: check if level exists in LEVEL
             return false;
         }
         return true;
     }
 
+    /**
+     * [leadingZero description]
+     * @param  {[type]} n [description].
+     * @return {[type]}   [description].
+     */
     function leadingZero(n) {
         return (n < 10 ? '0' : '') + n;
     }
 
+    /**
+     * [getFormattedTimestamp description]
+     * @param  {[type]} format [description].
+     * @return {[type]}        [description].
+     */
     function getFormattedTimestamp(format) {
         var date = new Date();
         switch (format) {
@@ -86,17 +109,33 @@ var silog = function() {
     }
 
     /**
-     * [Logger description]
-     * @param {[type]} p [description].
-     * @return {[type]} [description].
-     * @this {[type]}.
+     * Constructor of the main class responsible for the logging logic.
+     *
+     * @param {Object} p configuration parameters, as follows (if not specified
+     *                   by user, defaults will be used):
+     *                   level: one of the elements of silog().LEVEL; only
+     *                          messages above it will be logged; default =
+     *                          LEVEL.INFO
+     *                   tsFormat: one of the elements of silog().DT_FORMAT;
+     *                             specifies how the date and time should be
+     *                             logged; default = DT_FORMAT.DATE_TIME
+     *                   loggers: array of functions that should be used for
+     *                            writing the logged messages to output; the
+     *                            signature of these function should be
+     *                            function write(message)
+     *                            where message is the message to be written; by
+     *                            default, console.log is used.
+     * @return {?Object} an instance of the Logger is instantiation was
+     *                   successful, null otherwise.
+     * @this {Object} the Logger instance.
+     * @constructor
      */
     function Logger(p) {
 
         // default settings
         this.level = LEVEL.INFO;
         this.tsFormat = DT_FORMAT.DATE_TIME;
-        this.loggers = [consoleWrite];
+        this.loggers = [console.log];
 
         if (p.hasOwnProperty('level')) {
             if (!checkLevel(p.level)) {
@@ -229,13 +268,15 @@ var silog = function() {
     return {
         level: LEVEL,
         tsFormat: DT_FORMAT,
-        Logger: Logger,
-        consoleWriter: consoleWrite
+        Logger: Logger
     };
 };
 
+
 if (typeof exports !== 'undefined') {
+    // nodejs
     exports.silog = silog;
 } else {
+    // browser
     silog = silog();
 }
