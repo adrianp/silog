@@ -13,9 +13,6 @@
     "logging",
     "log"
   ],
-  "dependencies": {
-    "underscore" : "1.5.x"
-  },
   "analyze": true,
   "license": "MIT",
   "engines": {
