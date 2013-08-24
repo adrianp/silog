@@ -229,7 +229,8 @@ var silog = function() {
     return {
         level: LEVEL,
         tsFormat: DT_FORMAT,
-        Logger: Logger
+        Logger: Logger,
+        consoleWriter: consoleWrite
     };
 };
 
