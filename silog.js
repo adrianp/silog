@@ -91,21 +91,31 @@ var silog = function() {
         var date = new Date();
         switch (format) {
         case DT_FORMAT.DATE_TIME:
-            return [date.getFullYear(), '/',
+            return [[date.getFullYear(), '/',
                     leadingZero(date.getMonth()), '/',
                     leadingZero(date.getDate()), ' ',
                     leadingZero(date.getHours()), ':',
                     leadingZero(date.getMinutes()), ':',
-                    leadingZero(date.getSeconds())].join('');
+                    leadingZero(date.getSeconds())].join(''), date];
         case DT_FORMAT.DATE:
-            return [date.getFullYear(), '/',
-                    leadingZero(date.getMonth()), '/',
-                    leadingZero(date.getDate())].join('');
+            return [[date.getFullYear(), '/',
+                     leadingZero(date.getMonth()), '/',
+                     leadingZero(date.getDate())].join(''), date];
         case DT_FORMAT.TIME:
-            return [leadingZero(date.getHours()), ':',
-                    leadingZero(date.getMinutes()), ':',
-                    leadingZero(date.getSeconds())].join('');
+            return [[leadingZero(date.getHours()), ':',
+                     leadingZero(date.getMinutes()), ':',
+                     leadingZero(date.getSeconds())].join(''), date];
         }
+    }
+
+    /**
+     * [consoleLogger description]
+     * @param  {[type]} what  [description]
+     * @param  {[type]} extra [description]
+     * @return {[type]}       [description]
+     */
+    function consoleLogger(what, extra) {
+        console.log(what);
     }
 
     /**
@@ -135,7 +145,7 @@ var silog = function() {
         // default settings
         this.level = LEVEL.INFO;
         this.tsFormat = DT_FORMAT.DATE_TIME;
-        this.loggers = [console.log];
+        this.loggers = [consoleLogger];
 
         if (p.hasOwnProperty('level')) {
             if (!checkLevel(p.level)) {
@@ -199,17 +209,21 @@ var silog = function() {
         }
 
         if (messageLevel[0] >= this.level[0]) {
+            var time = getFormattedTimestamp(this.tsFormat);
             var what = ['[',
                         messageLevel[1],
                         '] - ',
-                        getFormattedTimestamp(this.tsFormat),
+                        time[0],
                         ' - ',
                         tag,
                         ' - ',
                         message].join('');
-            // TODO: use underscore
+            var extra = {'tag': tag,
+                         'message': message,
+                         'level': messageLevel,
+                         'ts': time[1] };
             for (var i = 0, len = this.loggers.length; i < len; i += 1) {
-                this.loggers[i](what);
+                this.loggers[i](what, extra);
             }
         }
     };
