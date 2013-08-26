@@ -115,6 +115,9 @@ var silog = function() {
      * @return {[type]}       [description]
      */
     function consoleLogger(what, extra) {
+        if(extra.hasOwnProperty('object')) {
+            what += ' - ' + JSON.stringify(extra['object']);
+        }
         console.log(what);
     }
 
@@ -198,7 +201,7 @@ var silog = function() {
      * @param  {[type]} message      [description].
      * @this {[type]}.
      */
-    Logger.prototype.log = function(messageLevel, tag, message) {
+    Logger.prototype.log = function(messageLevel, tag, message, object) {
         if (!checkLevel(messageLevel)) {
             this.w(LOCAL_TAG, ['Invalid message level for: ',
                                 tag,
@@ -222,6 +225,9 @@ var silog = function() {
                          'message': message,
                          'level': messageLevel,
                          'ts': time[1] };
+            if(object) {
+                extra['object'] = object;
+            }
             for (var i = 0, len = this.loggers.length; i < len; i += 1) {
                 this.loggers[i](what, extra);
             }
@@ -235,8 +241,8 @@ var silog = function() {
      * @param  {[type]} message [description].
      * @this {[type]}.
      */
-    Logger.prototype.wtf = function(tag, message) {
-        this.log(LEVEL.ASSERT, tag, message);
+    Logger.prototype.wtf = function(tag, message, object) {
+        this.log(LEVEL.ASSERT, tag, message, object);
     };
 
     /**
@@ -245,8 +251,8 @@ var silog = function() {
      * @param  {[type]} message [description].
      * @this {[type]}.
      */
-    Logger.prototype.e = function(tag, message) {
-        this.log(LEVEL.ERROR, tag, message);
+    Logger.prototype.e = function(tag, message, object) {
+        this.log(LEVEL.ERROR, tag, message, object);
     };
 
     /**
@@ -255,8 +261,8 @@ var silog = function() {
      * @param  {[type]} message [description].
      * @this {[type]}.
      */
-    Logger.prototype.w = function(tag, message) {
-        this.log(LEVEL.WARN, tag, message);
+    Logger.prototype.w = function(tag, message, object) {
+        this.log(LEVEL.WARN, tag, message, object);
     };
 
     /**
@@ -265,8 +271,8 @@ var silog = function() {
      * @param  {[type]} message [description].
      * @this {[type]}.
      */
-    Logger.prototype.i = function(tag, message) {
-        this.log(LEVEL.INFO, tag, message);
+    Logger.prototype.i = function(tag, message, object) {
+        this.log(LEVEL.INFO, tag, message, object);
     };
 
     /**
@@ -275,8 +281,8 @@ var silog = function() {
      * @param  {[type]} message [description].
      * @this {[type]}.
      */
-    Logger.prototype.d = function(tag, message) {
-        this.log(LEVEL.DEBUG, tag, message);
+    Logger.prototype.d = function(tag, message, object) {
+        this.log(LEVEL.DEBUG, tag, message, object);
     };
 
     return {
