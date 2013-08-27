@@ -30,12 +30,15 @@ THE SOFTWARE.
  * Revealing module for silog; exposes the required public members.
  *
  * @return {Object.<string,(function|Object)>} the exported public members.
+ * @namespace
  */
 var silog = function() {
 
     /**
      * [LEVEL description]
-     * @type {Object}
+     * @enum {Array.<number, string>}
+     * @const
+     * @memberOf silog
      */
     var LEVEL = {ASSERT: [7, 'ASSERT'],
                  ERROR: [6, 'ERROR'],
@@ -46,7 +49,9 @@ var silog = function() {
 
     /**
      * [DT_FORMAT description]
-     * @type {Object}
+     * @enum {number}
+     * @const
+     * @memberOf silog
      */
     var DT_FORMAT = {DATE_TIME: 0,
                      DATE: 1,
@@ -55,6 +60,8 @@ var silog = function() {
     /**
      * [LOCAL_TAG description]
      * @type {String}
+     * @private
+     * @const
      */
     var LOCAL_TAG = 'silog';
 
@@ -62,6 +69,7 @@ var silog = function() {
      * [checkLevel description]
      * @param  {[type]} level [description].
      * @return {[type]}       [description].
+     * @private
      */
     function checkLevel(level) {
         if (!Array.isArray(level) ||
@@ -77,6 +85,7 @@ var silog = function() {
      * [leadingZero description]
      * @param  {[type]} n [description].
      * @return {[type]}   [description].
+     * @private
      */
     function leadingZero(n) {
         return (n < 10 ? '0' : '') + n;
@@ -86,6 +95,7 @@ var silog = function() {
      * [getFormattedTimestamp description]
      * @param  {[type]} format [description].
      * @return {[type]}        [description].
+     * @private
      */
     function getFormattedTimestamp(format) {
         var date = new Date();
@@ -110,12 +120,11 @@ var silog = function() {
 
     /**
      * [consoleLogger description]
-     * @param  {[type]} what  [description]
-     * @param  {[type]} extra [description]
-     * @return {[type]}       [description]
+     * @param  {[type]} what  [description].
+     * @param  {[type]} extra [description].
      */
     function consoleLogger(what, extra) {
-        if(extra.hasOwnProperty('object')) {
+        if (extra.hasOwnProperty('object')) {
             what += ' - ' + JSON.stringify(extra['object']);
         }
         console.log(what);
@@ -138,7 +147,7 @@ var silog = function() {
      *                            function write(message)
      *                            where message is the message to be written; by
      *                            default, console.log is used.
-     * @return {?Object} an instance of the Logger is instantiation was
+     * @return {?Object} an instance of the Logger if the instantiation was
      *                   successful, null otherwise.
      * @this {Object} the Logger instance.
      * @constructor
@@ -196,10 +205,12 @@ var silog = function() {
 
     /**
      * [ description]
-     * @param  {[type]} messageLevel [description].
-     * @param  {[type]} tag          [description].
-     * @param  {[type]} message      [description].
-     * @this {[type]}.
+     * @param {[type]} messageLevel [description].
+     * @param {[type]} tag          [description].
+     * @param {[type]} message      [description].
+     * @param {[type]} object       [description].
+     * @this  {[type]}.
+     * @memberOf silog-Logger
      */
     Logger.prototype.log = function(messageLevel, tag, message, object) {
         if (!checkLevel(messageLevel)) {
@@ -225,7 +236,7 @@ var silog = function() {
                          'message': message,
                          'level': messageLevel,
                          'ts': time[1] };
-            if(object) {
+            if (object) {
                 extra['object'] = object;
             }
             for (var i = 0, len = this.loggers.length; i < len; i += 1) {
@@ -237,9 +248,11 @@ var silog = function() {
 
     /**
      * [ description]
-     * @param  {[type]} tag     [description].
-     * @param  {[type]} message [description].
-     * @this {[type]}.
+     * @param {[type]} tag     [description].
+     * @param {[type]} message [description].
+     * @param {[type]} object  [description].
+     * @this  {[type]}.
+     * @memberOf silog-Logger
      */
     Logger.prototype.wtf = function(tag, message, object) {
         this.log(LEVEL.ASSERT, tag, message, object);
@@ -247,9 +260,11 @@ var silog = function() {
 
     /**
      * [ description]
-     * @param  {[type]} tag     [description].
-     * @param  {[type]} message [description].
-     * @this {[type]}.
+     * @param {[type]} tag     [description].
+     * @param {[type]} message [description].
+     * @param {[type]} object  [description].
+     * @this  {[type]}.
+     * @memberOf silog-Logger
      */
     Logger.prototype.e = function(tag, message, object) {
         this.log(LEVEL.ERROR, tag, message, object);
@@ -257,9 +272,11 @@ var silog = function() {
 
     /**
      * [ description]
-     * @param  {[type]} tag     [description].
-     * @param  {[type]} message [description].
-     * @this {[type]}.
+     * @param {[type]} tag     [description].
+     * @param {[type]} message [description].
+     * @param {[type]} object  [description].
+     * @this  {[type]}.
+     * @memberOf silog-Logger
      */
     Logger.prototype.w = function(tag, message, object) {
         this.log(LEVEL.WARN, tag, message, object);
@@ -267,9 +284,11 @@ var silog = function() {
 
     /**
      * [ description]
-     * @param  {[type]} tag     [description].
-     * @param  {[type]} message [description].
-     * @this {[type]}.
+     * @param {[type]} tag     [description].
+     * @param {[type]} message [description].
+     * @param {[type]} object  [description].
+     * @this  {[type]}.
+     * @memberOf silog-Logger
      */
     Logger.prototype.i = function(tag, message, object) {
         this.log(LEVEL.INFO, tag, message, object);
@@ -277,9 +296,11 @@ var silog = function() {
 
     /**
      * [ description]
-     * @param  {[type]} tag     [description].
-     * @param  {[type]} message [description].
-     * @this {[type]}.
+     * @param {[type]} tag     [description].
+     * @param {[type]} message [description].
+     * @param {[type]} object  [description].
+     * @this  {[type]}.
+     * @memberOf silog-Logger
      */
     Logger.prototype.d = function(tag, message, object) {
         this.log(LEVEL.DEBUG, tag, message, object);
@@ -288,14 +309,15 @@ var silog = function() {
     return {
         level: LEVEL,
         tsFormat: DT_FORMAT,
-        Logger: Logger
+        Logger: Logger,
+        consoleLogger: consoleLogger
     };
 };
 
 
 if (typeof exports !== 'undefined') {
     // nodejs
-    exports.silog = silog;
+    exports.silog = silog();
 } else {
     // browser
     silog = silog();
