@@ -19,3 +19,4 @@ l.e(T, 'An error occured!', {'this' : 'is an extra test object'});
 l.w(T + '/19', 'Warning at line 19!');
 l.i(T, 'Hello World!');
 l.d(T, 'A debug message, will not be printed.');
+l.v(T, 'Way too talkative, shut up!');

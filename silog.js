@@ -1,7 +1,7 @@
 /**
 The MIT License (MIT) http://opensource.org/licenses/MIT
 
-Copyright (c) 2013 Adrian Tudor Panescu <adrian [at] panescu [dot] com>
+Copyright (c) 2013 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -35,10 +35,14 @@ THE SOFTWARE.
 var silog = function() {
 
     /**
-     * [LEVEL description]
+     * The logging levels used by silog; an order relation is established
+     * between them, with ASSERT (7) being the highest and VERBOSE (2) the
+     * lowest. If silog's level is set to X, any message with the level Y < X
+     * will not be logged.
      * @enum {Array.<number, string>}
      * @const
      * @memberOf silog
+     * @public
      */
     var LEVEL = {ASSERT: [7, 'ASSERT'],
                  ERROR: [6, 'ERROR'],
@@ -48,17 +52,18 @@ var silog = function() {
                  VERBOSE: [2, 'VERBOSE'] };
 
     /**
-     * [DT_FORMAT description]
+     * The date/ time format used in the logged messages.
      * @enum {number}
      * @const
      * @memberOf silog
+     * @public
      */
     var DT_FORMAT = {DATE_TIME: 0,
                      DATE: 1,
                      TIME: 2 };
 
     /**
-     * [LOCAL_TAG description]
+     * The tag used for logging internal messages.
      * @type {String}
      * @private
      * @const
@@ -66,25 +71,43 @@ var silog = function() {
     var LOCAL_TAG = 'silog';
 
     /**
-     * [checkLevel description]
-     * @param  {[type]} level [description].
-     * @return {[type]}       [description].
+     * Checks if the given parameter is a valid silog logging level i.e. is an
+     * array of size 2, with the first element a number and the second one a
+     * string. Moreover, if the second parameter evaluates to true, the
+     * existence of the array in silog.LEVEL will be checked.
+     * @param  {*}       level  the object to check.
+     * @param  {boolean} exists if true, the existence of the object in
+     *                          silog.LEVEL will be checked.
+     * @return {boolean}        true if the object is a valid logging level,
+     *                          false otherwise.
      * @private
      */
-    function checkLevel(level) {
+    function checkLevel(level, exists) {
         if (!Array.isArray(level) ||
+            level.length !== 2 ||
             typeof level[0] !== 'number' ||
             typeof level[1] !== 'string') {
-            // TODO: check if level exists in LEVEL
             return false;
         }
-        return true;
+        if (exists) {
+            for (var key in LEVEL) {
+                if (LEVEL.hasOwnProperty(key)) {
+                    if (LEVEL[key][0] === level[0] &&
+                       LEVEL[key][1] === level[1]) {
+                        return true;
+                    }
+                }
+            }
+            return false; // level not in silog.LEVEL
+        }
+        return true; // level valid, existence in silog.LEVEL unknown
     }
 
     /**
-     * [leadingZero description]
-     * @param  {[type]} n [description].
-     * @return {[type]}   [description].
+     * Adds a leading zero to numbers lower than 10 (e.g., 6 becomes 06, 11
+     * remains as is).
+     * @param  {number} n the number to process.
+     * @return {string}   the number with the leading zero added (if necessary).
      * @private
      */
     function leadingZero(n) {
@@ -92,9 +115,12 @@ var silog = function() {
     }
 
     /**
-     * [getFormattedTimestamp description]
-     * @param  {[type]} format [description].
-     * @return {[type]}        [description].
+     * Returns the current time along with a formatted string in the specified
+     * form (see silog.DT_FORMAT)
+     * @param  {Object.<string, number>} format the format in which the current
+     *                                   date/ time should be returned.
+     * @return {Array.<string, number>}  the formatted date/ time along with the
+     *                                   original timestamp.
      * @private
      */
     function getFormattedTimestamp(format) {
@@ -115,13 +141,21 @@ var silog = function() {
             return [[leadingZero(date.getHours()), ':',
                      leadingZero(date.getMinutes()), ':',
                      leadingZero(date.getSeconds())].join(''), date];
+        default:
+            // if the format is not in DT_FORMAT we use the datetime
+            return [[date.getFullYear(), '/',
+                    leadingZero(date.getMonth()), '/',
+                    leadingZero(date.getDate()), ' ',
+                    leadingZero(date.getHours()), ':',
+                    leadingZero(date.getMinutes()), ':',
+                    leadingZero(date.getSeconds())].join(''), date];
         }
     }
 
     /**
-     * [consoleLogger description]
-     * @param  {[type]} what  [description].
-     * @param  {[type]} extra [description].
+     * Simple logger that outputs the messages to stdout.
+     * @param  {string}             what  the message to log.
+     * @param  {Object.<string, *>} extra extra data sent by silog.log().
      */
     function consoleLogger(what, extra) {
         if (extra.hasOwnProperty('object')) {
@@ -160,7 +194,7 @@ var silog = function() {
         this.loggers = [consoleLogger];
 
         if (p.hasOwnProperty('level')) {
-            if (!checkLevel(p.level)) {
+            if (!checkLevel(p.level, true)) {
                 this.wtf(LOCAL_TAG, 'Invalid message level: ' + p.level);
                 return null;
             } else {
@@ -204,16 +238,19 @@ var silog = function() {
 
 
     /**
-     * [ description]
-     * @param {[type]} messageLevel [description].
-     * @param {[type]} tag          [description].
-     * @param {[type]} message      [description].
-     * @param {[type]} object       [description].
-     * @this  {[type]}.
+     * Send a given messages to the various loggers.
+     * @param {Array.<number, string>} messageLevel the message logging level.
+     * @param {string} tag             the tag of the message.
+     * @param {string} message         the message to log.
+     * @param {*} object               an extra message to log.
+     * @this {Object} the Logger instance.
+     * @public
      * @memberOf silog-Logger
      */
     Logger.prototype.log = function(messageLevel, tag, message, object) {
-        if (!checkLevel(messageLevel)) {
+        if (!checkLevel(messageLevel, false)) {
+            // we do not check if the level exists in silog.LEVEL as this can
+            // become too costly
             this.w(LOCAL_TAG, ['Invalid message level for: ',
                                 tag,
                                 ' - ',
@@ -232,26 +269,31 @@ var silog = function() {
                         tag,
                         ' - ',
                         message].join('');
+
+            // the extra information we send to the loggers
             var extra = {'tag': tag,
                          'message': message,
                          'level': messageLevel,
                          'ts': time[1] };
+
             if (object) {
                 extra['object'] = object;
             }
+
             for (var i = 0, len = this.loggers.length; i < len; i += 1) {
                 this.loggers[i](what, extra);
             }
-        }
+        } // end if (messageLevel[0] >= this.level[0])
     };
 
 
     /**
-     * [ description]
-     * @param {[type]} tag     [description].
-     * @param {[type]} message [description].
-     * @param {[type]} object  [description].
-     * @this  {[type]}.
+     * Logs a message with the silog.LEVEL.ASSERT level.
+     * @param {string} tag     the tag of the message.
+     * @param {string} message the message to log.
+     * @param {*} object       an extra message to log.
+     * @this {Object} the Logger instance.
+     * @public
      * @memberOf silog-Logger
      */
     Logger.prototype.wtf = function(tag, message, object) {
@@ -259,11 +301,12 @@ var silog = function() {
     };
 
     /**
-     * [ description]
-     * @param {[type]} tag     [description].
-     * @param {[type]} message [description].
-     * @param {[type]} object  [description].
-     * @this  {[type]}.
+     * Logs a message with the silog.LEVEL.ERROR level.
+     * @param {string} tag     the tag of the message.
+     * @param {string} message the message to log.
+     * @param {*} object       an extra message to log.
+     * @this {Object} the Logger instance.
+     * @public
      * @memberOf silog-Logger
      */
     Logger.prototype.e = function(tag, message, object) {
@@ -271,11 +314,12 @@ var silog = function() {
     };
 
     /**
-     * [ description]
-     * @param {[type]} tag     [description].
-     * @param {[type]} message [description].
-     * @param {[type]} object  [description].
-     * @this  {[type]}.
+     * Logs a message with the silog.LEVEL.WARN level.
+     * @param {string} tag     the tag of the message.
+     * @param {string} message the message to log.
+     * @param {*} object       an extra message to log.
+     * @this {Object} the Logger instance.
+     * @public
      * @memberOf silog-Logger
      */
     Logger.prototype.w = function(tag, message, object) {
@@ -283,11 +327,12 @@ var silog = function() {
     };
 
     /**
-     * [ description]
-     * @param {[type]} tag     [description].
-     * @param {[type]} message [description].
-     * @param {[type]} object  [description].
-     * @this  {[type]}.
+     * Logs a message with the silog.LEVEL.INFO level.
+     * @param {string} tag     the tag of the message.
+     * @param {string} message the message to log.
+     * @param {*} object       an extra message to log.
+     * @this {Object} the Logger instance.
+     * @public
      * @memberOf silog-Logger
      */
     Logger.prototype.i = function(tag, message, object) {
@@ -295,17 +340,33 @@ var silog = function() {
     };
 
     /**
-     * [ description]
-     * @param {[type]} tag     [description].
-     * @param {[type]} message [description].
-     * @param {[type]} object  [description].
-     * @this  {[type]}.
+     * Logs a message with the silog.LEVEL.DEBUG level.
+     * @param {string} tag     the tag of the message.
+     * @param {string} message the message to log.
+     * @param {*} object       an extra message to log.
+     * @this {Object} the Logger instance.
+     * @public
      * @memberOf silog-Logger
      */
     Logger.prototype.d = function(tag, message, object) {
         this.log(LEVEL.DEBUG, tag, message, object);
     };
 
+    /**
+     * Logs a message with the silog.LEVEL.VERBOSE level.
+     * @param {string} tag     the tag of the message.
+     * @param {string} message the message to log.
+     * @param {*} object       an extra message to log.
+     * @this {Object} the Logger instance.
+     * @public
+     * @memberOf silog-Logger
+     */
+    Logger.prototype.v = function(tag, message, object) {
+        this.log(LEVEL.VERBOSE, tag, message, object);
+    };
+
+
+    // export public members
     return {
         level: LEVEL,
         tsFormat: DT_FORMAT,
