@@ -265,7 +265,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont">silog-Logger.<b><a href="../symbols/silog-Logger.html#.Logger#d">Logger#d</a></b>(tag, message, object)
 								</div>
-								<div class="description">[ description]</div>
+								<div class="description">Logs a message with the silog.LEVEL.DEBUG level.</div>
 							</td>
 						</tr>
 					
@@ -274,7 +274,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont">silog-Logger.<b><a href="../symbols/silog-Logger.html#.Logger#e">Logger#e</a></b>(tag, message, object)
 								</div>
-								<div class="description">[ description]</div>
+								<div class="description">Logs a message with the silog.LEVEL.ERROR level.</div>
 							</td>
 						</tr>
 					
@@ -283,7 +283,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont">silog-Logger.<b><a href="../symbols/silog-Logger.html#.Logger#i">Logger#i</a></b>(tag, message, object)
 								</div>
-								<div class="description">[ description]</div>
+								<div class="description">Logs a message with the silog.LEVEL.INFO level.</div>
 							</td>
 						</tr>
 					
@@ -292,7 +292,16 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont">silog-Logger.<b><a href="../symbols/silog-Logger.html#.Logger#log">Logger#log</a></b>(messageLevel, tag, message, object)
 								</div>
-								<div class="description">[ description]</div>
+								<div class="description">Send a given messages to the various loggers.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">silog-Logger.<b><a href="../symbols/silog-Logger.html#.Logger#v">Logger#v</a></b>(tag, message, object)
+								</div>
+								<div class="description">Logs a message with the silog.LEVEL.VERBOSE level.</div>
 							</td>
 						</tr>
 					
@@ -301,7 +310,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont">silog-Logger.<b><a href="../symbols/silog-Logger.html#.Logger#w">Logger#w</a></b>(tag, message, object)
 								</div>
-								<div class="description">[ description]</div>
+								<div class="description">Logs a message with the silog.LEVEL.WARN level.</div>
 							</td>
 						</tr>
 					
@@ -310,7 +319,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont">silog-Logger.<b><a href="../symbols/silog-Logger.html#.Logger#wtf">Logger#wtf</a></b>(tag, message, object)
 								</div>
-								<div class="description">[ description]</div>
+								<div class="description">Logs a message with the silog.LEVEL.ASSERT level.</div>
 							</td>
 						</tr>
 					
@@ -402,7 +411,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						[ description]
+						Logs a message with the silog.LEVEL.DEBUG level.
 						
 						
 					</div>
@@ -414,22 +423,22 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>tag</b>
+									<span class="light fixedFont">{string}</span> <b>tag</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the tag of the message.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>message</b>
+									<span class="light fixedFont">{string}</span> <b>message</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the message to log.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>object</b>
+									<span class="light fixedFont">{*}</span> <b>object</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>an extra message to log.</dd>
 							
 							</dl>
 						
@@ -450,7 +459,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						[ description]
+						Logs a message with the silog.LEVEL.ERROR level.
 						
 						
 					</div>
@@ -462,22 +471,22 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>tag</b>
+									<span class="light fixedFont">{string}</span> <b>tag</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the tag of the message.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>message</b>
+									<span class="light fixedFont">{string}</span> <b>message</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the message to log.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>object</b>
+									<span class="light fixedFont">{*}</span> <b>object</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>an extra message to log.</dd>
 							
 							</dl>
 						
@@ -498,7 +507,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						[ description]
+						Logs a message with the silog.LEVEL.INFO level.
 						
 						
 					</div>
@@ -510,22 +519,22 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>tag</b>
+									<span class="light fixedFont">{string}</span> <b>tag</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the tag of the message.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>message</b>
+									<span class="light fixedFont">{string}</span> <b>message</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the message to log.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>object</b>
+									<span class="light fixedFont">{*}</span> <b>object</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>an extra message to log.</dd>
 							
 							</dl>
 						
@@ -546,7 +555,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						[ description]
+						Send a given messages to the various loggers.
 						
 						
 					</div>
@@ -558,28 +567,76 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>messageLevel</b>
+									<span class="light fixedFont">{Array.<number|string>}</span> <b>messageLevel</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the message logging level.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>tag</b>
+									<span class="light fixedFont">{string}</span> <b>tag</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the tag of the message.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>message</b>
+									<span class="light fixedFont">{string}</span> <b>message</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the message to log.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>object</b>
+									<span class="light fixedFont">{*}</span> <b>object</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>an extra message to log.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".Logger#v"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">silog-Logger.</span><b>Logger#v</b>(tag, message, object)
+					
+					</div>
+					<div class="description">
+						Logs a message with the silog.LEVEL.VERBOSE level.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>tag</b>
+									
+								</dt>
+								<dd>the tag of the message.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>message</b>
+									
+								</dt>
+								<dd>the message to log.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{*}</span> <b>object</b>
+									
+								</dt>
+								<dd>an extra message to log.</dd>
 							
 							</dl>
 						
@@ -600,7 +657,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						[ description]
+						Logs a message with the silog.LEVEL.WARN level.
 						
 						
 					</div>
@@ -612,22 +669,22 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>tag</b>
+									<span class="light fixedFont">{string}</span> <b>tag</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the tag of the message.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>message</b>
+									<span class="light fixedFont">{string}</span> <b>message</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the message to log.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>object</b>
+									<span class="light fixedFont">{*}</span> <b>object</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>an extra message to log.</dd>
 							
 							</dl>
 						
@@ -648,7 +705,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						[ description]
+						Logs a message with the silog.LEVEL.ASSERT level.
 						
 						
 					</div>
@@ -660,22 +717,22 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>tag</b>
+									<span class="light fixedFont">{string}</span> <b>tag</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the tag of the message.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>message</b>
+									<span class="light fixedFont">{string}</span> <b>message</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>the message to log.</dd>
 							
 								<dt>
-									<span class="light fixedFont">{[type]}</span> <b>object</b>
+									<span class="light fixedFont">{*}</span> <b>object</b>
 									
 								</dt>
-								<dd>[description].</dd>
+								<dd>an extra message to log.</dd>
 							
 							</dl>
 						
@@ -700,7 +757,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Tue Aug 27 2013 18:09:06 GMT+0300 (EEST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Sep 16 2013 11:07:58 GMT+0300 (EEST)
 		</div>
 	</body>
 </html>
