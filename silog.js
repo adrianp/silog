@@ -132,15 +132,15 @@ var silog = function() {
                     leadingZero(date.getDate()), ' ',
                     leadingZero(date.getHours()), ':',
                     leadingZero(date.getMinutes()), ':',
-                    leadingZero(date.getSeconds())].join(''), date];
+                    leadingZero(date.getSeconds())].join(''), date.getTime()];
         case DT_FORMAT.DATE:
             return [[date.getFullYear(), '/',
                      leadingZero(date.getMonth()), '/',
-                     leadingZero(date.getDate())].join(''), date];
+                     leadingZero(date.getDate())].join(''), date.getTime()];
         case DT_FORMAT.TIME:
             return [[leadingZero(date.getHours()), ':',
                      leadingZero(date.getMinutes()), ':',
-                     leadingZero(date.getSeconds())].join(''), date];
+                     leadingZero(date.getSeconds())].join(''), date.getTime()];
         default:
             // if the format is not in DT_FORMAT we use the datetime
             return [[date.getFullYear(), '/',
@@ -148,7 +148,7 @@ var silog = function() {
                     leadingZero(date.getDate()), ' ',
                     leadingZero(date.getHours()), ':',
                     leadingZero(date.getMinutes()), ':',
-                    leadingZero(date.getSeconds())].join(''), date];
+                    leadingZero(date.getSeconds())].join(''), date.getTime()];
         }
     }
 
@@ -158,8 +158,9 @@ var silog = function() {
      * @param  {Object.<string, *>} extra extra data sent by silog.log().
      */
     function consoleLogger(what, extra) {
+        console.log(extra)
         if (extra.hasOwnProperty('object')) {
-            what += ' - ' + JSON.stringify(extra['object']);
+            what += ' - ' + JSON.stringify(extra.object);
         }
         console.log(what);
     }
@@ -220,7 +221,7 @@ var silog = function() {
 
         if (p.hasOwnProperty('loggers')) {
             if (Array.isArray(p.loggers)) {
-                for (var i = 0, len = p.loggers.length; i < len; i++) {
+                for (var i = 0, len = p.loggers.length; i < len; i += 1) {
                     if (typeof p.loggers[i] !== 'function') {
                         this.wtf(LOCAL_TAG,
                            'Invalid loggers: should be an array of functions');
@@ -249,8 +250,8 @@ var silog = function() {
      */
     Logger.prototype.log = function(messageLevel, tag, message, object) {
         if (!checkLevel(messageLevel, false)) {
-            // we do not check if the level exists in silog.LEVEL as this can
-            // become too costly
+            // we do not check if the level actually exists in silog.LEVEL as
+            // this can become too costly
             this.w(LOCAL_TAG, ['Invalid message level for: ',
                                 tag,
                                 ' - ',
@@ -277,7 +278,7 @@ var silog = function() {
                          'ts': time[1] };
 
             if (object) {
-                extra['object'] = object;
+                extra.object = object;
             }
 
             for (var i = 0, len = this.loggers.length; i < len; i += 1) {
