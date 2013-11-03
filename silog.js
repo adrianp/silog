@@ -158,11 +158,33 @@ var silog = function() {
      * @param  {Object.<string, *>} extra extra data sent by silog.log().
      */
     function consoleLogger(what, extra) {
-        console.log(extra)
         if (extra.hasOwnProperty('object')) {
             what += ' - ' + JSON.stringify(extra.object);
         }
-        console.log(what);
+        if (extra.hasOwnProperty('level')) {
+            switch (extra.level[0]) {
+            case 7:
+            case 6:
+                console.error(what);
+                break;
+            case 5:
+                console.warn(what);
+                break;
+            case 4:
+                console.info(what);
+                break;
+            case 3:
+                console.log(what);
+                break;
+            case 2:
+                console.trace(what);
+                break;
+            default:
+                console.log(what);
+                break;
+            }
+            return;
+        }
     }
 
     /**
