@@ -4,7 +4,7 @@
   "version": "3.0.0",
   "author": "Adrian Tudor Panescu <adrian@panescu.com>",
   "description": "A very simple Node.js logging utility, useful especially during development",
-  "main": "./silog.js",
+  "main": "./src/silog.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/adrianp/silog.git"
