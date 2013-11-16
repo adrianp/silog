@@ -3,9 +3,12 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-jsonlint');
+
     grunt.initConfig({
         jshint: {
-            src: ['Gruntfile.js', 'src/silog.js', 'demo/demo.js', 'test/test.js'],
+            all: ['src/*.js', 'src/**/*.js', 'Gruntfile.js'],
             options: {
                 'bitwise': true,
                 'camelcase': true,
@@ -53,7 +56,7 @@ module.exports = function(grunt) {
                 'couch': false,
                 'devel': false,
                 'dojo': false,
-                'jquery': true,
+                'jquery': false,
                 'mootools': false,
                 'node': true,
                 'nonstandard': false,
@@ -67,17 +70,14 @@ module.exports = function(grunt) {
             }
         },  // end jshint task
 
-        mocha: {
-            all: ['test/index.html'],
-            run: true
-        },  // end mocha task
-
+        jsonlint: {
+            all: {
+                src: [ 'package.json' ]
+            }
+        },  // end jsonlint task
     });
 
-    // Load JSHint task
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-mocha');
-
     // Default task.
-    grunt.registerTask('default', ['jshint', 'mocha']);
+    grunt.registerTask('default', ['jshint',
+                                   'jsonlint']);
 };
