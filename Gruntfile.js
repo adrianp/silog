@@ -5,6 +5,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jsonlint');
+    grunt.loadNpmTasks('grunt-simple-mocha');
 
     grunt.initConfig({
         jshint: {
@@ -68,16 +69,36 @@ module.exports = function(grunt) {
                 'yui': false,
                 'white': false
             }
-        },  // end jshint task
+        },  // end JSHint task
 
         jsonlint: {
             all: {
                 src: [ 'package.json' ]
             }
-        },  // end jsonlint task
+        },  // end JSONLint task
+
+        simplemocha: {
+            all: { src: ['src/test/*_test.js'] },
+            options: {
+                globals: ['should'],
+                timeout: 3000,
+                ignoreLeaks: false,
+                ui: 'bdd',
+                reporter: 'tap'
+            }
+        },  // end Mocha task
     });
 
-    // Default task.
+    grunt.registerTask('lint', ['jshint',
+                                'jsonlint']);
+
+    grunt.registerTask('test', ['simplemocha']);
+
+    grunt.registerTask('travis', ['jshint',
+                                  'jsonlint',
+                                  'simplemocha']);
+
     grunt.registerTask('default', ['jshint',
-                                   'jsonlint']);
+                                   'jsonlint',
+                                   'simplemocha']);
 };
