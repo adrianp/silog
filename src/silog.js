@@ -183,8 +183,9 @@ var silog = function() {
                 console.log(what);
                 break;
             }
-            return;
+            return true;
         }
+        return false;
     }
 
     /**

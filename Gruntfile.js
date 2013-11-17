@@ -3,10 +3,13 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
+    // Task loading:
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jsonlint');
     grunt.loadNpmTasks('grunt-simple-mocha');
+    grunt.loadNpmTasks('grunt-execute');
 
+    // Task description:
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         jshint: {
@@ -85,21 +88,31 @@ module.exports = function(grunt) {
                 timeout: 3000,
                 ignoreLeaks: false,
                 ui: 'bdd',
-                reporter: 'tap'
+                reporter: 'spec'
             }
         },  // end Mocha task
+
+        execute: {
+            target: {
+                src: ['src/demo/demo.js']
+            }
+        },  // end script running task
     });
 
+    // Task registration:
     grunt.registerTask('lint', ['jshint',
                                 'jsonlint']);
 
-    grunt.registerTask('test', ['simplemocha']);
+    grunt.registerTask('test', ['simplemocha',
+                                'execute']);
 
     grunt.registerTask('travis', ['jshint',
                                   'jsonlint',
-                                  'simplemocha']);
+                                  'simplemocha',
+                                  'execute']);
 
     grunt.registerTask('default', ['jshint',
                                    'jsonlint',
-                                   'simplemocha']);
-};
+                                   'simplemocha',
+                                   'execute']);
+};  // done.
