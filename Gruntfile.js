@@ -8,6 +8,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jsonlint');
     grunt.loadNpmTasks('grunt-simple-mocha');
     grunt.loadNpmTasks('grunt-execute');
+    grunt.loadNpmTasks('grunt-contrib-yuidoc');
 
     // Task description:
     grunt.initConfig({
@@ -97,6 +98,19 @@ module.exports = function(grunt) {
                 src: ['src/demo/demo.js']
             }
         },  // end script running task
+
+        yuidoc: {
+            all: {
+                name: '<%= pkg.name %>',
+                description: '<%= pkg.description %>',
+                version: '<%= pkg.version %>',
+                url: '<%= pkg.homepage %>',
+                options: {
+                    paths: ['./src/'],
+                    outdir: './docs/'
+                }
+            }
+        }
     });
 
     // Task registration:
@@ -106,6 +120,8 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['simplemocha',
                                 'execute']);
 
+    grunt.registerTask('docs', ['yuidoc']);
+
     grunt.registerTask('travis', ['jshint',
                                   'jsonlint',
                                   'simplemocha',
@@ -114,5 +130,6 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint',
                                    'jsonlint',
                                    'simplemocha',
-                                   'execute']);
+                                   'execute',
+                                   'yuidoc']);
 };  // done.
