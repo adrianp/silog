@@ -15,6 +15,7 @@
                 "Logger": 1
             },
             "fors": {
+                "silog": 1,
                 "Logger": 1
             },
             "namespaces": {}
@@ -25,19 +26,32 @@
             "name": "silog",
             "submodules": {},
             "classes": {
+                "silog": 1,
                 "Logger": 1
             },
             "fors": {
+                "silog": 1,
                 "Logger": 1
             },
             "namespaces": {},
             "tag": "module",
             "file": "src/silog.js",
-            "line": 190,
+            "line": 208,
             "description": "Revealing module for silog; exposes the required public members."
         }
     },
     "classes": {
+        "silog": {
+            "name": "silog",
+            "shortname": "silog",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "silog",
+            "namespace": ""
+        },
         "Logger": {
             "name": "Logger",
             "shortname": "Logger",
@@ -49,21 +63,20 @@
             "module": "silog",
             "namespace": "",
             "file": "src/silog.js",
-            "line": 190,
+            "line": 208,
             "description": "Constructor of the main class responsible for the logging logic.",
             "is_constructor": 1,
             "params": [
                 {
                     "name": "p",
-                    "description": "configuration parameters, as follows (if not specified\n                  by user, defaults will be used):\n                  level: one of the elements of silog().LEVEL; only\n                         messages above it will be logged; default =\n                         LEVEL.INFO\n                  tsFormat: one of the elements of silog().DT_FORMAT;\n                            specifies how the date and time should be\n                            logged; default = DT_FORMAT.DATE_TIME\n                  loggers: array of functions that should be used for\n                           writing the logged messages to output; the\n                           signature of these function should be\n                           function write(message)\n                           where message is the message to be written; by\n                           default, console.log is used.",
+                    "description": "configuration parameters, as follows (if not specified\n                  by the user, defaults will be used):\n                  * level: one of the elements of silog().LEVEL; only\n                  messages above it will be logged; default = LEVEL.INFO\n                  * tsFormat: one of the elements of silog().DT_FORMAT;\n                  specifies how the date and time should be logged;\n                  default = DT_FORMAT.DATE_TIME\n                  * loggers: array of functions that should be used for\n                  writing the logged messages to output; the signature of\n                  these functions should be\n                  \"function write(message, extra)\" where message is the\n                  message to be written and extra an Object with extra\n                  information; by default, a standard output logger is\n                  used",
                     "type": "Object"
                 }
             ],
             "return": {
                 "description": "an instance of the Logger if the instantiation was\n                  successful, null otherwise.",
-                "type": "?Object"
-            },
-            "this": "{Object} the Logger instance."
+                "type": "Object"
+            }
         }
     },
     "classitems": [
@@ -71,62 +84,60 @@
             "file": "src/silog.js",
             "line": 1,
             "description": "The MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2013 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
-            "class": "Logger"
+            "class": "silog"
         },
         {
             "file": "src/silog.js",
             "line": 36,
             "description": "The logging levels used by silog; an order relation is established\nbetween them, with ASSERT (7) being the highest and VERBOSE (2) the\nlowest. If silog's level is set to X, any message with the level Y < X\nwill not be logged.",
-            "enum": "{Array.<number, string>}",
-            "itemtype": "property",
-            "name": "",
-            "final": "",
-            "memberof": "silog",
-            "access": "public",
-            "tagname": "",
-            "class": "Logger",
+            "itemtype": "attribute",
+            "name": "LEVEL",
+            "type": "Array",
+            "final": 1,
+            "class": "silog",
             "module": "silog"
         },
         {
             "file": "src/silog.js",
-            "line": 53,
+            "line": 54,
             "description": "The date/ time format used in the logged messages.",
-            "enum": "{number}",
-            "itemtype": "property",
-            "name": "",
-            "final": "",
-            "memberof": "silog",
-            "access": "public",
-            "tagname": "",
-            "class": "Logger",
+            "itemtype": "attribute",
+            "name": "DT_FORMAT",
+            "type": "Object",
+            "final": 1,
+            "class": "silog",
             "module": "silog"
         },
         {
             "file": "src/silog.js",
-            "line": 64,
+            "line": 66,
             "description": "The tag used for logging internal messages.",
-            "type": "{String}",
+            "itemtype": "attribute",
+            "name": "LOCAL_TAG",
+            "type": "String",
             "access": "private",
             "tagname": "",
-            "itemtype": "property",
-            "name": "",
-            "final": "",
-            "class": "Logger",
+            "final": 1,
+            "class": "silog",
             "module": "silog"
         },
         {
             "file": "src/silog.js",
-            "line": 72,
+            "line": 77,
             "description": "Checks if the given parameter is a valid silog logging level i.e. is an\narray of size 2, with the first element a number and the second one a\nstring. Moreover, if the second parameter evaluates to true, the\nexistence of the array in silog.LEVEL will be checked.",
+            "itemtype": "method",
+            "name": "checkLevel",
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
                     "name": "level",
                     "description": "the object to check.",
-                    "type": "*"
+                    "type": "Array"
                 },
                 {
                     "name": "exists",
-                    "description": "if true, the existence of the object in\n                         silog.LEVEL will be checked.",
+                    "description": "if true, the existence of the object in\n                               silog.LEVEL will be checked.",
                     "type": "Boolean"
                 }
             ],
@@ -134,15 +145,17 @@
                 "description": "true if the object is a valid logging level,\n                         false otherwise.",
                 "type": "Boolean"
             },
-            "access": "private",
-            "tagname": "",
-            "class": "Logger",
+            "class": "silog",
             "module": "silog"
         },
         {
             "file": "src/silog.js",
-            "line": 105,
+            "line": 113,
             "description": "Adds a leading zero to numbers lower than 10 (e.g., 6 becomes 06, 11\nremains as is).",
+            "itemtype": "method",
+            "name": "leadingZero",
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
                     "name": "n",
@@ -154,35 +167,39 @@
                 "description": "the number with the leading zero added (if necessary).",
                 "type": "String"
             },
-            "access": "private",
-            "tagname": "",
-            "class": "Logger",
+            "class": "silog",
             "module": "silog"
         },
         {
             "file": "src/silog.js",
-            "line": 116,
+            "line": 127,
             "description": "Returns the current time along with a formatted string in the specified\nform (see silog.DT_FORMAT)",
+            "itemtype": "method",
+            "name": "getFormattedTimestamp",
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
                     "name": "format",
-                    "description": "the format in which the current\n                                  date/ time should be returned.",
-                    "type": "Object.<string, number>"
+                    "description": "the format in which the current date/ time should\n                        be returned.",
+                    "type": "Object"
                 }
             ],
             "return": {
-                "description": "the formatted date/ time along with the\n                                  original timestamp.",
-                "type": "Array.<string, number>"
+                "description": "the formatted date/ time along with the original\n                        timestamp.",
+                "type": "Array"
             },
-            "access": "private",
-            "tagname": "",
-            "class": "Logger",
+            "class": "silog",
             "module": "silog"
         },
         {
             "file": "src/silog.js",
-            "line": 154,
-            "description": "Simple logger that outputs the messages to stdout.",
+            "line": 168,
+            "description": "Simple logger that outputs the messages to the standard output.",
+            "itemtype": "method",
+            "name": "consoleLogger",
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
                     "name": "what",
@@ -191,22 +208,24 @@
                 },
                 {
                     "name": "extra",
-                    "description": "extra data sent by silog.log().",
-                    "type": "Object.<string, *>"
+                    "description": "extra data sent to log",
+                    "type": "Object"
                 }
             ],
-            "class": "Logger",
+            "class": "silog",
             "module": "silog"
         },
         {
             "file": "src/silog.js",
-            "line": 265,
+            "line": 281,
             "description": "Send a given messages to the various loggers.",
+            "itemtype": "method",
+            "name": "log",
             "params": [
                 {
                     "name": "messageLevel",
                     "description": "the message logging level.",
-                    "type": "Array.<number, string>"
+                    "type": "Array"
                 },
                 {
                     "name": "tag",
@@ -221,18 +240,15 @@
                 {
                     "name": "object",
                     "description": "an extra message to log.",
-                    "type": "*"
+                    "type": "Any"
                 }
             ],
-            "this": "{Object} the Logger instance.",
-            "itemtype": "method",
-            "name": "log",
             "class": "Logger",
             "module": "silog"
         },
         {
             "file": "src/silog.js",
-            "line": 315,
+            "line": 332,
             "description": "Logs a message with the silog.LEVEL.ASSERT level.",
             "params": [
                 {
@@ -260,7 +276,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 328,
+            "line": 345,
             "description": "Logs a message with the silog.LEVEL.ERROR level.",
             "params": [
                 {
@@ -288,7 +304,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 341,
+            "line": 358,
             "description": "Logs a message with the silog.LEVEL.WARN level.",
             "params": [
                 {
@@ -316,7 +332,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 354,
+            "line": 371,
             "description": "Logs a message with the silog.LEVEL.INFO level.",
             "params": [
                 {
@@ -344,7 +360,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 367,
+            "line": 384,
             "description": "Logs a message with the silog.LEVEL.DEBUG level.",
             "params": [
                 {
@@ -372,7 +388,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 380,
+            "line": 397,
             "description": "Logs a message with the silog.LEVEL.VERBOSE level.",
             "params": [
                 {
@@ -401,120 +417,80 @@
     ],
     "warnings": [
         {
-            "message": "unknown tag: enum",
-            "line": " src/silog.js:36"
+            "message": "unknown tag: this",
+            "line": " src/silog.js:332"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:36"
+            "line": " src/silog.js:332"
         },
         {
-            "message": "unknown tag: enum",
-            "line": " src/silog.js:53"
+            "message": "unknown tag: this",
+            "line": " src/silog.js:345"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:53"
+            "line": " src/silog.js:345"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:190"
-        },
-        {
-            "message": "unknown tag: this",
-            "line": " src/silog.js:265"
-        },
-        {
-            "message": "unknown tag: this",
-            "line": " src/silog.js:315"
+            "line": " src/silog.js:358"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:315"
+            "line": " src/silog.js:358"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:328"
+            "line": " src/silog.js:371"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:328"
+            "line": " src/silog.js:371"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:341"
+            "line": " src/silog.js:384"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:341"
+            "line": " src/silog.js:384"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:354"
+            "line": " src/silog.js:397"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:354"
-        },
-        {
-            "message": "unknown tag: this",
-            "line": " src/silog.js:367"
-        },
-        {
-            "message": "unknown tag: memberof",
-            "line": " src/silog.js:367"
-        },
-        {
-            "message": "unknown tag: this",
-            "line": " src/silog.js:380"
-        },
-        {
-            "message": "unknown tag: memberof",
-            "line": " src/silog.js:380"
+            "line": " src/silog.js:397"
         },
         {
             "message": "Missing item type\nThe MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2013 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
             "line": " src/silog.js:1"
         },
         {
-            "message": "Missing item type\nChecks if the given parameter is a valid silog logging level i.e. is an\narray of size 2, with the first element a number and the second one a\nstring. Moreover, if the second parameter evaluates to true, the\nexistence of the array in silog.LEVEL will be checked.",
-            "line": " src/silog.js:72"
-        },
-        {
-            "message": "Missing item type\nAdds a leading zero to numbers lower than 10 (e.g., 6 becomes 06, 11\nremains as is).",
-            "line": " src/silog.js:105"
-        },
-        {
-            "message": "Missing item type\nReturns the current time along with a formatted string in the specified\nform (see silog.DT_FORMAT)",
-            "line": " src/silog.js:116"
-        },
-        {
-            "message": "Missing item type\nSimple logger that outputs the messages to stdout.",
-            "line": " src/silog.js:154"
-        },
-        {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.ASSERT level.",
-            "line": " src/silog.js:315"
+            "line": " src/silog.js:332"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.ERROR level.",
-            "line": " src/silog.js:328"
+            "line": " src/silog.js:345"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.WARN level.",
-            "line": " src/silog.js:341"
+            "line": " src/silog.js:358"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.INFO level.",
-            "line": " src/silog.js:354"
+            "line": " src/silog.js:371"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.DEBUG level.",
-            "line": " src/silog.js:367"
+            "line": " src/silog.js:384"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.VERBOSE level.",
-            "line": " src/silog.js:380"
+            "line": " src/silog.js:397"
         }
     ]
 }

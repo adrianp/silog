@@ -38,10 +38,11 @@ var silog = function() {
      * between them, with ASSERT (7) being the highest and VERBOSE (2) the
      * lowest. If silog's level is set to X, any message with the level Y < X
      * will not be logged.
-     * @enum {Array.<number, string>}
-     * @const
-     * @memberOf silog
-     * @public
+     *
+     * @attribute LEVEL
+     * @type Array
+     * @final
+     * @for silog
      */
     var LEVEL = {ASSERT: [7, 'ASSERT'],
                  ERROR: [6, 'ERROR'],
@@ -52,10 +53,11 @@ var silog = function() {
 
     /**
      * The date/ time format used in the logged messages.
-     * @enum {number}
-     * @const
-     * @memberOf silog
-     * @public
+     *
+     * @attribute DT_FORMAT
+     * @type Object
+     * @final
+     * @for silog
      */
     var DT_FORMAT = {DATE_TIME: 0,
                      DATE: 1,
@@ -63,9 +65,12 @@ var silog = function() {
 
     /**
      * The tag used for logging internal messages.
-     * @type {String}
+     *
+     * @attribute LOCAL_TAG
+     * @type String
      * @private
-     * @const
+     * @final
+     * @for silog
      */
     var LOCAL_TAG = 'silog';
 
@@ -74,12 +79,15 @@ var silog = function() {
      * array of size 2, with the first element a number and the second one a
      * string. Moreover, if the second parameter evaluates to true, the
      * existence of the array in silog.LEVEL will be checked.
-     * @param  {*}       level  the object to check.
+     *
+     * @method checkLevel
+     * @for silog
+     * @private
+     * @param  {Array}   level  the object to check.
      * @param  {boolean} exists if true, the existence of the object in
-     *                          silog.LEVEL will be checked.
+                                silog.LEVEL will be checked.
      * @return {boolean}        true if the object is a valid logging level,
      *                          false otherwise.
-     * @private
      */
     function checkLevel(level, exists) {
         if (!Array.isArray(level) ||
@@ -105,9 +113,12 @@ var silog = function() {
     /**
      * Adds a leading zero to numbers lower than 10 (e.g., 6 becomes 06, 11
      * remains as is).
-     * @param  {number} n the number to process.
-     * @return {string}   the number with the leading zero added (if necessary).
+     *
+     * @method leadingZero
+     * @for silog
      * @private
+     * @param  {Number} n the number to process.
+     * @return {String}   the number with the leading zero added (if necessary).
      */
     function leadingZero(n) {
         return (n < 10 ? '0' : '') + n;
@@ -116,11 +127,14 @@ var silog = function() {
     /**
      * Returns the current time along with a formatted string in the specified
      * form (see silog.DT_FORMAT)
-     * @param  {Object.<string, number>} format the format in which the current
-     *                                   date/ time should be returned.
-     * @return {Array.<string, number>}  the formatted date/ time along with the
-     *                                   original timestamp.
+     *
+     * @method getFormattedTimestamp
+     * @for silog
      * @private
+     * @param  {Object} format the format in which the current date/ time should
+     *                         be returned.
+     * @return {Array}         the formatted date/ time along with the original
+     *                         timestamp.
      */
     function getFormattedTimestamp(format) {
         var date = new Date();
@@ -152,9 +166,13 @@ var silog = function() {
     }
 
     /**
-     * Simple logger that outputs the messages to stdout.
-     * @param  {string}             what  the message to log.
-     * @param  {Object.<string, *>} extra extra data sent by silog.log().
+     * Simple logger that outputs the messages to the standard output.
+     *
+     * @method consoleLogger
+     * @for silog
+     * @private
+     * @param {String} what  the message to log.
+     * @param {Object} extra extra data sent to log
      */
     function consoleLogger(what, extra) {
         if (extra.hasOwnProperty('object')) {
@@ -193,23 +211,21 @@ var silog = function() {
      * @class Logger
      * @constructor
      * @param {Object} p configuration parameters, as follows (if not specified
-     *                   by user, defaults will be used):
-     *                   level: one of the elements of silog().LEVEL; only
-     *                          messages above it will be logged; default =
-     *                          LEVEL.INFO
-     *                   tsFormat: one of the elements of silog().DT_FORMAT;
-     *                             specifies how the date and time should be
-     *                             logged; default = DT_FORMAT.DATE_TIME
-     *                   loggers: array of functions that should be used for
-     *                            writing the logged messages to output; the
-     *                            signature of these function should be
-     *                            function write(message)
-     *                            where message is the message to be written; by
-     *                            default, console.log is used.
-     * @return {?Object} an instance of the Logger if the instantiation was
+     *                   by the user, defaults will be used):
+     *                   * level: one of the elements of silog().LEVEL; only
+     *                   messages above it will be logged; default = LEVEL.INFO
+     *                   * tsFormat: one of the elements of silog().DT_FORMAT;
+     *                   specifies how the date and time should be logged;
+     *                   default = DT_FORMAT.DATE_TIME
+     *                   * loggers: array of functions that should be used for
+     *                   writing the logged messages to output; the signature of
+     *                   these functions should be
+     *                   "function write(message, extra)" where message is the
+     *                   message to be written and extra an Object with extra
+     *                   information; by default, a standard output logger is
+     *                   used
+     * @return {Object}  an instance of the Logger if the instantiation was
      *                   successful, null otherwise.
-     * @this {Object} the Logger instance.
-     * @constructor
      */
     function Logger(p) {
 
@@ -264,13 +280,14 @@ var silog = function() {
 
     /**
      * Send a given messages to the various loggers.
-     * @param {Array.<number, string>} messageLevel the message logging level.
-     * @param {string} tag             the tag of the message.
-     * @param {string} message         the message to log.
-     * @param {*} object               an extra message to log.
-     * @this {Object} the Logger instance.
+     *
      * @method log
      * @for Logger
+     *
+     * @param {Array}  messageLevel the message logging level.
+     * @param {String} tag          the tag of the message.
+     * @param {String} message      the message to log.
+     * @param {any}    object       an extra message to log.
      */
     Logger.prototype.log = function(messageLevel, tag, message, object) {
         if (!checkLevel(messageLevel, false)) {

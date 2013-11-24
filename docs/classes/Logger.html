@@ -43,6 +43,8 @@
             
                 <li><a href="../classes/Logger.html">Logger</a></li>
             
+                <li><a href="../classes/silog.html">silog</a></li>
+            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -92,7 +94,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_silog.js.html#l190"><code>src&#x2F;silog.js:190</code></a>
+            Defined in: <a href="../files/src_silog.js.html#l208"><code>src&#x2F;silog.js:208</code></a>
         </div>
     
 
@@ -134,7 +136,7 @@
 
     
         <span class="returns-inline">
-            <span class="type">?Object</span>
+            <span class="type">Object</span>
         </span>
     
 
@@ -161,7 +163,7 @@
             
         
         
-        <a href="../files/src_silog.js.html#l190"><code>src&#x2F;silog.js:190</code></a>
+        <a href="../files/src_silog.js.html#l208"><code>src&#x2F;silog.js:208</code></a>
         
         </p>
 
@@ -191,19 +193,19 @@
 
                     <div class="param-description">
                         <p>configuration parameters, as follows (if not specified
-                  by user, defaults will be used):
-                  level: one of the elements of silog().LEVEL; only
-                         messages above it will be logged; default =
-                         LEVEL.INFO
-                  tsFormat: one of the elements of silog().DT_FORMAT;
-                            specifies how the date and time should be
-                            logged; default = DT_FORMAT.DATE_TIME
-                  loggers: array of functions that should be used for
-                           writing the logged messages to output; the
-                           signature of these function should be
-                           function write(message)
-                           where message is the message to be written; by
-                           default, console.log is used.</p>
+                  by the user, defaults will be used):</p>
+<pre><code>              * level: one of the elements of silog().LEVEL; only
+              messages above it will be logged; default = LEVEL.INFO
+              * tsFormat: one of the elements of silog().DT_FORMAT;
+              specifies how the date and time should be logged;
+              default = DT_FORMAT.DATE_TIME
+              * loggers: array of functions that should be used for
+              writing the logged messages to output; the signature of
+              these functions should be
+              &quot;function write(message, extra)&quot; where message is the
+              message to be written and extra an Object with extra
+              information; by default, a standard output logger is
+              used</code></pre>
 
                     </div>
 
@@ -221,7 +223,7 @@
             <div class="returns-description">
                 
                     
-                        <span class="type">?Object</span>:
+                        <span class="type">Object</span>:
                     
                     <p>an instance of the Logger if the instantiation was
                   successful, null otherwise.</p>
@@ -244,8 +246,6 @@
         
             <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
         
-        
-            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
         
         
         
@@ -272,35 +272,6 @@
                 </div>
             
 
-            
-                <div class="index-section properties">
-                    <h3>Properties</h3>
-
-                    <ul class="index-list properties">
-                        
-                            <li class="index-item property public">
-                                <a href="#property_"></a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_"></a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property_"></a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
             
 
             
@@ -373,7 +344,7 @@
             
         
         
-        <a href="../files/src_silog.js.html#l265"><code>src&#x2F;silog.js:265</code></a>
+        <a href="../files/src_silog.js.html#l281"><code>src&#x2F;silog.js:281</code></a>
         
         </p>
 
@@ -397,7 +368,7 @@
                 <li class="param">
                     
                         <code class="param-name">messageLevel</code>
-                        <span class="type">Array.<number, string></span>
+                        <span class="type">Array</span>
                     
 
                     
@@ -445,7 +416,7 @@
                 <li class="param">
                     
                         <code class="param-name">object</code>
-                        <span class="type"></span>
+                        <span class="type">Any</span>
                     
 
                     
@@ -471,162 +442,6 @@
             </div>
         
 
-        
-            <div id="properties" class="api-class-tabpanel">
-                <h2 class="off-left">Properties</h2>
-
-                
-                    <div id="property_" class="property item public">
-    <h3 class="name"><code></code></h3>
-    <span class="type">Unknown</span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-        <span class="flag final">final</span>
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_silog.js.html#l36"><code>src&#x2F;silog.js:36</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The logging levels used by silog; an order relation is established
-between them, with ASSERT (7) being the highest and VERBOSE (2) the
-lowest. If silog&#39;s level is set to X, any message with the level Y &lt; X
-will not be logged.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_" class="property item public">
-    <h3 class="name"><code></code></h3>
-    <span class="type">Unknown</span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-        <span class="flag final">final</span>
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_silog.js.html#l53"><code>src&#x2F;silog.js:53</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The date/ time format used in the logged messages.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_" class="property item private">
-    <h3 class="name"><code></code></h3>
-    <span class="type">String</span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-        <span class="flag final">final</span>
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_silog.js.html#l64"><code>src&#x2F;silog.js:64</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The tag used for logging internal messages.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-            </div>
         
 
         
