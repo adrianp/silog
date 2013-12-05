@@ -129,3 +129,7 @@ Post scriptum
 This project used to be named __simplog__ until I realized that there was a
 similarly named project on the NPM registry. By the way, you can visit the
 NPM registry of the project [here](https://npmjs.org/package/silog).
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/adrianp/silog/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
