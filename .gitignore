@@ -29,3 +29,6 @@ Session.vim
 .*
 !.gitignore
 *~
+
+# misc
+coverage.html

@@ -29,9 +29,9 @@ module.exports = function(grunt) {
 
     // Task loading:
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-jsonlint');
-    grunt.loadNpmTasks('grunt-execute');
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
+    grunt.loadNpmTasks('grunt-execute');
+    grunt.loadNpmTasks('grunt-jsonlint');
     grunt.loadNpmTasks('grunt-mocha-cov');
 
     // Task description:
@@ -123,28 +123,35 @@ module.exports = function(grunt) {
                     outdir: './docs/'
                 }
             }
-        },
+        },  // end docs running task
 
         mochacov: {
-            coverage: {
-                options: {
-                    coveralls: {
-                        serviceName: 'travis-ci'
-                    }
-                }
-            },
             test: {
                 options: {
                     reporter: 'spec'
                 }
             },
+            coverage: {
+                options: {
+                    reporter: 'html-cov',
+                    coverage: true
+                }
+            },
+            coveralls: {
+                options: {
+                    coveralls: {
+                        serviceName: 'travis-ci',
+                        repoToken: 'Eg1KyuUzS1ZTW9eavWErGA6CU1z24wwTf'
+                    }
+                }
+            },
             options: {
-                files: 'src/test/*_test.js',
-                globals: ['should'],
-                timeout: 3000,
-                ignoreLeaks: false
+                files: ['src/test/silog_test.js'],
+                ui: 'bdd',
+                colors: true,
+                output: 'coverage.html'
             }
-        }
+        }  // end mocha/ coverage task
 
     });
 
@@ -152,19 +159,30 @@ module.exports = function(grunt) {
     grunt.registerTask('lint', ['jshint',
                                 'jsonlint']);
 
-    grunt.registerTask('test', ['mochacov:test',
-                                'execute']);
+    grunt.registerTask('test', ['execute',
+                                'mochacov:test',
+                                'mochacov:coverage']);
 
     grunt.registerTask('docs', ['yuidoc']);
 
     grunt.registerTask('travis', ['jshint',
                                   'jsonlint',
+                                  'execute',
                                   'mochacov:test',
-                                  'execute']);
+                                  'mochacov:coverage',
+                                  'mochacov:coveralls']);
+
+    grunt.registerTask('all', ['jshint',
+                               'jsonlint',
+                               'execute',
+                               'mochacov:test',
+                               'mochacov:coverage',
+                               'mochacov:coveralls',
+                               'yuidoc']);
 
     grunt.registerTask('default', ['jshint',
                                    'jsonlint',
-                                   'mochacov:test',
                                    'execute',
-                                   'yuidoc']);
+                                   'mochacov:test',
+                                   'mochacov:coverage']);
 };  // done.
