@@ -2,11 +2,12 @@ silog (i.e. simple logger)
 =====
 
 
-Build status
+Integration status
 ------------
 [![Build Status](https://travis-ci.org/adrianp/silog.png?branch=master)](https://travis-ci.org/adrianp/silog)
 [![Dependency Status](https://gemnasium.com/adrianp/silog.png)](https://gemnasium.com/adrianp/silog)
 [![NPM version](https://badge.fury.io/js/silog.png)](http://badge.fury.io/js/silog)
+[![Coverage Status](https://coveralls.io/repos/adrianp/silog/badge.png)](https://coveralls.io/r/adrianp/silog)
 
 
 Introduction

@@ -30,9 +30,9 @@ module.exports = function(grunt) {
     // Task loading:
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jsonlint');
-    grunt.loadNpmTasks('grunt-simple-mocha');
     grunt.loadNpmTasks('grunt-execute');
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
+    grunt.loadNpmTasks('grunt-mocha-cov');
 
     // Task description:
     grunt.initConfig({
@@ -106,17 +106,6 @@ module.exports = function(grunt) {
             }
         },  // end JSONLint task
 
-        simplemocha: {
-            all: { src: ['src/test/*_test.js'] },
-            options: {
-                globals: ['should'],
-                timeout: 3000,
-                ignoreLeaks: false,
-                ui: 'bdd',
-                reporter: 'spec'
-            }
-        },  // end Mocha task
-
         execute: {
             target: {
                 src: ['src/demo/demo.js']
@@ -134,26 +123,48 @@ module.exports = function(grunt) {
                     outdir: './docs/'
                 }
             }
+        },
+
+        mochacov: {
+            coverage: {
+                options: {
+                    coveralls: {
+                        serviceName: 'travis-ci'
+                    }
+                }
+            },
+            test: {
+                options: {
+                    reporter: 'spec'
+                }
+            },
+            options: {
+                files: 'src/test/*_test.js',
+                globals: ['should'],
+                timeout: 3000,
+                ignoreLeaks: false
+            }
         }
+
     });
 
     // Task registration:
     grunt.registerTask('lint', ['jshint',
                                 'jsonlint']);
 
-    grunt.registerTask('test', ['simplemocha',
+    grunt.registerTask('test', ['mochacov:test',
                                 'execute']);
 
     grunt.registerTask('docs', ['yuidoc']);
 
     grunt.registerTask('travis', ['jshint',
                                   'jsonlint',
-                                  'simplemocha',
+                                  'mochacov:test',
                                   'execute']);
 
     grunt.registerTask('default', ['jshint',
                                    'jsonlint',
-                                   'simplemocha',
+                                   'mochacov:test',
                                    'execute',
                                    'yuidoc']);
 };  // done.
