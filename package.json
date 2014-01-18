@@ -19,10 +19,12 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt travis --verbose"
+    "test": "grunt travis --verbose",
+    "blanket": {
+      "pattern": ["src/silog.js"]
+    }
   },
   "devDependencies": {
-    "grunt-cli": "~0.1.11",
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-jsonlint": "~1.0.2",
