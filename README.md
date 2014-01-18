@@ -93,7 +93,7 @@ Messages sent to output will have the following general format:
 Bugs, feature requests, contributions
 -------------------------------------
 
-Please report any bugs, feature or pull requests on the 
+Please report any bugs, feature or pull requests on the
 [GitHub page of the project](https://github.com/adrianp/silog/). **Thank you!**
 
 
@@ -102,7 +102,7 @@ License
 
 [The MIT License (MIT)](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2013 Adrian Tudor Panescu \<adrian [at] panescu [dot] com\>
+Copyright (c) 2014 Adrian Tudor Panescu \<adrian [at] panescu [dot] com\>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

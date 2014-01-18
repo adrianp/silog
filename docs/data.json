@@ -6,6 +6,27 @@
         "url": ""
     },
     "files": {
+        "src/demo/demo.js": {
+            "name": "src/demo/demo.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/test/demo_test.js": {
+            "name": "src/test/demo_test.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/test/silog_test.js": {
+            "name": "src/test/silog_test.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src/silog.js": {
             "name": "src/silog.js",
             "modules": {
@@ -36,7 +57,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/silog.js",
-            "line": 208,
+            "line": 207,
             "description": "Revealing module for silog; exposes the required public members."
         }
     },
@@ -63,7 +84,7 @@
             "module": "silog",
             "namespace": "",
             "file": "src/silog.js",
-            "line": 208,
+            "line": 207,
             "description": "Constructor of the main class responsible for the logging logic.",
             "is_constructor": 1,
             "params": [
@@ -81,14 +102,32 @@
     },
     "classitems": [
         {
-            "file": "src/silog.js",
+            "file": "src/demo/demo.js",
             "line": 1,
-            "description": "The MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2013 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+            "description": "The MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2014 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+            "class": "silog"
+        },
+        {
+            "file": "src/test/demo_test.js",
+            "line": 1,
+            "description": "The MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2014 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+            "class": "silog"
+        },
+        {
+            "file": "src/test/silog_test.js",
+            "line": 1,
+            "description": "The MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2014 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
             "class": "silog"
         },
         {
             "file": "src/silog.js",
-            "line": 36,
+            "line": 1,
+            "description": "The MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2014 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+            "class": "silog"
+        },
+        {
+            "file": "src/silog.js",
+            "line": 35,
             "description": "The logging levels used by silog; an order relation is established\nbetween them, with ASSERT (7) being the highest and VERBOSE (2) the\nlowest. If silog's level is set to X, any message with the level Y < X\nwill not be logged.",
             "itemtype": "attribute",
             "name": "LEVEL",
@@ -99,7 +138,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 54,
+            "line": 53,
             "description": "The date/ time format used in the logged messages.",
             "itemtype": "attribute",
             "name": "DT_FORMAT",
@@ -110,7 +149,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 66,
+            "line": 65,
             "description": "The tag used for logging internal messages.",
             "itemtype": "attribute",
             "name": "LOCAL_TAG",
@@ -123,7 +162,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 77,
+            "line": 76,
             "description": "Checks if the given parameter is a valid silog logging level i.e. is an\narray of size 2, with the first element a number and the second one a\nstring. Moreover, if the second parameter evaluates to true, the\nexistence of the array in silog.LEVEL will be checked.",
             "itemtype": "method",
             "name": "checkLevel",
@@ -150,7 +189,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 113,
+            "line": 112,
             "description": "Adds a leading zero to numbers lower than 10 (e.g., 6 becomes 06, 11\nremains as is).",
             "itemtype": "method",
             "name": "leadingZero",
@@ -172,7 +211,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 127,
+            "line": 126,
             "description": "Returns the current time along with a formatted string in the specified\nform (see silog.DT_FORMAT)",
             "itemtype": "method",
             "name": "getFormattedTimestamp",
@@ -194,7 +233,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 168,
+            "line": 167,
             "description": "Simple logger that outputs the messages to the standard output.",
             "itemtype": "method",
             "name": "consoleLogger",
@@ -217,7 +256,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 281,
+            "line": 280,
             "description": "Send a given messages to the various loggers.",
             "itemtype": "method",
             "name": "log",
@@ -248,7 +287,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 332,
+            "line": 331,
             "description": "Logs a message with the silog.LEVEL.ASSERT level.",
             "params": [
                 {
@@ -276,7 +315,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 345,
+            "line": 344,
             "description": "Logs a message with the silog.LEVEL.ERROR level.",
             "params": [
                 {
@@ -304,7 +343,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 358,
+            "line": 357,
             "description": "Logs a message with the silog.LEVEL.WARN level.",
             "params": [
                 {
@@ -332,7 +371,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 371,
+            "line": 370,
             "description": "Logs a message with the silog.LEVEL.INFO level.",
             "params": [
                 {
@@ -360,7 +399,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 384,
+            "line": 383,
             "description": "Logs a message with the silog.LEVEL.DEBUG level.",
             "params": [
                 {
@@ -388,7 +427,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 397,
+            "line": 396,
             "description": "Logs a message with the silog.LEVEL.VERBOSE level.",
             "params": [
                 {
@@ -418,79 +457,91 @@
     "warnings": [
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:332"
+            "line": " src/silog.js:331"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:332"
+            "line": " src/silog.js:331"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:345"
+            "line": " src/silog.js:344"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:345"
+            "line": " src/silog.js:344"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:358"
+            "line": " src/silog.js:357"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:358"
+            "line": " src/silog.js:357"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:371"
+            "line": " src/silog.js:370"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:371"
+            "line": " src/silog.js:370"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:384"
+            "line": " src/silog.js:383"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:384"
+            "line": " src/silog.js:383"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:397"
+            "line": " src/silog.js:396"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:397"
+            "line": " src/silog.js:396"
         },
         {
-            "message": "Missing item type\nThe MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2013 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+            "message": "Missing item type\nThe MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2014 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+            "line": " src/demo/demo.js:1"
+        },
+        {
+            "message": "Missing item type\nThe MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2014 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+            "line": " src/test/demo_test.js:1"
+        },
+        {
+            "message": "Missing item type\nThe MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2014 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+            "line": " src/test/silog_test.js:1"
+        },
+        {
+            "message": "Missing item type\nThe MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2014 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
             "line": " src/silog.js:1"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.ASSERT level.",
-            "line": " src/silog.js:332"
+            "line": " src/silog.js:331"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.ERROR level.",
-            "line": " src/silog.js:345"
+            "line": " src/silog.js:344"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.WARN level.",
-            "line": " src/silog.js:358"
+            "line": " src/silog.js:357"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.INFO level.",
-            "line": " src/silog.js:371"
+            "line": " src/silog.js:370"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.DEBUG level.",
-            "line": " src/silog.js:384"
+            "line": " src/silog.js:383"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.VERBOSE level.",
-            "line": " src/silog.js:397"
+            "line": " src/silog.js:396"
         }
     ]
 }
