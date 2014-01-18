@@ -232,14 +232,14 @@ var silog = function() {
         switch (format) {
         case DT_FORMAT.DATE_TIME:
             return [[date.getFullYear(), &#x27;/&#x27;,
-                    leadingZero(date.getMonth()), &#x27;/&#x27;,
+                    leadingZero(date.getMonth() + 1), &#x27;/&#x27;,
                     leadingZero(date.getDate()), &#x27; &#x27;,
                     leadingZero(date.getHours()), &#x27;:&#x27;,
                     leadingZero(date.getMinutes()), &#x27;:&#x27;,
                     leadingZero(date.getSeconds())].join(&#x27;&#x27;), date.getTime()];
         case DT_FORMAT.DATE:
             return [[date.getFullYear(), &#x27;/&#x27;,
-                     leadingZero(date.getMonth()), &#x27;/&#x27;,
+                     leadingZero(date.getMonth() + 1), &#x27;/&#x27;,
                      leadingZero(date.getDate())].join(&#x27;&#x27;), date.getTime()];
         case DT_FORMAT.TIME:
             return [[leadingZero(date.getHours()), &#x27;:&#x27;,
@@ -248,7 +248,7 @@ var silog = function() {
         default:
             // if the format is not in DT_FORMAT we use the datetime
             return [[date.getFullYear(), &#x27;/&#x27;,
-                    leadingZero(date.getMonth()), &#x27;/&#x27;,
+                    leadingZero(date.getMonth() + 1), &#x27;/&#x27;,
                     leadingZero(date.getDate()), &#x27; &#x27;,
                     leadingZero(date.getHours()), &#x27;:&#x27;,
                     leadingZero(date.getMinutes()), &#x27;:&#x27;,
@@ -316,7 +316,7 @@ var silog = function() {
      *                   information; by default, a standard output logger is
      *                   used
      * @return {Object}  an instance of the Logger if the instantiation was
-     *                   successful, null otherwise.
+     *                   successful.
      */
     function Logger(p) {
 
@@ -327,42 +327,40 @@ var silog = function() {
 
         if (p.hasOwnProperty(&#x27;level&#x27;)) {
             if (!checkLevel(p.level, true)) {
-                this.wtf(LOCAL_TAG, &#x27;Invalid message level: &#x27; + p.level);
-                return null;
+                throw new Error(&#x27;Invalid message level: &#x27; + p.level);
             } else {
                 this.level = p.level;
             }
         }
 
+        var tsf;
         if (p.hasOwnProperty(&#x27;tsformat&#x27;)) {
             for (var key in DT_FORMAT) {
                 if (DT_FORMAT.hasOwnProperty(key)) {
                     if (p.tsformat === DT_FORMAT[key]) {
-                        this.tsFormat = p.tsformat;
+                        tsf = p.tsformat;
                         break;
                     }
                 }
             }
 
-            if (typeof this.tsFormat === &#x27;undefined&#x27;) {
-                this.wtf(LOCAL_TAG, &#x27;Invalid date/ time format: &#x27; + p.tsformat);
-                return null;
+            if (typeof tsf === &#x27;undefined&#x27;) {
+                throw new Error(&#x27;Invalid date/ time format: &#x27; + p.tsformat);
             }
+            this.tsformat = tsf;
         }
 
         if (p.hasOwnProperty(&#x27;loggers&#x27;)) {
             if (Array.isArray(p.loggers)) {
                 for (var i = 0, len = p.loggers.length; i &lt; len; i += 1) {
                     if (typeof p.loggers[i] !== &#x27;function&#x27;) {
-                        this.wtf(LOCAL_TAG,
-                           &#x27;Invalid loggers: should be an array of functions&#x27;);
-                        return null;
+                        throw(
+                            &#x27;Invalid loggers: should be an array of functions&#x27;);
                     }
                 }
                 this.loggers = p.loggers;
             } else {
-                this.wtf(LOCAL_TAG, &#x27;Invalid loggers: should be an array&#x27;);
-                return null;
+                throw(&#x27;Invalid loggers: should be an array&#x27;);
             }
         }
 
