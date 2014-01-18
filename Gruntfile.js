@@ -169,7 +169,6 @@ module.exports = function(grunt) {
                                   'jsonlint',
                                   'execute',
                                   'mochacov:test',
-                                  'mochacov:coverage',
                                   'mochacov:coveralls']);
 
     grunt.registerTask('all', ['jshint',

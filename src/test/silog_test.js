@@ -95,3 +95,15 @@ describe('consoleLogger', function() {
         );
     });
 });
+
+describe('Logger', function() {
+    describe('Logger_constructor_check', function() {
+        it('should be fine when no parameters are sent',
+            function() {
+                assert.doesNotThrow(function() {
+                    silog.Logger({});
+                });
+            }
+        );
+    });
+});
