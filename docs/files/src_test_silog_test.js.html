@@ -119,12 +119,14 @@ THE SOFTWARE.
 /* global describe: false */
 /* global it: false */
 
+/*jshint nonew: false */
+
 var assert = require(&#x27;assert&#x27;);
 var silog = require(&#x27;../silog.js&#x27;).silog;
 
 
 describe(&#x27;LEVEL&#x27;, function(){
-    describe(&#x27;log_level_check&#x27;, function(){
+    describe(&#x27;check&#x27;, function(){
         // http://developer.android.com/reference/android/util/Log.html#ASSERT
         it(&#x27;should be ASSERT when level is 7&#x27;, function(){
             assert.strictEqual(7, silog.level.ASSERT[0]);
@@ -154,7 +156,7 @@ describe(&#x27;LEVEL&#x27;, function(){
 
 
 describe(&#x27;DT_FORMAT&#x27;, function(){
-    describe(&#x27;datetime_format_check&#x27;, function() {
+    describe(&#x27;check&#x27;, function() {
         it(&#x27;should be DATE_TIME when value is 0&#x27;, function() {
             assert.strictEqual(0, silog.tsFormat.DATE_TIME);
         });
@@ -171,7 +173,7 @@ describe(&#x27;DT_FORMAT&#x27;, function(){
 
 
 describe(&#x27;consoleLogger&#x27;, function() {
-    describe(&#x27;consoleLogger_sanity_check&#x27;, function() {
+    describe(&#x27;sanity check&#x27;, function() {
         it(&#x27;should return true when ~valid messages are to be logged&#x27;,
             function() {
                 assert.strictEqual(true,
@@ -188,6 +190,165 @@ describe(&#x27;consoleLogger&#x27;, function() {
     });
 });
 
+describe(&#x27;Logger&#x27;, function() {
+    describe(&#x27;constructor check&#x27;, function() {
+        it(&#x27;should be fine when no parameters are sent&#x27;,
+            function() {
+                assert.doesNotThrow(function() {
+                    new silog.Logger({});
+                });
+            }
+        );
+
+        it(&#x27;should complain when an invalid level is sent&#x27;,
+           function() {
+            assert.throws(function() {
+                new silog.Logger({level: &#x27;foo&#x27;});
+            }, Error);
+        });
+
+        it(&#x27;should complain when an invalid level is sent&#x27;,
+           function() {
+            assert.throws(function() {
+                new silog.Logger({level: []});
+            }, Error);
+        });
+
+        it(&#x27;should complain when an invalid level is sent&#x27;,
+           function() {
+            assert.throws(function() {
+                new silog.Logger({level: [1, 2, 3]});
+            }, Error);
+        });
+
+        it(&#x27;should complain when an invalid level is sent&#x27;,
+           function() {
+            assert.throws(function() {
+                new silog.Logger({level: [2, &#x27;NOT_VERBOSE&#x27;]});
+            }, Error);
+        });
+
+        it(&#x27;should complain when an invalid level is sent&#x27;,
+           function() {
+            assert.throws(function() {
+                new silog.Logger({level: [&#x27;two&#x27;, &#x27;VERBOSE&#x27;]});
+            }, Error);
+        });
+
+        it(&#x27;should not complain when a valid level is sent&#x27;,
+           function() {
+            assert.doesNotThrow(function() {
+                new silog.Logger({level: [4, &#x27;INFO&#x27;]});
+            });
+        });
+
+        it(&#x27;should not complain when a valid level is sent&#x27;,
+           function() {
+            assert.doesNotThrow(function() {
+                new silog.Logger({level: silog.level.WARN});
+            });
+        });
+
+        it(&#x27;should complain when an invalid tsFormat is sent&#x27;,
+           function() {
+            assert.throws(function() {
+                new silog.Logger({tsFormat: &#x27;foo&#x27;});
+            }, Error);
+        });
+
+        it(&#x27;should complain when an invalid tsFormat is sent&#x27;,
+           function() {
+            assert.throws(function() {
+                new silog.Logger({tsFormat: 4});
+            }, Error);
+        });
+
+        it(&#x27;should not complain when an valid tsFormat is sent&#x27;,
+           function() {
+            assert.doesNotThrow(function() {
+                new silog.Logger({tsFormat: 1});
+            });
+        });
+
+        it(&#x27;should not complain when an valid tsFormat is sent&#x27;,
+           function() {
+            assert.doesNotThrow(function() {
+                new silog.Logger({tsFormat: silog.tsFormat.DATE_TIME});
+            });
+        });
+
+        it(&#x27;should not complain when a valid loggers arrays is sent&#x27;,
+           function() {
+            assert.doesNotThrow(function() {
+                new silog.Logger({loggers: [function() { return; }]});
+            });
+        });
+
+        it(&#x27;should complain when a invalid loggers arrays is sent&#x27;,
+           function() {
+            assert.throws(function() {
+                new silog.Logger({loggers: []});
+            }, Error);
+        });
+
+        it(&#x27;should complain when a invalid loggers arrays is sent&#x27;,
+           function() {
+            assert.throws(function() {
+                new silog.Logger({loggers: &#x27;foo&#x27;});
+            }, Error);
+        });
+
+        it(&#x27;should complain when a invalid loggers arrays is sent&#x27;,
+           function() {
+            assert.throws(function() {
+                new silog.Logger({loggers: [function() { return; }, 1]});
+            }, Error);
+        });
+    });  // describe constructor check
+
+    describe(&#x27;operation check&#x27;, function() {
+        var l = new silog.Logger({level: silog.level.INFO,
+                            tsFormat: silog.tsFormat.TIME,
+                            loggers: [silog.consoleLogger]});
+
+
+        it(&#x27;should not complain when logging something&#x27;, function() {
+            assert.doesNotThrow(function() {
+                l.log([5, &#x27;WARN&#x27;], &#x27;mocha-tag&#x27;, &#x27;hello world!&#x27;);
+            });
+        });
+
+        it(&#x27;should not complain when logging something&#x27;, function() {
+            assert.doesNotThrow(function() {
+                l.log(silog.level.INFO, &#x27;mocha-tag&#x27;, &#x27;hello world!&#x27;,
+                      {foo: &#x27;bar&#x27;});
+            });
+        });
+
+        it(&#x27;should complain when using an invalid level&#x27;, function() {
+            assert.throws(function() {
+                l.log([1, &#x27;a&#x27;, 3], &#x27;mocha-tag&#x27;, &#x27;hello world!&#x27;, {foo: &#x27;bar&#x27;});
+            }, Error);
+        });
+
+        it(&#x27;should not complain when using an inexistent level&#x27;, function() {
+            assert.doesNotThrow(function() {
+                l.log([9, &#x27;HAHAHA&#x27;], &#x27;mocha-tag&#x27;, &#x27;hello world!&#x27;, {foo: &#x27;bar&#x27;});
+            });
+        });
+
+        it(&#x27;should not complain when using the shorthands&#x27;, function() {
+            assert.doesNotThrow(function() {
+                l.wtf(&#x27;mocha-tag&#x27;, &#x27;wow&#x27;);
+                l.e(1, &#x27;such logger&#x27;, {});
+                l.w({}, &#x27;much tests&#x27;, {foo: &#x27;bar&#x27;});
+                l.i(&#x27;mocha-tag&#x27;, &#x27;so coverage&#x27;, {foo: 123});
+                l.d(&#x27;mocha-tag&#x27;, &#x27;hello world!&#x27;);
+                l.v(&#x27;mocha-tag&#x27;, &#x27;all the messages!&#x27;, {foo: &#x27;bar&#x27;, baz: &#x27;qux&#x27;});
+            });
+        });
+    }); // describe operation check
+});
     </pre>
 </div>
 

@@ -163,7 +163,7 @@ var silog = function() {
      * @final
      * @for silog
      */
-    var LOCAL_TAG = &#x27;silog&#x27;;
+    // var LOCAL_TAG = &#x27;silog&#x27;;
 
     /**
      * Checks if the given parameter is a valid silog logging level i.e. is an
@@ -198,7 +198,7 @@ var silog = function() {
             }
             return false; // level not in silog.LEVEL
         }
-        return true; // level valid, existence in silog.LEVEL unknown
+        return true; // level valid, existence in silog.LEVEL not checked
     }
 
     /**
@@ -334,33 +334,33 @@ var silog = function() {
         }
 
         var tsf;
-        if (p.hasOwnProperty(&#x27;tsformat&#x27;)) {
+        if (p.hasOwnProperty(&#x27;tsFormat&#x27;)) {
             for (var key in DT_FORMAT) {
                 if (DT_FORMAT.hasOwnProperty(key)) {
-                    if (p.tsformat === DT_FORMAT[key]) {
-                        tsf = p.tsformat;
+                    if (p.tsFormat === DT_FORMAT[key]) {
+                        tsf = p.tsFormat;
                         break;
                     }
                 }
             }
 
             if (typeof tsf === &#x27;undefined&#x27;) {
-                throw new Error(&#x27;Invalid date/ time format: &#x27; + p.tsformat);
+                throw new Error(&#x27;Invalid date/ time format: &#x27; + p.tsFormat);
             }
-            this.tsformat = tsf;
+            this.tsFormat = tsf;
         }
 
         if (p.hasOwnProperty(&#x27;loggers&#x27;)) {
-            if (Array.isArray(p.loggers)) {
+            if (Array.isArray(p.loggers) &amp;&amp; p.loggers.length &gt; 0) {
                 for (var i = 0, len = p.loggers.length; i &lt; len; i += 1) {
                     if (typeof p.loggers[i] !== &#x27;function&#x27;) {
-                        throw(
+                        throw new Error(
                             &#x27;Invalid loggers: should be an array of functions&#x27;);
                     }
                 }
                 this.loggers = p.loggers;
             } else {
-                throw(&#x27;Invalid loggers: should be an array&#x27;);
+                throw new Error(&#x27;Invalid loggers: should be an array&#x27;);
             }
         }
 
@@ -382,12 +382,12 @@ var silog = function() {
         if (!checkLevel(messageLevel, false)) {
             // we do not check if the level actually exists in silog.LEVEL as
             // this can become too costly
-            this.w(LOCAL_TAG, [&#x27;Invalid message level for: &#x27;,
-                                tag,
-                                &#x27; - &#x27;,
-                                message,
-                                &#x27; = &#x27;,
-                                messageLevel].join(&#x27;&#x27;));
+            throw new Error([&#x27;Invalid message level for: &#x27;,
+                              tag,
+                              &#x27; - &#x27;,
+                              message,
+                              &#x27; = &#x27;,
+                              messageLevel].join(&#x27;&#x27;));
         }
 
         if (messageLevel[0] &gt;= this.level[0]) {

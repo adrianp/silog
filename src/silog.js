@@ -71,7 +71,7 @@ var silog = function() {
      * @final
      * @for silog
      */
-    var LOCAL_TAG = 'silog';
+    // var LOCAL_TAG = 'silog';
 
     /**
      * Checks if the given parameter is a valid silog logging level i.e. is an
@@ -106,7 +106,7 @@ var silog = function() {
             }
             return false; // level not in silog.LEVEL
         }
-        return true; // level valid, existence in silog.LEVEL unknown
+        return true; // level valid, existence in silog.LEVEL not checked
     }
 
     /**
@@ -242,33 +242,33 @@ var silog = function() {
         }
 
         var tsf;
-        if (p.hasOwnProperty('tsformat')) {
+        if (p.hasOwnProperty('tsFormat')) {
             for (var key in DT_FORMAT) {
                 if (DT_FORMAT.hasOwnProperty(key)) {
-                    if (p.tsformat === DT_FORMAT[key]) {
-                        tsf = p.tsformat;
+                    if (p.tsFormat === DT_FORMAT[key]) {
+                        tsf = p.tsFormat;
                         break;
                     }
                 }
             }
 
             if (typeof tsf === 'undefined') {
-                throw new Error('Invalid date/ time format: ' + p.tsformat);
+                throw new Error('Invalid date/ time format: ' + p.tsFormat);
             }
-            this.tsformat = tsf;
+            this.tsFormat = tsf;
         }
 
         if (p.hasOwnProperty('loggers')) {
-            if (Array.isArray(p.loggers)) {
+            if (Array.isArray(p.loggers) && p.loggers.length > 0) {
                 for (var i = 0, len = p.loggers.length; i < len; i += 1) {
                     if (typeof p.loggers[i] !== 'function') {
-                        throw(
+                        throw new Error(
                             'Invalid loggers: should be an array of functions');
                     }
                 }
                 this.loggers = p.loggers;
             } else {
-                throw('Invalid loggers: should be an array');
+                throw new Error('Invalid loggers: should be an array');
             }
         }
 
@@ -290,12 +290,12 @@ var silog = function() {
         if (!checkLevel(messageLevel, false)) {
             // we do not check if the level actually exists in silog.LEVEL as
             // this can become too costly
-            this.w(LOCAL_TAG, ['Invalid message level for: ',
-                                tag,
-                                ' - ',
-                                message,
-                                ' = ',
-                                messageLevel].join(''));
+            throw new Error(['Invalid message level for: ',
+                              tag,
+                              ' - ',
+                              message,
+                              ' = ',
+                              messageLevel].join(''));
         }
 
         if (messageLevel[0] >= this.level[0]) {

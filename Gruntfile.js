@@ -128,7 +128,7 @@ module.exports = function(grunt) {
         mochacov: {
             test: {
                 options: {
-                    reporter: 'spec'
+                    reporter: 'spec',
                 }
             },
             coverage: {
@@ -162,6 +162,8 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['execute',
                                 'mochacov:test',
                                 'mochacov:coverage']);
+
+    grunt.registerTask('ftest', ['mochacov:test']);
 
     grunt.registerTask('docs', ['yuidoc']);
 
