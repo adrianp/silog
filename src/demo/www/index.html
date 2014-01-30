@@ -22,39 +22,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>silog Demo</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A brief demo of silog in the browser">
-        <meta name="author" content="Adrian Tudor Panescu, adrian@panescu.com">
+  <head>
+    <meta charset="utf-8">
+    <title>silog Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A brief demo of silog in the browser">
+    <meta name="author" content="Adrian Tudor Panescu, adrian@panescu.com">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link href="style.css" rel="stylesheet">
+  </head>
 
-        <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
-
-    </head>
-
-    <body>
-
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="#">silog</a>
-                </div>
-            </div>
-        </div>
-
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
         <div class="container">
-            <h1>silog Demo</h1>
-            <p>
-                This is a brief demo of silog in the browser; check your JavaScript console for the log messages.
-            </p>
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">silog</a>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <script src="../silog.js"></script>
-        <script src="../demo.js"></script>
+    <div class="container">
+      <h1>silog Demo</h1>
+      <p>
+        This is a brief demo of silog in the browser; check your JavaScript console for the log messages.
+      </p>
+    </div>
 
-    </body>
+    <script src="../../silog.js"></script>
+    <script src="../demo.js"></script>
+  </body>
 </html>
