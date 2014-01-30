@@ -347,4 +347,4 @@ THE SOFTWARE.
     exports.Logger = Logger;
     exports.consoleLogger = consoleLogger;
 
-})(typeof exports === 'undefined' ? this['silog'] = {} : exports);
+})(typeof exports === 'undefined' ? window.silog = {} : exports);
