@@ -43,7 +43,7 @@
             "namespaces": {},
             "tag": "main",
             "file": "src/silog.js",
-            "line": 159,
+            "line": 151,
             "description": "Revealing module for silog; exposes the required public members.",
             "itemtype": "main"
         }
@@ -60,7 +60,7 @@
             "module": "silog",
             "namespace": "",
             "file": "src/silog.js",
-            "line": 159,
+            "line": 151,
             "description": "Class that formats and routes logging messages.",
             "is_constructor": 1,
             "params": [
@@ -149,14 +149,14 @@
         },
         {
             "file": "src/silog.js",
-            "line": 125,
+            "line": 117,
             "description": "Simple logger that outputs the messages to the standard output.",
             "class": "Logger",
             "module": "silog"
         },
         {
             "file": "src/silog.js",
-            "line": 223,
+            "line": 215,
             "description": "Send a given messages to the various loggers.",
             "itemtype": "method",
             "name": "log",
@@ -187,7 +187,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 273,
+            "line": 265,
             "description": "Logs a message with the silog.LEVEL.ASSERT level.",
             "params": [
                 {
@@ -215,7 +215,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 286,
+            "line": 278,
             "description": "Logs a message with the silog.LEVEL.ERROR level.",
             "params": [
                 {
@@ -243,7 +243,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 299,
+            "line": 291,
             "description": "Logs a message with the silog.LEVEL.WARN level.",
             "params": [
                 {
@@ -271,7 +271,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 312,
+            "line": 304,
             "description": "Logs a message with the silog.LEVEL.INFO level.",
             "params": [
                 {
@@ -299,7 +299,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 325,
+            "line": 317,
             "description": "Logs a message with the silog.LEVEL.DEBUG level.",
             "params": [
                 {
@@ -327,7 +327,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 338,
+            "line": 330,
             "description": "Logs a message with the silog.LEVEL.VERBOSE level.",
             "params": [
                 {
@@ -357,51 +357,51 @@
     "warnings": [
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:273"
+            "line": " src/silog.js:265"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:273"
+            "line": " src/silog.js:265"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:286"
+            "line": " src/silog.js:278"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:286"
+            "line": " src/silog.js:278"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:299"
+            "line": " src/silog.js:291"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:299"
+            "line": " src/silog.js:291"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:312"
+            "line": " src/silog.js:304"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:312"
+            "line": " src/silog.js:304"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:325"
+            "line": " src/silog.js:317"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:325"
+            "line": " src/silog.js:317"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:338"
+            "line": " src/silog.js:330"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:338"
+            "line": " src/silog.js:330"
         },
         {
             "message": "Missing item type\nThe MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2014 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
@@ -437,31 +437,31 @@
         },
         {
             "message": "Missing item type\nSimple logger that outputs the messages to the standard output.",
-            "line": " src/silog.js:125"
+            "line": " src/silog.js:117"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.ASSERT level.",
-            "line": " src/silog.js:273"
+            "line": " src/silog.js:265"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.ERROR level.",
-            "line": " src/silog.js:286"
+            "line": " src/silog.js:278"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.WARN level.",
-            "line": " src/silog.js:299"
+            "line": " src/silog.js:291"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.INFO level.",
-            "line": " src/silog.js:312"
+            "line": " src/silog.js:304"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.DEBUG level.",
-            "line": " src/silog.js:325"
+            "line": " src/silog.js:317"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.VERBOSE level.",
-            "line": " src/silog.js:338"
+            "line": " src/silog.js:330"
         }
     ]
 }
