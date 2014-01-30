@@ -137,14 +137,7 @@ module.exports = function(grunt) {
                     coverage: true
                 }
             },
-            coveralls: {
-                options: {
-                    coveralls: {
-                        serviceName: 'travis-ci',
-                        repoToken: 'Eg1KyuUzS1ZTW9eavWErGA6CU1z24wwTf'
-                    }
-                }
-            },
+            coveralls: true,
             options: {
                 files: ['src/test/silog_test.js'],
                 ui: 'bdd',
