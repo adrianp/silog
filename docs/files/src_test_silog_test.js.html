@@ -316,6 +316,10 @@ describe(&#x27;Logger&#x27;, function() {
             });
         });
 
+        l = new silog.Logger({level: silog.level.INFO,
+                                    tsFormat: silog.tsFormat.DATE_TIME,
+                                    loggers: [silog.consoleLogger]});
+
         it(&#x27;should not complain when logging something&#x27;, function() {
             assert.doesNotThrow(function() {
                 l.log(silog.level.INFO, &#x27;mocha-tag&#x27;, &#x27;hello world!&#x27;,
@@ -334,6 +338,10 @@ describe(&#x27;Logger&#x27;, function() {
                 l.log([9, &#x27;HAHAHA&#x27;], &#x27;mocha-tag&#x27;, &#x27;hello world!&#x27;, {foo: &#x27;bar&#x27;});
             });
         });
+
+        l = new silog.Logger({level: silog.level.INFO,
+                                    tsFormat: silog.tsFormat.DATE,
+                                    loggers: [silog.consoleLogger]});
 
         it(&#x27;should not complain when using the shorthands&#x27;, function() {
             assert.doesNotThrow(function() {

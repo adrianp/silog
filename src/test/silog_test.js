@@ -30,7 +30,7 @@ THE SOFTWARE.
 /*jshint nonew: false */
 
 var assert = require('assert');
-var silog = require('../silog.js').silog;
+var silog = require('../silog.js');
 
 
 describe('LEVEL', function(){
@@ -215,18 +215,21 @@ describe('Logger', function() {
     });  // describe constructor check
 
     describe('operation check', function() {
-        var l = new silog.Logger({level: silog.level.INFO,
-                            tsFormat: silog.tsFormat.TIME,
-                            loggers: [silog.consoleLogger]});
-
 
         it('should not complain when logging something', function() {
+            var l = new silog.Logger({level: silog.level.INFO,
+                                      tsFormat: silog.tsFormat.TIME,
+                                      loggers: [silog.consoleLogger]});
             assert.doesNotThrow(function() {
                 l.log([5, 'WARN'], 'mocha-tag', 'hello world!');
             });
         });
 
+
         it('should not complain when logging something', function() {
+            var l = new silog.Logger({level: silog.level.VERBOSE,
+                                      tsFormat: silog.tsFormat.DATE,
+                                      loggers: [silog.consoleLogger]});
             assert.doesNotThrow(function() {
                 l.log(silog.level.INFO, 'mocha-tag', 'hello world!',
                       {foo: 'bar'});
@@ -234,18 +237,27 @@ describe('Logger', function() {
         });
 
         it('should complain when using an invalid level', function() {
+            var l = new silog.Logger({level: silog.level.DEBUG,
+                                      tsFormat: silog.tsFormat.DATE_TIME,
+                                      loggers: [silog.consoleLogger]});
             assert.throws(function() {
                 l.log([1, 'a', 3], 'mocha-tag', 'hello world!', {foo: 'bar'});
             }, Error);
         });
 
         it('should not complain when using an inexistent level', function() {
+            var l = new silog.Logger({level: silog.level.VERBOSE,
+                                      tsFormat: silog.tsFormat.DATE_TIME,
+                                      loggers: [silog.consoleLogger]});
             assert.doesNotThrow(function() {
                 l.log([9, 'HAHAHA'], 'mocha-tag', 'hello world!', {foo: 'bar'});
             });
         });
 
         it('should not complain when using the shorthands', function() {
+            var l = new silog.Logger({level: silog.level.VERBOSE,
+                                      tsFormat: silog.tsFormat.TIME,
+                                      loggers: [silog.consoleLogger]});
             assert.doesNotThrow(function() {
                 l.wtf('mocha-tag', 'wow');
                 l.e(1, 'such logger', {});

@@ -26,7 +26,7 @@ THE SOFTWARE.
 
 if (typeof require !== 'undefined') {
     // used in Node.js, in browser silog is a global from silog.js
-    var silog = require('../silog.js').silog;
+    var silog = require('../silog.js');
 }
 
 // tag that can be used to identify the origin of the messages

@@ -31,7 +31,7 @@ THE SOFTWARE.
  * @module silog
  * @main silog
  */
-var silog = function() {
+(function(exports) {
 
     /**
      * The logging levels used by silog; an order relation is established
@@ -96,13 +96,6 @@ var silog = function() {
     function getFormattedTimestamp(format) {
         var date = new Date();
         switch (format) {
-        case DT_FORMAT.DATE_TIME:
-            return [[date.getFullYear(), '/',
-                    leadingZero(date.getMonth() + 1), '/',
-                    leadingZero(date.getDate()), ' ',
-                    leadingZero(date.getHours()), ':',
-                    leadingZero(date.getMinutes()), ':',
-                    leadingZero(date.getSeconds())].join(''), date.getTime()];
         case DT_FORMAT.DATE:
             return [[date.getFullYear(), '/',
                      leadingZero(date.getMonth() + 1), '/',
@@ -111,8 +104,7 @@ var silog = function() {
             return [[leadingZero(date.getHours()), ':',
                      leadingZero(date.getMinutes()), ':',
                      leadingZero(date.getSeconds())].join(''), date.getTime()];
-        default:
-            // if the format is not in DT_FORMAT we use the datetime
+        default:  // DT_FORMAT.DATE_TIME
             return [[date.getFullYear(), '/',
                     leadingZero(date.getMonth() + 1), '/',
                     leadingZero(date.getDate()), ' ',
@@ -350,19 +342,9 @@ var silog = function() {
 
 
     // export public members
-    return {
-        level: LEVEL,
-        tsFormat: DT_FORMAT,
-        Logger: Logger,
-        consoleLogger: consoleLogger
-    };
-};
+    exports.level = LEVEL;
+    exports.tsFormat = DT_FORMAT;
+    exports.Logger = Logger;
+    exports.consoleLogger = consoleLogger;
 
-
-if (typeof exports !== 'undefined') {
-    // nodejs
-    exports.silog = silog();
-} else {
-    // browser
-    silog = silog();
-}
+})(typeof exports === 'undefined' ? this['silog'] = {} : exports);
