@@ -43,8 +43,6 @@
             
                 <li><a href="../classes/Logger.html">Logger</a></li>
             
-                <li><a href="../classes/silog.html">silog</a></li>
-            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -94,7 +92,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_silog.js.html#l207"><code>src&#x2F;silog.js:207</code></a>
+            Defined in: <a href="../files/src_silog.js.html#l159"><code>src&#x2F;silog.js:159</code></a>
         </div>
     
 
@@ -110,7 +108,7 @@
 
 
 <div class="box intro">
-    <p>Constructor of the main class responsible for the logging logic.</p>
+    <p>Class that formats and routes logging messages.</p>
 
 </div>
 
@@ -126,7 +124,7 @@
             
                 <li class="arg">
                     
-                        <code>p</code>
+                        <code class="optional">[p]</code>
                     
                 </li>
             
@@ -134,10 +132,6 @@
         </div>
     
 
-    
-        <span class="returns-inline">
-            <span class="type">Object</span>
-        </span>
     
 
     
@@ -163,7 +157,7 @@
             
         
         
-        <a href="../files/src_silog.js.html#l207"><code>src&#x2F;silog.js:207</code></a>
+        <a href="../files/src_silog.js.html#l159"><code>src&#x2F;silog.js:159</code></a>
         
         </p>
 
@@ -185,30 +179,72 @@
             
                 <li class="param">
                     
-                        <code class="param-name">p</code>
+                        <code class="param-name optional">[p]</code>
                         <span class="type">Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>configuration parameters, as follows (if not specified
-                  by the user, defaults will be used):</p>
-<pre><code>              * level: one of the elements of silog().LEVEL; only
-              messages above it will be logged; default = LEVEL.INFO
-              * tsFormat: one of the elements of silog().DT_FORMAT;
-              specifies how the date and time should be logged;
-              default = DT_FORMAT.DATE_TIME
-              * loggers: array of functions that should be used for
-              writing the logged messages to output; the signature of
-              these functions should be
-              &quot;function write(message, extra)&quot; where message is the
-              message to be written and extra an Object with extra
-              information; by default, a standard output logger is
-              used</code></pre>
+                        <p>Configuration parameters:</p>
 
                     </div>
 
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[level]</code>
+                                    <span class="type">Array</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The minimum level messages should have in order
+                          to be logged. One of the elements of
+                          silog.level, defaults to INFO.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[tsFormat]</code>
+                                    <span class="type">Number</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The date/ time format used for logging
+                              messages. One of the elements of
+                              silog.tsFormat, defaults to DATE_TIME.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[loggers]</code>
+                                    <span class="type">Array</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Functions that will receive the logged
+                            messages; defaults to [silog.consoleLogger].</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
                     
                 </li>
             
@@ -216,21 +252,6 @@
         </div>
     
 
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Object</span>:
-                    
-                    <p>an instance of the Logger if the instantiation was
-                  successful.</p>
-
-                
-            </div>
-        </div>
     
 
     
@@ -344,7 +365,7 @@
             
         
         
-        <a href="../files/src_silog.js.html#l278"><code>src&#x2F;silog.js:278</code></a>
+        <a href="../files/src_silog.js.html#l223"><code>src&#x2F;silog.js:223</code></a>
         
         </p>
 
