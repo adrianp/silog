@@ -159,23 +159,14 @@ module.exports = function(grunt) {
                                 'mochacov:test',
                                 'mochacov:coverage']);
 
-    grunt.registerTask('ftest', ['mochacov:test']);
-
     grunt.registerTask('docs', ['yuidoc']);
 
     grunt.registerTask('travis', ['jshint',
                                   'jsonlint',
                                   'execute',
                                   'mochacov:test',
+                                  'mochacov:coverage',
                                   'mochacov:coveralls']);
-
-    grunt.registerTask('all', ['jshint',
-                               'jsonlint',
-                               'execute',
-                               'mochacov:test',
-                               'mochacov:coverage',
-                               'mochacov:coveralls',
-                               'yuidoc']);
 
     grunt.registerTask('default', ['jshint',
                                    'jsonlint',
