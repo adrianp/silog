@@ -139,7 +139,7 @@ module.exports = function(grunt) {
             },
             coveralls: {
                 serviceName: 'travis-ci',
-                repoToken: 'Eg1KyuUzS1ZTW9eavWErGA6CU1z24wwTf'
+                repoToken: 'wFyRyOtkTEyIWGzPBMaqyYELhyCfNHZYH'
             },
             options: {
                 files: ['src/test/silog_test.js'],
@@ -165,7 +165,6 @@ module.exports = function(grunt) {
                                   'jsonlint',
                                   'execute',
                                   'mochacov:test',
-                                  'mochacov:coverage',
                                   'mochacov:coveralls']);
 
     grunt.registerTask('default', ['jshint',
