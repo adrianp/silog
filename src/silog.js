@@ -134,6 +134,7 @@ THE SOFTWARE.
                 break;
             case 3:
             case 2:
+                /* falls through */
             default:
                 console.log(what, extra.object ? '-' : '', extra.object);
                 break;

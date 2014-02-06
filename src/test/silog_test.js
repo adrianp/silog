@@ -272,7 +272,7 @@ describe('Logger', function() {
 
 describe('Logger.padLevel test', function() {
     var f = function(level, length) {
-        var l = new silog.Logger({level: level})
+        var l = new silog.Logger({level: level});
         assert.equal(l.padLevel(silog.level.ASSERT).length, length);
         assert.equal(l.padLevel(silog.level.ERROR).length, length);
         assert.equal(l.padLevel(silog.level.WARN).length, length);
@@ -290,5 +290,5 @@ describe('Logger.padLevel test', function() {
        function() {
         f(silog.level.INFO, 6);
         f(silog.level.ASSERT, 6);
-       });
+    });
 });
