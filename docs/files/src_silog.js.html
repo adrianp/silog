@@ -143,7 +143,6 @@ THE SOFTWARE.
                      DATE: 1,
                      TIME: 2 };
 
-
     /**
      * Checks if the given parameter is a valid silog logging level i.e. is an
      * array of size 2, with the first element a number and the second one a
@@ -224,11 +223,7 @@ THE SOFTWARE.
                 console.info(what, extra.object ? &#x27;-&#x27; : &#x27;&#x27;, extra.object);
                 break;
             case 3:
-                console.log(what, extra.object ? &#x27;-&#x27; : &#x27;&#x27;, extra.object);
-                break;
             case 2:
-                console.trace(what, extra.object ? &#x27;-&#x27; : &#x27;&#x27;, extra.object);
-                break;
             default:
                 console.log(what, extra.object ? &#x27;-&#x27; : &#x27;&#x27;, extra.object);
                 break;
@@ -265,6 +260,12 @@ THE SOFTWARE.
                 throw new Error(&#x27;Invalid message level: &#x27; + p.level);
             } else {
                 this.level = p.level;
+                // check how much padding we should add when printing levels
+                if(this.level === LEVEL.VERBOSE) {
+                    this.levelPadding = 7;
+                } else {
+                    this.levelPadding = 6;
+                }
             }
         }
 
@@ -301,6 +302,10 @@ THE SOFTWARE.
 
     }
 
+    Logger.prototype.padLevel = function(strLevel) {
+        return (strLevel + &#x27;       &#x27;).slice(0, this.levelPadding);
+    };
+
 
     /**
      * Send a given messages to the various loggers.
@@ -326,11 +331,11 @@ THE SOFTWARE.
 
         if (messageLevel[0] &gt;= this.level[0]) {
             var time = getFormattedTimestamp(this.tsFormat);
-            var what = [&#x27;[&#x27;,
-                        messageLevel[1],
-                        &#x27;] - &#x27;,
-                        time[0],
+            var what = [time[0],
                         &#x27; - &#x27;,
+                        &#x27;[&#x27;,
+                        this.padLevel(messageLevel[1]),
+                        &#x27;] - &#x27;,
                         tag,
                         &#x27; - &#x27;,
                         message].join(&#x27;&#x27;);

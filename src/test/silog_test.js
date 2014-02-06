@@ -269,3 +269,26 @@ describe('Logger', function() {
         });
     }); // describe operation check
 });
+
+describe('Logger.padLevel test', function() {
+    var f = function(level, length) {
+        var l = new silog.Logger({level: level})
+        assert.equal(l.padLevel(silog.level.ASSERT).length, length);
+        assert.equal(l.padLevel(silog.level.ERROR).length, length);
+        assert.equal(l.padLevel(silog.level.WARN).length, length);
+        assert.equal(l.padLevel(silog.level.INFO).length, length);
+        assert.equal(l.padLevel(silog.level.DEBUG).length, length);
+        assert.equal(l.padLevel(silog.level.VERBOSE).length, length);
+    };
+
+    it('should return length 7 strings when level is set to VERBOSE',
+       function() {
+        f(silog.level.VERBOSE, 7);
+    });
+
+    it('should return length 6 strings when level is not set to VERBOSE',
+       function() {
+        f(silog.level.INFO, 6);
+        f(silog.level.ASSERT, 6);
+       });
+});

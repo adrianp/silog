@@ -53,7 +53,6 @@ THE SOFTWARE.
                      DATE: 1,
                      TIME: 2 };
 
-
     /**
      * Checks if the given parameter is a valid silog logging level i.e. is an
      * array of size 2, with the first element a number and the second one a
@@ -134,11 +133,7 @@ THE SOFTWARE.
                 console.info(what, extra.object ? '-' : '', extra.object);
                 break;
             case 3:
-                console.log(what, extra.object ? '-' : '', extra.object);
-                break;
             case 2:
-                console.trace(what, extra.object ? '-' : '', extra.object);
-                break;
             default:
                 console.log(what, extra.object ? '-' : '', extra.object);
                 break;
@@ -175,6 +170,12 @@ THE SOFTWARE.
                 throw new Error('Invalid message level: ' + p.level);
             } else {
                 this.level = p.level;
+                // check how much padding we should add when printing levels
+                if(this.level === LEVEL.VERBOSE) {
+                    this.levelPadding = 7;
+                } else {
+                    this.levelPadding = 6;
+                }
             }
         }
 
@@ -211,6 +212,10 @@ THE SOFTWARE.
 
     }
 
+    Logger.prototype.padLevel = function(strLevel) {
+        return (strLevel + '       ').slice(0, this.levelPadding);
+    };
+
 
     /**
      * Send a given messages to the various loggers.
@@ -236,11 +241,11 @@ THE SOFTWARE.
 
         if (messageLevel[0] >= this.level[0]) {
             var time = getFormattedTimestamp(this.tsFormat);
-            var what = ['[',
-                        messageLevel[1],
-                        '] - ',
-                        time[0],
+            var what = [time[0],
                         ' - ',
+                        '[',
+                        this.padLevel(messageLevel[1]),
+                        '] - ',
                         tag,
                         ' - ',
                         message].join('');
