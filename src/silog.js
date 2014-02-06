@@ -118,29 +118,29 @@ THE SOFTWARE.
      * Simple logger that outputs the messages to the standard output.
      */
     function consoleLogger(what, extra) {
-        if (extra.hasOwnProperty('object')) {
-            what += ' - ' + JSON.stringify(extra.object);
+        if (!extra.hasOwnProperty('object')) {
+            extra.object = '';
         }
         if (extra.hasOwnProperty('level')) {
             switch (extra.level[0]) {
             case 7:
             case 6:
-                console.error(what);
+                console.error(what, extra.object ? '-' : '', extra.object);
                 break;
             case 5:
-                console.warn(what);
+                console.warn(what, extra.object ? '-' : '', extra.object);
                 break;
             case 4:
-                console.info(what);
+                console.info(what, extra.object ? '-' : '', extra.object);
                 break;
             case 3:
-                console.log(what);
+                console.log(what, extra.object ? '-' : '', extra.object);
                 break;
             case 2:
-                console.trace(what);
+                console.trace(what, extra.object ? '-' : '', extra.object);
                 break;
             default:
-                console.log(what);
+                console.log(what, extra.object ? '-' : '', extra.object);
                 break;
             }
             return true;

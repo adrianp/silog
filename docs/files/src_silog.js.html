@@ -208,29 +208,29 @@ THE SOFTWARE.
      * Simple logger that outputs the messages to the standard output.
      */
     function consoleLogger(what, extra) {
-        if (extra.hasOwnProperty(&#x27;object&#x27;)) {
-            what += &#x27; - &#x27; + JSON.stringify(extra.object);
+        if (!extra.hasOwnProperty(&#x27;object&#x27;)) {
+            extra.object = &#x27;&#x27;;
         }
         if (extra.hasOwnProperty(&#x27;level&#x27;)) {
             switch (extra.level[0]) {
             case 7:
             case 6:
-                console.error(what);
+                console.error(what, extra.object ? &#x27;-&#x27; : &#x27;&#x27;, extra.object);
                 break;
             case 5:
-                console.warn(what);
+                console.warn(what, extra.object ? &#x27;-&#x27; : &#x27;&#x27;, extra.object);
                 break;
             case 4:
-                console.info(what);
+                console.info(what, extra.object ? &#x27;-&#x27; : &#x27;&#x27;, extra.object);
                 break;
             case 3:
-                console.log(what);
+                console.log(what, extra.object ? &#x27;-&#x27; : &#x27;&#x27;, extra.object);
                 break;
             case 2:
-                console.trace(what);
+                console.trace(what, extra.object ? &#x27;-&#x27; : &#x27;&#x27;, extra.object);
                 break;
             default:
-                console.log(what);
+                console.log(what, extra.object ? &#x27;-&#x27; : &#x27;&#x27;, extra.object);
                 break;
             }
             return true;

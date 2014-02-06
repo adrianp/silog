@@ -142,7 +142,7 @@ module.exports = function(grunt) {
                 repoToken: 'wFyRyOtkTEyIWGzPBMaqyYELhyCfNHZYH'
             },
             options: {
-                files: ['src/test/silog_test.js'],
+                files: ['src/test/*_test.js'],
                 ui: 'bdd',
                 colors: true,
                 output: 'coverage.html'
