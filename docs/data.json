@@ -1,9 +1,9 @@
 {
     "project": {
         "name": "silog",
-        "description": "A very simple JavaScript logging utility, useful especially during development",
+        "description": "An easy to use JavaScript logging utility, especially useful during development",
         "version": "3.0.0",
-        "url": ""
+        "url": "https://github.com/adrianp/silog"
     },
     "files": {
         "src/demo/demo.js": {
