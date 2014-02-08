@@ -1,7 +1,7 @@
 {
     "project": {
         "name": "silog",
-        "description": "A very simple Node.js logging utility, useful especially during development",
+        "description": "A very simple JavaScript logging utility, useful especially during development",
         "version": "3.0.0",
         "url": ""
     },

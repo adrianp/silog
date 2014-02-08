@@ -33,6 +33,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-execute');
     grunt.loadNpmTasks('grunt-jsonlint');
     grunt.loadNpmTasks('grunt-mocha-cov');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     // Task description:
     grunt.initConfig({
@@ -147,7 +148,17 @@ module.exports = function(grunt) {
                 colors: true,
                 output: 'coverage.html'
             }
-        }  // end mocha/ coverage task
+        },  // end mocha/ coverage task
+
+        uglify: {
+            silog: {
+                src: 'src/silog.js',
+                dest: 'min/silog.min.js',
+                options: {
+                    sourceMap: true,
+                }
+            }
+        }  // end uglify
 
     });
 
@@ -161,11 +172,20 @@ module.exports = function(grunt) {
 
     grunt.registerTask('docs', ['yuidoc']);
 
+    grunt.registerTask('min', ['uglify']);
+
     grunt.registerTask('travis', ['jshint',
                                   'jsonlint',
                                   'execute',
                                   'mochacov:test',
                                   'mochacov:coveralls']);
+
+    grunt.registerTask('commit', ['jshint',
+                                  'jsonlint',
+                                  'execute',
+                                  'mochacov:test',
+                                  'yuidoc',
+                                  'min']);
 
     grunt.registerTask('default', ['jshint',
                                    'jsonlint',
