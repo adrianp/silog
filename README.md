@@ -1,105 +1,107 @@
-silog (i.e. simple logger)
-=====
+# silog
 
 
-Integration status [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
-------------
+## Integration status [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+
 [![Build Status](https://travis-ci.org/adrianp/silog.png?branch=master)](https://travis-ci.org/adrianp/silog)
 [![Dependency Status](https://gemnasium.com/adrianp/silog.png)](https://gemnasium.com/adrianp/silog)
 [![NPM version](https://badge.fury.io/js/silog.png)](http://badge.fury.io/js/silog)
 [![Coverage Status](https://coveralls.io/repos/adrianp/silog/badge.png)](https://coveralls.io/r/adrianp/silog)
 
 
-Introduction
-------------
+## What?
 
-A very simple Node.js logging utility. I am aware that there are many other
-logging utilities for Node.js/ JavaScript, but I wanted one which requires
-minimal boilerplate to use mainly during development. The provided API is
-inspired by how [logging is done on Android](http://developer.android.com/reference/android/util/Log.html).
+silog (simple logger) is an easy to use JavaScript logging utility, especially
+useful during development. It aims for minimal boilerplate, modular design, and
+it takes inspiration from how
+[logging is done on the Android platform](http://developer.android.com/reference/android/util/Log.html).
 
 
-Installation
-------------
+## How?
 
-To install simply run:
+### Installation:
 
     npm install silog
 
-Alternatively, you can clone the
-[Git repository](https://github.com/adrianp/silog/) or download the
-[ZIP file](https://github.com/adrianp/silog/archive/master.zip) containing the
-source code. If you choose one of these options, you can import **silog** as
-shown in the [demo file](https://github.com/adrianp/silog/blob/master/demo.js);
-this file also demonstrates how **silog** can be used.
+or:
 
-Note that while currently **silog** does not have any external dependency,
-this might change in the future, and thus, using **NPM** for installing/
-upgrading is advised.
+    bower install silog
 
 
-API
----
+### Usage
 
-The following functionalities are exposed by the API:
-
-* <code> silog.level </code>: object that includes the available logging levels:
-<code>CRITICAL</code>, <code>ERROR</code>, <code>WARNING</code>,
-<code>INFO</code> and <code>DEBUG</code>. An order relation exists between these
-levels, <code> DEBUG </code> being the lowest and <code> CRITICAL </code> the
-highest.
-
-* <code> silog.tsFormat </code>: object that includes the available timestamp
-formats: <code> DATE_TIME </code>, <code> DATE </code>, and <code> TIME </code>.
-
-* <code> silog.setLevel(level) </code>: sets the minimum level messages should
-have in order to be sent for output. <code> level </code> should exist in
-<code> silog.level </code>.
-
-* <code> silog.getLevel() </code>: returns the minimum level messages should
-have in order to be sent for output.
-
-* <code> silog.setTsFormat(format) </code>: sets the timestamp format used when
-sending messages to output. <code> format </code> should exist in
-<code> silog.tsFormat </code>.
-
-* <code> silog.getTsFormat() </code>: returns the timestamp format used when
-sending messages to output.
-
-* <code> silog.log(level, tag, message) </code>: sends to output the
-<code> message </code> with the specified <code> level </code>. (the
-<code> tag </code> can be used to specify the origin of the message). This
-function is somewhat obsoleted by the shorthands described below.
-
-* <code> silog.c(tag, message) </code>: sends a critical level
-<code> message </code> to output.
-
-* <code> silog.e(tag, message) </code>: sends an error level
-<code> message </code> to output.
-
-* <code> silog.w(tag, message) </code>: sends a warning level
-<code> message </code> to output.
-
-* <code> silog.i(tag, message) </code>: sends an info level
-<code> message </code> to output.
-
-* <code> silog.d(tag, message) </code>: sends a debug level
-<code> message </code> to output.
-
-Messages sent to output will have the following general format:
-
-    [TIMESTAMP] LEVEL - TAG - MESSAGE
+The [demo file](https://github.com/adrianp/silog/blob/master/demo.js) shows how
+silog can be used; there is also a
+[web demo](https://github.com/adrianp/silog/blob/master/src/demo/www/index.html).
 
 
-Bugs, feature requests, contributions
--------------------------------------
+### API
 
-Please report any bugs, feature or pull requests on the
-[GitHub page of the project](https://github.com/adrianp/silog/). **Thank you!**
+* `silog.level`: object containing the following logging levels, from highest to lowest:
+    * `ASSERT`
+    * `ERROR`
+    * `WARN`
+    * `INFO`
+    * `DEBUG`
+    * `VERBOSE`
+* `silog.tsFormat`: date/ time output formats:
+    * `DATE_TIME`: will output `31/12/2014 09:54`
+    * `DATE`: will output `09:54`
+    * `TIME`: will output `31/12/2014`
+* `silog.consoleLogger(what, extra)`: function that prints the logged messages
+                                      to standard output; parameters:
+    * `what`: string to send to output;
+    * `extra`: object containing miscellaneous information about the logged
+               message:
+        * `object`: JSON to output; the way in which it will be displayed
+                    depends on the platform capabilities (e.g., web browser
+                    JavaScript consoles usually show a nice explorable tree
+                    structure);
+        * `tag`: the tag of the message;
+        * `message`: the actual message;
+        * `level`: the level of the logged message;
+        * `ts`: UNIX timestamp of the message
+* `silog.Logger`: logging class:
+    * `Logger(p)`: constructor; `p` is an object using which various logging
+                   parameters can be specified:
+        * `level`: the minimum level messages should have in order to be sent
+                   for output, defaults to `silog.level.INFO`;
+        * `tsFormat`: date/ time format of logged messages, defaults to
+                     `silog.tsFormat.DATE_TIME`;
+        * `loggers`: array of functions that will output the logged messages,
+                     defaults to `silog.consoleLogger`;
+    * `log(messageLevel, tag, message, object)`: main logging function with the
+                                                 following parameters:
+        * `messageLevel`: the level of the message; `log()` will not send to
+                          output messages for which
+                          `messageLevel < Logger.level`;
+        * `tag`: tag of the message (e.g., filename, function name, code line
+                 number);
+        * `message`: the actual message (string);
+        * `object`: optional JSON to output, might be ignored by the output
+                    functions;
+    * `wtf(tag, message, object)`: shorthand for `log(silog.level.ASSERT, tag, message, object)`;
+    * `e(tag, message, object)`: shorthand for `log(silog.level.ERROR, tag, message, object)`;
+    * `w(tag, message, object)`: shorthand for `log(silog.level.WARN, tag, message, object)`;
+    * `i(tag, message, object)`: shorthand for `log(silog.level.INFO, tag, message, object)`;
+    * `d(tag, message, object)`: shorthand for `log(silog.level.DEBUG, tag, message, object)`;
+    * `v(tag, message, object)`: shorthand for `log(silog.level.VERBOSE, tag, message, object)`;
 
 
-License
--------
+#### Custom output functions:
+You are free to implement your own output functions, used by `silog.Logger.log`,
+using `silog.consoleLogger` as a model; you can, for example, write messages to
+a file, web service, or Redis. The minimum expectation for these functions is
+the output of the `what` argument (a plain string).
+
+## Who?
+
+silog is developed by Adrian-Tudor Panescu. Please feel free to
+[report bugs](https://github.com/adrianp/silog/issues) and submit
+[pull request](https://github.com/adrianp/silog/pulls).
+
+
+## License
 
 [The MIT License (MIT)](http://opensource.org/licenses/MIT)
 
@@ -124,13 +126,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-Post scriptum
--------------
-
-This project used to be named __simplog__ until I realized that there was a
-similarly named project on the NPM registry. By the way, you can visit the
-NPM registry of the project [here](https://npmjs.org/package/silog).
-
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/adrianp/silog/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
