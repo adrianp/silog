@@ -27,6 +27,8 @@ or:
 
     bower install silog
 
+Note that a minified version of silog is included in the `min/` directory.
+
 
 ### Usage
 
