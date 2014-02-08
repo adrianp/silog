@@ -3,7 +3,7 @@
   "preferGlobal": false,
   "version": "3.0.0",
   "author": "Adrian Tudor Panescu <adrian@panescu.com>",
-  "description": "A very simple Node.js logging utility, useful especially during development",
+  "description": "A very simple JavaScript logging utility, useful especially during development",
   "main": "./src/silog.js",
   "repository": {
     "type": "git",
@@ -11,7 +11,13 @@
   },
   "keywords": [
     "logging",
-    "log"
+    "log",
+    "logger",
+    "development",
+    "utility",
+    "utilities",
+    "debug",
+    "debugging"
   ],
   "analyze": true,
   "license": "MIT",

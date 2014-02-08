@@ -102,7 +102,7 @@ module.exports = function(grunt) {
 
         jsonlint: {
             all: {
-                src: [ 'package.json' ]
+                src: [ 'package.json', 'bower.json' ]
             }
         },  // end JSONLint task
 
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
         yuidoc: {
             all: {
                 name: '<%= pkg.name %>',
-                description: '<%= pkg.description %>',
+                description: '<%= pkg.description%>',
                 version: '<%= pkg.version %>',
                 url: '<%= pkg.homepage %>',
                 options: {

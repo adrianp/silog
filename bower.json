@@ -1,0 +1,6 @@
+{
+    "name": "silog",
+    "version": "3.0.0",
+    "main": "min/silog.min.js",
+    "ignore": ["docs/*", "src/*", ".*", "Gruntfile.js", "package.json"]
+}
