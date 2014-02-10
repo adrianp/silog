@@ -117,6 +117,7 @@ THE SOFTWARE.
 /* global describe: false */
 /* global it: false */
 
+/*jshint nonew: false */
 
 var assert = require(&#x27;assert&#x27;);
 var silog = require(&#x27;../silog.js&#x27;);
@@ -132,6 +133,26 @@ describe(&#x27;Issue17&#x27;, function(){
     });
 });
 
+describe(&#x27;Issue21&#x27;, function(){
+    it(&#x27;should not complain when calling the constr with non-object params&#x27;,
+       function() {
+        assert.doesNotThrow(function() {
+            new silog.Logger();
+            new silog.Logger(undefined);
+        });
+    });
+
+    it(&#x27;should complain when calling the constr with invalid parameters&#x27;,
+       function() {
+        assert.throws(function() {
+            new silog.Logger(null);
+            new silog.Logger(false);
+            new silog.Logger([]);
+            new silog.Logger(1);
+            new silog.Logger(&#x27;hello&#x27;);
+        }, Error);
+    });
+});
     </pre>
 </div>
 

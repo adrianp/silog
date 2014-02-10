@@ -27,6 +27,7 @@ THE SOFTWARE.
 /* global describe: false */
 /* global it: false */
 
+/*jshint nonew: false */
 
 var assert = require('assert');
 var silog = require('../silog.js');
@@ -39,5 +40,26 @@ describe('Issue17', function(){
         assert.doesNotThrow(function() {
             l.i('mocha-tag', 'Hello World!', o);
         });
+    });
+});
+
+describe('Issue21', function(){
+    it('should not complain when calling the constr with non-object params',
+       function() {
+        assert.doesNotThrow(function() {
+            new silog.Logger();
+            new silog.Logger(undefined);
+        });
+    });
+
+    it('should complain when calling the constr with invalid parameters',
+       function() {
+        assert.throws(function() {
+            new silog.Logger(null);
+            new silog.Logger(false);
+            new silog.Logger([]);
+            new silog.Logger(1);
+            new silog.Logger('hello');
+        }, Error);
     });
 });

@@ -163,51 +163,61 @@ THE SOFTWARE.
 
         // default settings
         this.level = LEVEL.INFO;
+        this.levelPadding = 6;
         this.tsFormat = DT_FORMAT.DATE_TIME;
         this.loggers = [consoleLogger];
 
-        if (p.hasOwnProperty('level')) {
-            if (!checkLevel(p.level, true)) {
-                throw new Error('Invalid message level: ' + p.level);
-            } else {
-                this.level = p.level;
-                // check how much padding we should add when printing levels
-                if(this.level === LEVEL.VERBOSE) {
-                    this.levelPadding = 7;
-                } else {
-                    this.levelPadding = 6;
-                }
-            }
-        }
-
-        var tsf;
-        if (p.hasOwnProperty('tsFormat')) {
-            for (var key in DT_FORMAT) {
-                if (DT_FORMAT.hasOwnProperty(key)) {
-                    if (p.tsFormat === DT_FORMAT[key]) {
-                        tsf = p.tsFormat;
-                        break;
+        if(typeof p !== 'undefined') {
+            if(p instanceof Object) {
+                if (p.hasOwnProperty('level')) {
+                    if (!checkLevel(p.level, true)) {
+                        throw new Error('Invalid message level: ' + p.level);
+                    } else {
+                        this.level = p.level;
+                        // check how much padding we should add when printing
+                        // levels
+                        if(this.level === LEVEL.VERBOSE) {
+                            this.levelPadding = 7;
+                        }
                     }
                 }
-            }
 
-            if (typeof tsf === 'undefined') {
-                throw new Error('Invalid date/ time format: ' + p.tsFormat);
-            }
-            this.tsFormat = tsf;
-        }
+                var tsf;
+                if (p.hasOwnProperty('tsFormat')) {
+                    for (var key in DT_FORMAT) {
+                        if (DT_FORMAT.hasOwnProperty(key)) {
+                            if (p.tsFormat === DT_FORMAT[key]) {
+                                tsf = p.tsFormat;
+                                break;
+                            }
+                        }
+                    }
 
-        if (p.hasOwnProperty('loggers')) {
-            if (Array.isArray(p.loggers) && p.loggers.length > 0) {
-                for (var i = 0, len = p.loggers.length; i < len; i += 1) {
-                    if (typeof p.loggers[i] !== 'function') {
-                        throw new Error(
-                            'Invalid loggers: should be an array of functions');
+                    if (typeof tsf === 'undefined') {
+                        throw new Error('Invalid date/ time format: ' +
+                                        p.tsFormat);
+                    }
+                    this.tsFormat = tsf;
+                }
+
+                if (p.hasOwnProperty('loggers')) {
+                    if (Array.isArray(p.loggers) && p.loggers.length > 0) {
+                        /* jshint ignore:start */
+                        for (var i = 0, len = p.loggers.length; i < len;
+                             i += 1) {
+                            if (typeof p.loggers[i] !== 'function') {
+                                throw new Error('Invalid loggers: should be an array of functions');
+                            }
+                        }
+                        /* jshint ignore:end */
+                        this.loggers = p.loggers;
+                    } else {
+                        throw new Error('Invalid loggers: should be an array');
                     }
                 }
-                this.loggers = p.loggers;
             } else {
-                throw new Error('Invalid loggers: should be an array');
+                throw new
+                    Error('silog.Logger() expects an object as parameter');
             }
         }
 

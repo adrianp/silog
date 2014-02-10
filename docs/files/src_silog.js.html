@@ -253,51 +253,61 @@ THE SOFTWARE.
 
         // default settings
         this.level = LEVEL.INFO;
+        this.levelPadding = 6;
         this.tsFormat = DT_FORMAT.DATE_TIME;
         this.loggers = [consoleLogger];
 
-        if (p.hasOwnProperty(&#x27;level&#x27;)) {
-            if (!checkLevel(p.level, true)) {
-                throw new Error(&#x27;Invalid message level: &#x27; + p.level);
-            } else {
-                this.level = p.level;
-                // check how much padding we should add when printing levels
-                if(this.level === LEVEL.VERBOSE) {
-                    this.levelPadding = 7;
-                } else {
-                    this.levelPadding = 6;
-                }
-            }
-        }
-
-        var tsf;
-        if (p.hasOwnProperty(&#x27;tsFormat&#x27;)) {
-            for (var key in DT_FORMAT) {
-                if (DT_FORMAT.hasOwnProperty(key)) {
-                    if (p.tsFormat === DT_FORMAT[key]) {
-                        tsf = p.tsFormat;
-                        break;
+        if(typeof p !== &#x27;undefined&#x27;) {
+            if(p instanceof Object) {
+                if (p.hasOwnProperty(&#x27;level&#x27;)) {
+                    if (!checkLevel(p.level, true)) {
+                        throw new Error(&#x27;Invalid message level: &#x27; + p.level);
+                    } else {
+                        this.level = p.level;
+                        // check how much padding we should add when printing
+                        // levels
+                        if(this.level === LEVEL.VERBOSE) {
+                            this.levelPadding = 7;
+                        }
                     }
                 }
-            }
 
-            if (typeof tsf === &#x27;undefined&#x27;) {
-                throw new Error(&#x27;Invalid date/ time format: &#x27; + p.tsFormat);
-            }
-            this.tsFormat = tsf;
-        }
+                var tsf;
+                if (p.hasOwnProperty(&#x27;tsFormat&#x27;)) {
+                    for (var key in DT_FORMAT) {
+                        if (DT_FORMAT.hasOwnProperty(key)) {
+                            if (p.tsFormat === DT_FORMAT[key]) {
+                                tsf = p.tsFormat;
+                                break;
+                            }
+                        }
+                    }
 
-        if (p.hasOwnProperty(&#x27;loggers&#x27;)) {
-            if (Array.isArray(p.loggers) &amp;&amp; p.loggers.length &gt; 0) {
-                for (var i = 0, len = p.loggers.length; i &lt; len; i += 1) {
-                    if (typeof p.loggers[i] !== &#x27;function&#x27;) {
-                        throw new Error(
-                            &#x27;Invalid loggers: should be an array of functions&#x27;);
+                    if (typeof tsf === &#x27;undefined&#x27;) {
+                        throw new Error(&#x27;Invalid date/ time format: &#x27; +
+                                        p.tsFormat);
+                    }
+                    this.tsFormat = tsf;
+                }
+
+                if (p.hasOwnProperty(&#x27;loggers&#x27;)) {
+                    if (Array.isArray(p.loggers) &amp;&amp; p.loggers.length &gt; 0) {
+                        /* jshint ignore:start */
+                        for (var i = 0, len = p.loggers.length; i &lt; len;
+                             i += 1) {
+                            if (typeof p.loggers[i] !== &#x27;function&#x27;) {
+                                throw new Error(&#x27;Invalid loggers: should be an array of functions&#x27;);
+                            }
+                        }
+                        /* jshint ignore:end */
+                        this.loggers = p.loggers;
+                    } else {
+                        throw new Error(&#x27;Invalid loggers: should be an array&#x27;);
                     }
                 }
-                this.loggers = p.loggers;
             } else {
-                throw new Error(&#x27;Invalid loggers: should be an array&#x27;);
+                throw new
+                    Error(&#x27;silog.Logger() expects an object as parameter&#x27;);
             }
         }
 

@@ -169,7 +169,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 221,
+            "line": 231,
             "description": "Send a given messages to the various loggers.",
             "itemtype": "method",
             "name": "log",
@@ -200,7 +200,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 271,
+            "line": 281,
             "description": "Logs a message with the silog.LEVEL.ASSERT level.",
             "params": [
                 {
@@ -228,7 +228,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 284,
+            "line": 294,
             "description": "Logs a message with the silog.LEVEL.ERROR level.",
             "params": [
                 {
@@ -256,7 +256,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 297,
+            "line": 307,
             "description": "Logs a message with the silog.LEVEL.WARN level.",
             "params": [
                 {
@@ -284,7 +284,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 310,
+            "line": 320,
             "description": "Logs a message with the silog.LEVEL.INFO level.",
             "params": [
                 {
@@ -312,7 +312,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 323,
+            "line": 333,
             "description": "Logs a message with the silog.LEVEL.DEBUG level.",
             "params": [
                 {
@@ -340,7 +340,7 @@
         },
         {
             "file": "src/silog.js",
-            "line": 336,
+            "line": 346,
             "description": "Logs a message with the silog.LEVEL.VERBOSE level.",
             "params": [
                 {
@@ -370,51 +370,51 @@
     "warnings": [
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:271"
+            "line": " src/silog.js:281"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:271"
+            "line": " src/silog.js:281"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:284"
+            "line": " src/silog.js:294"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:284"
+            "line": " src/silog.js:294"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:297"
+            "line": " src/silog.js:307"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:297"
+            "line": " src/silog.js:307"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:310"
+            "line": " src/silog.js:320"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:310"
+            "line": " src/silog.js:320"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:323"
+            "line": " src/silog.js:333"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:323"
+            "line": " src/silog.js:333"
         },
         {
             "message": "unknown tag: this",
-            "line": " src/silog.js:336"
+            "line": " src/silog.js:346"
         },
         {
             "message": "unknown tag: memberof",
-            "line": " src/silog.js:336"
+            "line": " src/silog.js:346"
         },
         {
             "message": "Missing item type\nThe MIT License (MIT) http://opensource.org/licenses/MIT\n\nCopyright (c) 2014 Adrian-Tudor Panescu <adrian [at] panescu [dot] com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/ or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
@@ -458,27 +458,27 @@
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.ASSERT level.",
-            "line": " src/silog.js:271"
+            "line": " src/silog.js:281"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.ERROR level.",
-            "line": " src/silog.js:284"
+            "line": " src/silog.js:294"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.WARN level.",
-            "line": " src/silog.js:297"
+            "line": " src/silog.js:307"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.INFO level.",
-            "line": " src/silog.js:310"
+            "line": " src/silog.js:320"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.DEBUG level.",
-            "line": " src/silog.js:323"
+            "line": " src/silog.js:333"
         },
         {
             "message": "Missing item type\nLogs a message with the silog.LEVEL.VERBOSE level.",
-            "line": " src/silog.js:336"
+            "line": " src/silog.js:346"
         }
     ]
 }
