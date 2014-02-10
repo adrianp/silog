@@ -32,8 +32,8 @@ Note that a minified version of silog is included in the `min/` directory.
 
 ### Usage
 
-The [demo file](https://github.com/adrianp/silog/blob/master/demo.js) shows how
-silog can be used; there is also a
+The [demo file](https://github.com/adrianp/silog/blob/master/src/demo/demo.js)
+shows how silog can be used; there is also a
 [web demo](https://github.com/adrianp/silog/blob/master/src/demo/www/index.html).
 
 
