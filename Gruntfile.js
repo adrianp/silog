@@ -170,9 +170,8 @@ module.exports = function(grunt) {
                                 'mochacov:test',
                                 'mochacov:coverage']);
 
-    grunt.registerTask('docs', ['yuidoc']);
-
-    grunt.registerTask('min', ['uglify']);
+    grunt.registerTask('package', ['yuidoc',
+                                   'uglify']);
 
     grunt.registerTask('travis', ['jshint',
                                   'jsonlint',
