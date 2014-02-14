@@ -8,4 +8,5 @@
 * README corrections (#22, #23).
 * Adds silog.Logger constructor parameter checks (#21).
 * grunt-mocha-cov development dependency upgrade (#25).
+* Slimmer grunt commit task.
 

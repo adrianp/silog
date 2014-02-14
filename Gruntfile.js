@@ -183,9 +183,7 @@ module.exports = function(grunt) {
     grunt.registerTask('commit', ['jshint',
                                   'jsonlint',
                                   'execute',
-                                  'mochacov:test',
-                                  'yuidoc',
-                                  'min']);
+                                  'mochacov:test']);
 
     grunt.registerTask('default', ['jshint',
                                    'jsonlint',
