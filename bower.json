@@ -1,6 +1,6 @@
 {
   "name": "silog",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "./min/silog.min.js",
   "ignore": [
     "docs/*",
