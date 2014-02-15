@@ -5,6 +5,7 @@
 * Separate NPM/ Travis build/ test tasks.
 * Better excludes for Bower package.
 * Travis retry flag.
+* Better README integration badges.
 
 ### v3.0.1 - 14.02.14
 * Adds this CHANGELOG.

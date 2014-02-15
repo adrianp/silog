@@ -3,10 +3,12 @@
 
 ## Integration status [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
-[![Build Status](https://travis-ci.org/adrianp/silog.png?branch=master)](https://travis-ci.org/adrianp/silog)
 [![Dependency Status](https://gemnasium.com/adrianp/silog.png)](https://gemnasium.com/adrianp/silog)
-[![NPM version](https://badge.fury.io/js/silog.png)](http://badge.fury.io/js/silog)
+[![Build Status](https://travis-ci.org/adrianp/silog.png?branch=master)](https://travis-ci.org/adrianp/silog)
 [![Coverage Status](https://coveralls.io/repos/adrianp/silog/badge.png)](https://coveralls.io/r/adrianp/silog)
+[![GitHub Version](https://badge.fury.io/gh/adrianp%2Fsilog.png)](http://badge.fury.io/gh/adrianp%2Fsilog)
+[![NPM Version](https://badge.fury.io/js/silog.png)](http://badge.fury.io/js/silog)
+[![Bower Version](https://badge.fury.io/bo/silog.png)](http://badge.fury.io/bo/silog)
 
 
 ## What?
