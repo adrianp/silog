@@ -4,6 +4,7 @@
 * Coveralls.io fix (#24).
 * Separate NPM/ Travis build/ test tasks.
 * Better excludes for Bower package.
+* Travis retry flag.
 
 ### v3.0.1 - 14.02.14
 * Adds this CHANGELOG.

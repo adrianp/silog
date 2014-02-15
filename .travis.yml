@@ -4,4 +4,4 @@ node_js:
   - "0.10"
   - "0.8"
 before_script: 'npm install -g grunt-cli'
-script: 'grunt travis'
+script: 'travis_retry grunt travis'
