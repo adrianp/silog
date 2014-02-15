@@ -73,7 +73,7 @@ shows how silog can be used; there is also a
         * `tsFormat`: date/ time format of logged messages, defaults to
                      `silog.tsFormat.DATE_TIME`;
         * `loggers`: array of functions that will output the logged messages,
-                     defaults to `silog.consoleLogger`;
+                     defaults to `[silog.consoleLogger]`;
     * `log(messageLevel, tag, message, object)`: main logging function with the
                                                  following parameters:
         * `messageLevel`: the level of the message; `log()` will not send to
@@ -109,7 +109,7 @@ silog is developed by Adrian-Tudor Panescu. Please feel free to
 
 [The MIT License (MIT)](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2014 Adrian Tudor Panescu \<adrian [at] panescu [dot] com\>
+Copyright (c) 2014 Adrian-Tudor Panescu \<adrian [at] panescu [dot] com\>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
