@@ -169,6 +169,11 @@ module.exports = function(grunt) {
     grunt.registerTask('lint', ['jshint',
                                 'jsonlint']);
 
+    grunt.registerTask('npmtest', ['jshint',
+                                   'jsonlint',
+                                   'execute',
+                                   'mochacov:test']);
+
     grunt.registerTask('test', ['execute',
                                 'mochacov:test',
                                 'mochacov:coverage']);

@@ -30,7 +30,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt travis --verbose",
+    "test": "grunt npmtest",
     "blanket": {
       "pattern": [
         "src/silog.js"
