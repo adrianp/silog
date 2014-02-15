@@ -3,16 +3,16 @@
   "version": "3.0.1",
   "main": "./min/silog.min.js",
   "ignore": [
-    "docs/*",
-    "src/*",
-    ".*",
-    "Gruntfile.js",
-    "package.json",
-    "**/.*",
+    "docs",
     "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    "src/test",
+    "src/silog.js",
+    ".gitignore",
+    ".travis.yml",
+    "Gruntfile.js",
+    "bower.json",
+    "coverage.html",
+    "package.json"
   ],
   "homepage": "https://github.com/adrianp/silog",
   "authors": [
