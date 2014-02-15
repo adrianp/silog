@@ -6,8 +6,8 @@
   "description": "An easy to use JavaScript logging utility, especially useful during development",
   "homepage": "https://github.com/adrianp/silog",
   "bugs": {
-    "url" : "http://github.com/adrianp/silog/issues",
-    "email" : "adrian@panescu.com"
+    "url": "http://github.com/adrianp/silog/issues",
+    "email": "adrian@panescu.com"
   },
   "main": "./src/silog.js",
   "repository": {
@@ -27,7 +27,7 @@
   "analyze": true,
   "license": "MIT",
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">= 0.8.0"
   },
   "scripts": {
     "test": "grunt travis --verbose",

@@ -31,3 +31,4 @@ Session.vim
 
 # misc
 coverage.html
+.coveralls.yml

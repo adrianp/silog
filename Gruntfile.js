@@ -139,8 +139,11 @@ module.exports = function(grunt) {
                 }
             },
             coveralls: {
-                serviceName: 'travis-ci',
-                repoToken: 'wFyRyOtkTEyIWGzPBMaqyYELhyCfNHZYH'
+                options: {
+                    coveralls: {
+                        serviceName: 'travis-ci'
+                    }
+                }
             },
             options: {
                 files: ['src/test/*_test.js'],
