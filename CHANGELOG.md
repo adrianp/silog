@@ -1,6 +1,6 @@
 ## Changelog
 
-### v3.0.2 -
+### v3.0.2 - 20.02.14
 * Coveralls.io fix (#24).
 * Separate NPM/ Travis build/ test tasks.
 * Better excludes for Bower package.
