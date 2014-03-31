@@ -1,6 +1,11 @@
 ## Changelog
 
-### v3.0.2 - 20.02.14
+### v3.0.4 - 31.03.14
+* silog.js inclusion in distribution.
+* Separate jshintrc file.
+* BitDeli removal.
+
+### v3.0.3 - 20.02.14
 * Coveralls.io fix (#24).
 * Separate NPM/ Travis build/ test tasks.
 * Better excludes for Bower package.

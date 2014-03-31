@@ -2,7 +2,7 @@
     "project": {
         "name": "silog",
         "description": "An easy to use JavaScript logging utility, especially useful during development",
-        "version": "3.0.3",
+        "version": "3.0.4",
         "url": "https://github.com/adrianp/silog"
     },
     "files": {
