@@ -1,5 +1,8 @@
 ## Changelog
 
+### v3.0.5 -
+* Updated dev dependencies.
+
 ### v3.0.4 - 31.03.14
 * silog.js inclusion in distribution.
 * Separate jshintrc file.
