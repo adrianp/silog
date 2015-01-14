@@ -1,7 +1,8 @@
 ## Changelog
 
-### v3.0.5 -
+### v3.0.5 - 14.01.15
 * Updated dev dependencies.
+* Dropped support for Node.js v0.8.0
 
 ### v3.0.4 - 31.03.14
 * silog.js inclusion in distribution.
